@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+    wintext_new_portal:
+      image: wintext-new-portal-react-image
+      container_name: wintext-new-portal-react-container
+      build:          # let docker know that we build with dockerfile in locally instead of dockerhub
+        context: .   # which is the directory dockerfile will be searched for
+        dockerfile: Dockerfile    # the file name that will be build
+      ports:
+        - "804:5173"
+      volumes:
+        - .:/app
+      stdin_open: true
+      tty: true
+
