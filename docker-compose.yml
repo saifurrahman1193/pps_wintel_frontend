@@ -6,6 +6,7 @@ services:
       build:          # let docker know that we build with dockerfile in locally instead of dockerhub
         context: .   # which is the directory dockerfile will be searched for
         dockerfile: Dockerfile    # the file name that will be build
+      command: 'npx vite --port 5173 --host=0.0.0.0'
       ports:
         - "804:5173"
       volumes:

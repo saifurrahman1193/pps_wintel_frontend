@@ -14,9 +14,14 @@ RUN npm install
 COPY . .
 
 # Build the Next application with docker environment
-RUN npm run dev
+# RUN npx vite --port 5173 --host=0.0.0.0
+# RUN npm run dev
+
 
 EXPOSE 5173
 
+
 # Set the command to start the application with docker environment
 # CMD ["npm", "run", "start"]
+
+# CMD ["npm", "vite", "--port", "5173", "--host=0.0.0.0"]
