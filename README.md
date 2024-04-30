@@ -108,4 +108,13 @@ chore: Routine tasks, maintenance, or housekeeping.
 - Template
   - file:///mnt/46800fc6-5614-4140-a1ca-16c52fb82f5e/projects/templates/minia/layouts/index.html
   - https://themesbrand.com/minia/docs/index.html
-  - 
+
+```
+        "start:local": "env-cmd -f ./.env.local react-scripts start",
+
+```
+
+
+- depreciated
+  - types/redux-persist
+  - types/redux-thunk
