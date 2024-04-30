@@ -22,6 +22,6 @@ EXPOSE 5173
 
 
 # Set the command to start the application with docker environment
-# CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:local"]
 
 # CMD ["npm", "vite", "--port", "5173", "--host=0.0.0.0"]
