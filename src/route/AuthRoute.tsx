@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {  Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 function AuthRoute(props) {
 
@@ -36,9 +36,9 @@ function AuthRoute(props) {
         <React.Fragment>
             {
                 checkPermission() ?
-                    <Route {...props} />
+                    <Routes><Route {...props} /></Routes>
                     :
-                    <Redirect to="/" />
+                    <Navigate to="/" replace={true} />
             }
         </React.Fragment>
     )

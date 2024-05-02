@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, useFormik, Form } from 'formik';
 import Animate1 from '../../components/Animate/Animate1/Animate1'
@@ -11,7 +11,9 @@ import { connect } from 'react-redux'
 import { LOGIN } from '../../api/apiPath'
 import { toast } from 'react-toastify';
 
-function login(Props) {
+function Login(props) {
+
+  const navigate = useNavigate();
 
     const [initialValues, setInitialValues] = useState({
         email: '',
@@ -24,6 +26,7 @@ function login(Props) {
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)
+            navigate('/dashboard')
             onSubmitProps.setSubmitting(false)
             document.body.style.background = ''
 
@@ -137,4 +140,8 @@ function login(Props) {
     )
 }
 
-export default login
+const mapDispatchToProps = (dispatch) => ({
+    login: (data) => dispatch(SET_USER_DATA(data)),
+})
+
+export default connect(null, mapDispatchToProps)(Login);

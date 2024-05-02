@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Navigate, Route } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 function PublicRoute(props) {
-    const checkPermission = () => {
-        if (props.user) {
+    const checkIfuser = () => {
+        if (props?.user) {
             return true
         } else {
             return false
@@ -14,10 +14,10 @@ function PublicRoute(props) {
     return (
         <React.Fragment>
             {
-                !checkPermission() ?
-                    <Route {...props} />
+                !checkIfuser() ?
+                    <Routes><Route {...props} /></Routes>
                     :
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
             }
         </React.Fragment>
     )
