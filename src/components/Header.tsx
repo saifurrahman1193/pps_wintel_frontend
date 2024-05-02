@@ -1,18 +1,18 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
 import { LOGOUT, MY_NOTIFICATIONS, UPDATE_ALL_MY_NOTIFICATIONS_AS_VIEWED, UPDATE_SPECIFIC_NOTIFICATION_AS_VIEWED } from '../api/apiPath'
 import { postCall } from '../api/apiService'
 import { USER_LOGOUT } from '../redux/action'
 import Loader from './Loader'
-import { createActivityLog, userAgent, ip_address } from '../components/Helpers/CommonHelpers'
+import { createActivityLog, userAgent, ip_address } from './Helpers/CommonHelpers'
 
-const moment = require('moment');
+import moment from 'moment';
 
 function Header(props) {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const userLogout = async (e) => {
     e.preventDefault()
@@ -20,7 +20,8 @@ function Header(props) {
     if (response.code === 200) {
       toast.success(response?.message?.[0])
       props.logout()
-      history.push('/')
+      navigate('/')
+      
       setTimeout(() => {
           window.location.reload();
       }, 50)
@@ -32,7 +33,7 @@ function Header(props) {
         toast.error('Something went wrong');
       }
       props.logout();
-      history.push('/')
+      navigate('/')
       setTimeout(() => {
           window.location.reload();
       }, 50)

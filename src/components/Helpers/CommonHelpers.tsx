@@ -1,7 +1,7 @@
 import { postCall } from '../../api/apiService'
 import { ME, CREATE_ACTIVITY_LOG } from '../../api/apiPath'
 
-const moment = require('moment');
+import moment from 'moment';
 
 export const jsDateToYMD =  (datetime) => {
     if (!datetime) return null;
@@ -258,3 +258,28 @@ export const convertEngToBanglaNumber = (str='') => {
 
 
 export const badge_colors = ['badge-light-primary', 'badge-light-info', 'badge-light-success', 'badge-light-danger' ,  'badge-light-warning', ]
+
+
+
+// log generating common function
+// user_id int(11) 
+// log_type_id int(11) 
+// hit_map varchar(200) 
+// page varchar(200) 
+// page_url varchar(200) 
+// api_path text 
+// api_request longtext 
+// api_response longtext 
+// user_agent varchar(200) 
+export const createAuditLog = async (props, formData) => {
+    var response = await postCall(CREATE_AUDIT_LOG, {...formData, user_id : props?.user?.userId}, props?.user?.access_token)
+    if (response?.code === 200) {
+        console.log('Log generated!');
+    }
+    else{
+        console.error('Log generation failed!');
+    } 
+}
+// usage
+// import { permissionsResets, createAuditLog, getCrrentUrlFull } from '../components/Helpers/CommonHelpers'
+// createAuditLog(props, {log_type_id:2, hit_map:'page', page:breadcrumb?.pageTitle, page_url:getCrrentUrlFull()})

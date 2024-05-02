@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {getCurrentYear} from '../components/Helpers/CommonHelpers'
+import {getCurrentYear} from './Helpers/CommonHelpers'
 
 function Footer () {
     return (

@@ -7,14 +7,11 @@ import Loader from '../../components/Loader'
 import FormikControl from '../../components/Forms/Formik/FormikControl'
 import { postCall } from '../../api/apiService'
 import { SET_USER_DATA } from '../../redux/action'
-import { toast } from 'react-toastify'
 import { connect } from 'react-redux'
 import { LOGIN } from '../../api/apiPath'
+import { toast } from 'react-toastify';
 
-
-type Props = {}
-
-function login({ }: Props) {
+function login(Props) {
 
     const [initialValues, setInitialValues] = useState({
         email: '',
