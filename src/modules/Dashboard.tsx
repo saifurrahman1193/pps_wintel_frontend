@@ -6,6 +6,8 @@ import { toast } from 'react-toastify'
 import { postCall } from '../api/apiService'
 
 function Dashboard(props) {
+
+    
     const breadcrumb = {
         pageTitle: 'Dashboard',
         currentPath: '/',
@@ -19,11 +21,10 @@ function Dashboard(props) {
     }
 
 
-
     return (
         <React.Fragment>
 
-            <div>
+        <div id="layout-wrapper">
                 {/* Begin page */}
                 <div id="layout-wrapper">
                     <header id="page-topbar">

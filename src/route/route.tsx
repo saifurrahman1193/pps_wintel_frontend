@@ -17,11 +17,13 @@ import Footer from '../components/Footer';
 import Notfound from '../modules/accesscontrol/Error/Notfound';
 import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
+import INIT from './utils/Init';
 
 
 function Router(props) {
 
     useEffect(() => {
+        INIT()
 
     }, [])
 
@@ -36,7 +38,7 @@ function Router(props) {
                 {
                     props?.user ?
 
-                    <div>
+                    <>
                         {/* <div className="d-flex flex-column flex-root" hidden={!props?.user} style={{ height: props?.user ? '100%' : '0%' }}> */}
                             {/* <div className="page d-flex flex-row flex-column-fluid"> */}
                                 {/* {
@@ -54,10 +56,10 @@ function Router(props) {
                                         <div id="kt_content_container" className="container-fluid"> */}
 
                                                 <AuthRoute exact path='/dashboard' element={<Dashboard/>} />
-                                                <AuthRoute exact path='/profile' element={<Profile/>} />
+                                                {/* <AuthRoute exact path='/profile' element={<Profile/>} />
                                                 <AuthRoute exact path='/users' element={<Users/>} />
                                                 <AuthRoute exact path='/roles' element={<Roles/>} />
-                                                <AuthRoute exact path='/permissions' element={<Permissions/>} />
+                                                <AuthRoute exact path='/permissions' element={<Permissions/>} /> */}
 
                                         {/* </div>
                                     </div> */}
@@ -70,7 +72,7 @@ function Router(props) {
                                 {/* </div> */}
 
                             {/* </div> */}
-                        </div>
+                        </>
                         : <PublicRoute path='/' element={<Login/>} />
                 }
 
