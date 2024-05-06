@@ -175,12 +175,7 @@ function Header(props) {
                             <i className="fa fa-fw fa-bars" />
                         </button>
                         {/* App Search*/}
-                        <form className="app-search d-none d-lg-block">
-                            <div className="position-relative">
-                                <input type="text" className="form-control" placeholder="Search..." />
-                                <button className="btn btn-primary" type="button"><i className="bx bx-search-alt align-middle" /></button>
-                            </div>
-                        </form>
+                      
                     </div>
                     <div className="d-flex">
                         <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -198,39 +193,7 @@ function Header(props) {
                                 </form>
                             </div>
                         </div>
-                        <div className="dropdown d-none d-sm-inline-block">
-                            <button type="button" className="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id="header-lang-img" src="assets/images/flags/us.jpg" alt="Header Language" height={16} />
-                            </button>
-                            <div className="dropdown-menu dropdown-menu-end">
-                                {/* item*/}
-                                <a href="#!" className="dropdown-item notify-item language" data-lang="en">
-                                    <img src="assets/images/flags/us.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle">English</span>
-                                </a>
-                                {/* item*/}
-                                <a href="#!" className="dropdown-item notify-item language" data-lang="sp">
-                                    <img src="assets/images/flags/spain.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle">Spanish</span>
-                                </a>
-                                {/* item*/}
-                                <a href="#!" className="dropdown-item notify-item language" data-lang="gr">
-                                    <img src="assets/images/flags/germany.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle">German</span>
-                                </a>
-                                {/* item*/}
-                                <a href="#!" className="dropdown-item notify-item language" data-lang="it">
-                                    <img src="assets/images/flags/italy.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle">Italian</span>
-                                </a>
-                                {/* item*/}
-                                <a href="#!" className="dropdown-item notify-item language" data-lang="ru">
-                                    <img src="assets/images/flags/russia.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle">Russian</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="dropdown d-none d-sm-inline-block">
-                            <button type="button" className="btn header-item" id="mode-setting-btn">
-                                <i data-feather="moon" className="icon-lg layout-mode-dark" />
-                                <i data-feather="sun" className="icon-lg layout-mode-light" />
-                            </button>
-                        </div>
+                   
                         <div className="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" className="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i data-feather="grid" className="icon-lg" />
@@ -364,11 +327,6 @@ function Header(props) {
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div className="dropdown d-inline-block">
-                            <button type="button" className="btn header-item right-bar-toggle me-2">
-                                <i data-feather="settings" className="icon-lg" />
-                            </button>
                         </div>
                         <div className="dropdown d-inline-block">
                             <button type="button" className="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

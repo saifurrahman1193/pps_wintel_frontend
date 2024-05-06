@@ -9,11 +9,11 @@ function Footer() {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-6">
-                            © Minia.
+                            {/* © Minia. */}
                         </div>
                         <div className="col-sm-6">
                             <div className="text-sm-end d-none d-sm-block">
-                                Design &amp; Develop by <a href="#!" className="text-decoration-underline">Themesbrand</a>
+                                Copyright &copy; {getCurrentYear()} | Wintel Limited | All Rights Reserved.
                             </div>
                         </div>
                     </div>
