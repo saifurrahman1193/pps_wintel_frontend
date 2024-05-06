@@ -66,214 +66,238 @@ function Sidebar(props) {
 
 
     return (
-        <React.Fragment>
-            {/*begin::Aside*/}
-            <div id="kt_aside" className="aside d-menu-mini w-desktop-73px" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="false" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle"
-            >
-                {/*begin::Aside menu*/}
-                <div className="aside-menu flex-column-fluid">
-                    {/*begin::Aside Menu*/}
-                    <div className="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}" data-kt-scroll-offset={0}>
-                        {/*begin::Menu*/}
-                        <div className="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-bold" id="kt_aside_menu" data-kt-menu="true">
-
-
-
-
-
-                            {
-                                props?.user?.force_password == 0
-
-                                    ?
-
-
-                                    <>
-                                        <div className="py-0 d-lg-none d-flex flex-row-reverse me-3">
-                                            <Link to="#" className="btn btn-icon btn-light btn-sm border-0 fw-bolder flex-shrink-0 ms-3" replace
-                                                onClick={kt_aside_mobile_toggle_fullpage}
-                                            >
-                                                <img src="/assets/media/icons/close.svg" width="14" alt='close' />
-                                            </Link>
-                                        </div>
-
-
-                                        <div className="menu-item px-3">
-                                            <Link className={'menu-link ' + vCurPathA('/')} to="/" onClick={kt_aside_mobile_toggle_apply}>
-                                                <i className="la la-dashboard menu-icon"></i>
-                                                {/* <i className="las la-home menu-icon"></i> */}
-                                                <span className="menu-title">Dashboard</span>
-                                            </Link>
-                                        </div>
-
-
-                                        {
-                                            ['user list', 'role list', 'permission list'].some(ai => props?.permissions?.includes(ai)) ?
-
-                                                <div data-kt-menu-trigger="click" className={"menu-item px-3 menu-accordion " + vSubMenuCurPathAAccordion(['/users', '/roles', '/permissions'])}>
-                                                    <span className="menu-link">
-                                                        <i className="la la-user-shield menu-icon"></i>
-                                                        <span className="menu-title">Access Control</span>
-                                                        <span className="menu-arrow"></span>
-                                                    </span>
-                                                    <div className={'menu-sub menu-sub-accordion ' + vSubMenuCurPathA(['/users', '/roles', '/permissions'])}>
-                                                        {
-                                                            props.permissions.includes('user list') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/users')} to="/users" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        {/* <Svgmenuiconcomponent /> */}
-                                                                        <span className="menu-title">Users</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-
-                                                        {
-                                                            props.permissions.includes('role list') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/roles')} to="/roles" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        {/* <Svgmenuiconcomponent /> */}
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span className="menu-title">Roles</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-
-                                                        {
-                                                            props.permissions.includes('permission list') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/permissions')} to="/permissions" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        {/* <Svgmenuiconcomponent /> */}
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span className="menu-title">Permissions</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-                                                    </div>
-                                                </div>
-                                                :
-                                                null
-                                        }
-
-
-
-
-                                        {
-                                            ['date wise report', 'operator wise details report'].some(ai => props?.permissions?.includes(ai)) ?
-
-                                                <div data-kt-menu-trigger="click" className={"menu-item px-3 menu-accordion " + vSubMenuCurPathAAccordion(['/date-wise-report', '/operator-wise-details-report'])}>
-                                                    <span className="menu-link">
-                                                        <i className="la la-bar-chart menu-icon"></i>
-                                                        <span className="menu-title">Report</span>
-                                                        <span className="menu-arrow"></span>
-                                                    </span>
-                                                    <div className={'menu-sub menu-sub-accordion ' + vSubMenuCurPathA(['/date-wise-report', '/operator-wise-details-report'])}>
-                                                        {
-                                                            props.permissions.includes('date wise report') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/date-wise-report')} to="/date-wise-report" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        {/* <Svgmenuiconcomponent /> */}
-                                                                        <span className="menu-title">Date wise Report</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-
-                                                        {
-                                                            props.permissions.includes('operator wise details report') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/operator-wise-details-report')} to="/operator-wise-details-report" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        {/* <Svgmenuiconcomponent /> */}
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span className="menu-title">Operator Wise Details</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-
-                                                    </div>
-                                                </div>
-                                                :
-                                                null
-                                        }
-
-                                        {
-                                            props.permissions.includes('leaderboard') ?
-                                                <div className="menu-item px-3">
-                                                    <Link className={'menu-link ' + vCurPathA('/leaderboard')} to="/leaderboard" onClick={kt_aside_mobile_toggle_apply}>
-                                                        <i className="la la-sort-amount-asc menu-icon"></i>
-                                                        <span className="menu-title">Leaderboard</span>
-                                                    </Link>
-                                                </div>
-                                                :
-                                                null
-                                        }
-
-
-                                        {
-                                            ['audit log list'].some(ai => props?.permissions?.includes(ai)) ?
-
-                                                <div data-kt-menu-trigger="click" className={"menu-item px-3 menu-accordion " + vSubMenuCurPathAAccordion(['/audit-log'])}>
-                                                    <span className="menu-link">
-                                                        <i className="la la-map menu-icon"></i>
-                                                        <span className="menu-title">Audit</span>
-                                                        <span className="menu-arrow"></span>
-                                                    </span>
-                                                    <div className={'menu-sub menu-sub-accordion ' + vSubMenuCurPathA(['/audit-log'])}>
-
-                                                        {
-                                                            props.permissions.includes('audit log list') ?
-                                                                <div className="menu-item px-3">
-                                                                    <Link className={'menu-link ' + vCurPathA('/audit-log')} to="/audit-log" onClick={kt_aside_mobile_toggle_apply}>
-                                                                        <span className="menu-bullet">
-                                                                            <span className="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span className="menu-title">Audit Log List</span>
-                                                                    </Link>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-                                                    </div>
-                                                </div>
-                                                :
-                                                null
-                                        }
-                                    </>
-                                    : null
-                            }
-
-
+        <div className="vertical-menu">
+            <div data-simplebar className="h-100">
+                {/*- Sidemenu */}
+                <div id="sidebar-menu">
+                    {/* Left Menu Start */}
+                    <ul className="metismenu list-unstyled" id="side-menu">
+                        <li className="menu-title" data-key="t-menu">Menu</li>
+                        <li>
+                            <a href="index.html">
+                                <i data-feather="home" />
+                                <span data-key="t-dashboard">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="grid" />
+                                <span data-key="t-apps">Apps</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <a href="apps-calendar.html">
+                                        <span data-key="t-calendar">Calendar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="apps-chat.html">
+                                        <span data-key="t-chat">Chat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="has-arrow">
+                                        <span data-key="t-email">Email</span>
+                                    </a>
+                                    <ul className="sub-menu" aria-expanded="false">
+                                        <li><a href="apps-email-inbox.html" data-key="t-inbox">Inbox</a></li>
+                                        <li><a href="apps-email-read.html" data-key="t-read-email">Read Email</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#!" className="has-arrow">
+                                        <span data-key="t-invoices">Invoices</span>
+                                    </a>
+                                    <ul className="sub-menu" aria-expanded="false">
+                                        <li><a href="apps-invoices-list.html" data-key="t-invoice-list">Invoice List</a></li>
+                                        <li><a href="apps-invoices-detail.html" data-key="t-invoice-detail">Invoice Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#!" className="has-arrow">
+                                        <span data-key="t-contacts">Contacts</span>
+                                    </a>
+                                    <ul className="sub-menu" aria-expanded="false">
+                                        <li><a href="apps-contacts-grid.html" data-key="t-user-grid">User Grid</a></li>
+                                        <li><a href="apps-contacts-list.html" data-key="t-user-list">User List</a></li>
+                                        <li><a href="apps-contacts-profile.html" data-key="t-profile">Profile</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="users" />
+                                <span data-key="t-authentication">Authentication</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="auth-login.html" data-key="t-login">Login</a></li>
+                                <li><a href="auth-register.html" data-key="t-register">Register</a></li>
+                                <li><a href="auth-recoverpw.html" data-key="t-recover-password">Recover Password</a></li>
+                                <li><a href="auth-lock-screen.html" data-key="t-lock-screen">Lock Screen</a></li>
+                                <li><a href="auth-logout.html" data-key="t-logout">Log Out</a></li>
+                                <li><a href="auth-confirm-mail.html" data-key="t-confirm-mail">Confirm Mail</a></li>
+                                <li><a href="auth-email-verification.html" data-key="t-email-verification">Email Verification</a></li>
+                                <li><a href="auth-two-step-verification.html" data-key="t-two-step-verification">Two Step Verification</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="file-text" />
+                                <span data-key="t-pages">Pages</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="pages-starter.html" data-key="t-starter-page">Starter Page</a></li>
+                                <li><a href="pages-maintenance.html" data-key="t-maintenance">Maintenance</a></li>
+                                <li><a href="pages-comingsoon.html" data-key="t-coming-soon">Coming Soon</a></li>
+                                <li><a href="pages-timeline.html" data-key="t-timeline">Timeline</a></li>
+                                <li><a href="pages-faqs.html" data-key="t-faqs">FAQs</a></li>
+                                <li><a href="pages-pricing.html" data-key="t-pricing">Pricing</a></li>
+                                <li><a href="pages-404.html" data-key="t-error-404">Error 404</a></li>
+                                <li><a href="pages-500.html" data-key="t-error-500">Error 500</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="layouts-horizontal.html">
+                                <i data-feather="layout" />
+                                <span data-key="t-horizontal">Horizontal</span>
+                            </a>
+                        </li>
+                        <li className="menu-title mt-2" data-key="t-components">Elements</li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="briefcase" />
+                                <span data-key="t-components">Components</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="ui-alerts.html" data-key="t-alerts">Alerts</a></li>
+                                <li><a href="ui-buttons.html" data-key="t-buttons">Buttons</a></li>
+                                <li><a href="ui-cards.html" data-key="t-cards">Cards</a></li>
+                                <li><a href="ui-carousel.html" data-key="t-carousel">Carousel</a></li>
+                                <li><a href="ui-dropdowns.html" data-key="t-dropdowns">Dropdowns</a></li>
+                                <li><a href="ui-grid.html" data-key="t-grid">Grid</a></li>
+                                <li><a href="ui-images.html" data-key="t-images">Images</a></li>
+                                <li><a href="ui-modals.html" data-key="t-modals">Modals</a></li>
+                                <li><a href="ui-offcanvas.html" data-key="t-offcanvas">Offcanvas</a></li>
+                                <li><a href="ui-progressbars.html" data-key="t-progress-bars">Progress Bars</a></li>
+                                <li><a href="ui-placeholders.html" data-key="t-progress-bars">Placeholders</a></li>
+                                <li><a href="ui-tabs-accordions.html" data-key="t-tabs-accordions">Tabs &amp; Accordions</a></li>
+                                <li><a href="ui-typography.html" data-key="t-typography">Typography</a></li>
+                                <li><a href="ui-video.html" data-key="t-video">Video</a></li>
+                                <li><a href="ui-general.html" data-key="t-general">General</a></li>
+                                <li><a href="ui-colors.html" data-key="t-colors">Colors</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="gift" />
+                                <span data-key="t-ui-elements">Extended</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="extended-lightbox.html" data-key="t-lightbox">Lightbox</a></li>
+                                <li><a href="extended-rangeslider.html" data-key="t-range-slider">Range Slider</a></li>
+                                <li><a href="extended-sweet-alert.html" data-key="t-sweet-alert">SweetAlert 2</a></li>
+                                <li><a href="extended-session-timeout.html" data-key="t-session-timeout">Session Timeout</a></li>
+                                <li><a href="extended-rating.html" data-key="t-rating">Rating</a></li>
+                                <li><a href="extended-notifications.html" data-key="t-notifications">Notifications</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <i data-feather="box" />
+                                <span className="badge rounded-pill bg-soft-danger text-danger float-end">7</span>
+                                <span data-key="t-forms">Forms</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="form-elements.html" data-key="t-form-elements">Basic Elements</a></li>
+                                <li><a href="form-validation.html" data-key="t-form-validation">Validation</a></li>
+                                <li><a href="form-advanced.html" data-key="t-form-advanced">Advanced Plugins</a></li>
+                                <li><a href="form-editors.html" data-key="t-form-editors">Editors</a></li>
+                                <li><a href="form-uploads.html" data-key="t-form-upload">File Upload</a></li>
+                                <li><a href="form-wizard.html" data-key="t-form-wizard">Wizard</a></li>
+                                <li><a href="form-mask.html" data-key="t-form-mask">Mask</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="sliders" />
+                                <span data-key="t-tables">Tables</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="tables-basic.html" data-key="t-basic-tables">Bootstrap Basic</a></li>
+                                <li><a href="tables-datatable.html" data-key="t-data-tables">DataTables</a></li>
+                                <li><a href="tables-responsive.html" data-key="t-responsive-table">Responsive</a></li>
+                                <li><a href="tables-editable.html" data-key="t-editable-table">Editable</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="pie-chart" />
+                                <span data-key="t-charts">Charts</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="charts-apex.html" data-key="t-apex-charts">Apexcharts</a></li>
+                                <li><a href="charts-echart.html" data-key="t-e-charts">Echarts</a></li>
+                                <li><a href="charts-chartjs.html" data-key="t-chartjs-charts">Chartjs</a></li>
+                                <li><a href="charts-knob.html" data-key="t-knob-charts">Jquery Knob</a></li>
+                                <li><a href="charts-sparkline.html" data-key="t-sparkline-charts">Sparkline</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="cpu" />
+                                <span data-key="t-icons">Icons</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="icons-boxicons.html" data-key="t-boxicons">Boxicons</a></li>
+                                <li><a href="icons-materialdesign.html" data-key="t-material-design">Material Design</a></li>
+                                <li><a href="icons-dripicons.html" data-key="t-dripicons">Dripicons</a></li>
+                                <li><a href="icons-fontawesome.html" data-key="t-font-awesome">Font Awesome 5</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="map" />
+                                <span data-key="t-maps">Maps</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li><a href="maps-google.html" data-key="t-g-maps">Google</a></li>
+                                <li><a href="maps-vector.html" data-key="t-v-maps">Vector</a></li>
+                                <li><a href="maps-leaflet.html" data-key="t-l-maps">Leaflet</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="has-arrow">
+                                <i data-feather="share-2" />
+                                <span data-key="t-multi-level">Multi Level</span>
+                            </a>
+                            <ul className="sub-menu" aria-expanded="true">
+                                <li><a href="#!" data-key="t-level-1-1">Level 1.1</a></li>
+                                <li>
+                                    <a href="#!" className="has-arrow" data-key="t-level-1-2">Level 1.2</a>
+                                    <ul className="sub-menu" aria-expanded="true">
+                                        <li><a href="#!" data-key="t-level-2-1">Level 2.1</a></li>
+                                        <li><a href="#!" data-key="t-level-2-2">Level 2.2</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div className="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
+                        <div className="card-body">
+                            <img src="assets/images/giftbox.png" alt="image" />
+                            <div className="mt-4">
+                                <h5 className="alertcard-title font-size-16">Unlimited Access</h5>
+                                <p className="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
+                                <a href="#!" className="btn btn-primary mt-2">Upgrade Now</a>
+                            </div>
                         </div>
-                        {/*end::Menu*/}
                     </div>
-                    {/*end::Aside Menu*/}
                 </div>
-                {/*end::Aside menu*/}
-                {/*begin::Footer*/}
-
-                {/*end::Footer*/}
+                {/* Sidebar */}
             </div>
-            {/*end::Aside*/}
-        </React.Fragment>
+        </div>
+
     )
 }
 

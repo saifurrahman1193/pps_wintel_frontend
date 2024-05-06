@@ -32,52 +32,36 @@ function Router(props) {
     return (
         <Fragment>
             <BrowserRouter>
-            
-                {/* Authenticated users */}
+
 
                 {
                     props?.user ?
 
-                    <>
-                        {/* <div className="d-flex flex-column flex-root" hidden={!props?.user} style={{ height: props?.user ? '100%' : '0%' }}> */}
-                            {/* <div className="page d-flex flex-row flex-column-fluid"> */}
-                                {/* {
-                                    props?.user ?
-                                        <Sidebar />
-                                        : null
-                                } */}
-                                {/* <div className=" d-flex flex-column flex-row-fluid" id="kt_wrapper"> */}
-                                    {/* {
-                                        props?.user ?
-                                            <Header />
-                                            : null
-                                    } */}
-                                    {/* <div className="content d-flex flex-column flex-column-fluid mt-2 ms-desktop-73px" id="kt_content">
-                                        <div id="kt_content_container" className="container-fluid"> */}
+                        < div id="layout-wrapper">
+                            <Header />
+                            <Sidebar />
+                            <div className="main-content">
 
-                                                <AuthRoute exact path='/dashboard' element={<Dashboard/>} />
-                                                {/* <AuthRoute exact path='/profile' element={<Profile/>} />
-                                                <AuthRoute exact path='/users' element={<Users/>} />
-                                                <AuthRoute exact path='/roles' element={<Roles/>} />
-                                                <AuthRoute exact path='/permissions' element={<Permissions/>} /> */}
+                                <div className="page-content">
+                                    <div className="container-fluid">
 
-                                        {/* </div>
-                                    </div> */}
-                                    {/* {
-                                        props?.user ?
-                                            <Footer />
-                                            : null
-                                    } */}
+                                        <AuthRoute exact path='/dashboard' element={<Dashboard />} />
+                                        {/* <AuthRoute exact path='/profile' element={<Profile/>} />
+                                        <AuthRoute exact path='/users' element={<Users/>} />
+                                        <AuthRoute exact path='/roles' element={<Roles/>} />
+                                        <AuthRoute exact path='/permissions' element={<Permissions/>} /> */}
 
-                                {/* </div> */}
+                                    </div>
+                                </div>
 
-                            {/* </div> */}
-                        </>
-                        : <PublicRoute path='/' element={<Login/>} />
+                                <Footer />
+                            </div>
+                        </div>
+                        : <PublicRoute path='/' element={<Login />} />
                 }
 
             </BrowserRouter>
-        </Fragment>
+        </Fragment >
     )
 }
 const mapStateToProps = (state) => ({

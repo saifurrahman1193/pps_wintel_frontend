@@ -1,18 +1,20 @@
 import React, { Fragment } from 'react';
-import {getCurrentYear} from './Helpers/CommonHelpers'
+import { getCurrentYear } from './Helpers/CommonHelpers'
 
-function Footer () {
+function Footer() {
     return (
         <Fragment>
 
-            <footer className="footer mt-6">
+            <footer className="footer">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-4">
-                            {/* 2018 - 2019 © Simulor theme by <a href="#">Coderthemes</a> */}
+                        <div className="col-sm-6">
+                            © Minia.
                         </div>
-                        <div className="col-md-8">
-                            <span className="float-right">Copyright &copy; {getCurrentYear()} | Software Shop Limited | All Rights Reserved.</span>
+                        <div className="col-sm-6">
+                            <div className="text-sm-end d-none d-sm-block">
+                                Design &amp; Develop by <a href="#!" className="text-decoration-underline">Themesbrand</a>
+                            </div>
                         </div>
                     </div>
                 </div>
