@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 function AuthRoute(props) {
 
-    const checkPermission = () => {
+    const checkAccessibility = () => {
         if (props.can && props.ability) {
             if (props.permissions.includes(props.can) && props.roles.includes(props.ability)) {
                 return true
@@ -35,7 +35,7 @@ function AuthRoute(props) {
     return (
         <React.Fragment>
             {
-                checkPermission() ?
+                checkAccessibility() ?
                     <Routes><Route {...props} /></Routes>
                     :
                     <Navigate to="/" replace={true} />

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Login from '../modules/accesscontrol/Login';
 import ChangePassword from '../modules/accesscontrol/ChangePassword';
@@ -19,7 +19,6 @@ import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
 import INIT from './utils/Init';
 
-
 function Router(props) {
 
     useEffect(() => {
@@ -27,16 +26,11 @@ function Router(props) {
 
     }, [])
 
-
-
     return (
         <Fragment>
             <BrowserRouter>
-
-
                 {
                     props?.user ?
-
                         < div id="layout-wrapper">
                             <Header />
                             <Sidebar />
@@ -59,7 +53,6 @@ function Router(props) {
                         </div>
                         : <PublicRoute path='/' element={<Login />} />
                 }
-
             </BrowserRouter>
         </Fragment >
     )

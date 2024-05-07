@@ -21,10 +21,6 @@ function Header(props) {
             toast.success(response?.message?.[0])
             props.logout()
             navigate('/')
-
-            setTimeout(() => {
-                window.location.reload();
-            }, 50)
         } else {
             if (response?.message) {
                 toast.error(response?.message?.[0]);
@@ -34,9 +30,6 @@ function Header(props) {
             }
             props.logout();
             navigate('/')
-            setTimeout(() => {
-                window.location.reload();
-            }, 50)
         }
     }
 
@@ -175,7 +168,7 @@ function Header(props) {
                             <i className="fa fa-fw fa-bars" />
                         </button>
                         {/* App Search*/}
-                      
+
                     </div>
                     <div className="d-flex">
                         <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -193,7 +186,7 @@ function Header(props) {
                                 </form>
                             </div>
                         </div>
-                   
+
                         <div className="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" className="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i data-feather="grid" className="icon-lg" />
@@ -339,7 +332,9 @@ function Header(props) {
                                 <a className="dropdown-item" href="apps-contacts-profile.html"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</a>
                                 <a className="dropdown-item" href="auth-lock-screen.html"><i className="mdi mdi-lock font-size-16 align-middle me-1" /> Lock Screen</a>
                                 <div className="dropdown-divider" />
-                                <a className="dropdown-item" href="auth-logout.html"><i className="mdi mdi-logout font-size-16 align-middle me-1" /> Logout</a>
+                                <Link className="dropdown-item" to="/" onClick={userLogout}>
+                                    <i className="mdi mdi-logout font-size-16 align-middle me-1" /> Log out
+                                </Link>
                             </div>
                         </div>
                     </div>
