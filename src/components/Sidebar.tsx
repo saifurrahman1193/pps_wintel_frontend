@@ -1,69 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { useState, useEffect } from 'react';
-import { LOGOUT } from '../api/apiPath'
-import { toast } from 'react-toastify'
-import { getCall, postCall } from '../api/apiService'
 import { USER_LOGOUT } from '../redux/action'
-import Svgmenuiconcomponent from './Icons/Svgmenuiconcomponent'
-import { kt_aside_mobile_toggle } from './Helpers/DesignHelpers'
 
 
 function Sidebar(props) {
-
-    const vCurPathA = (pathname) => {
-        var path = props.breadcrumb.currentPath
-        if (path == pathname) {
-            return 'active'
-        }
-        return ''
-    }
-
-    const vSubMenuCurPathA = (arr) => {
-        var path = props.breadcrumb.currentPath
-        if (arr.includes(path)) {
-            return 'menu-active-bg show'
-        }
-        return ''
-    }
-
-    const vSubMenuCurPathAAccordion = (arr) => {
-        var path = props.breadcrumb.currentPath
-        if (arr.includes(path)) {
-            return ' hover show'
-        }
-        return ''
-    }
-
-    const userLogout = async (e) => {
-        e.preventDefault()
-        var response = await postCall(LOGOUT, null, props.user?.access_token)
-        if (response?.code === 200) {
-            toast.success(response?.message?.[0])
-            props.logout()
-        } else {
-            toast.error(response?.message?.[0])
-        }
-    }
-
-    useEffect(() => {
-    })
-
-    const kt_aside_mobile_toggle_apply = () => {
-        let options = {
-            is_left_sidebar: 1
-        }
-        kt_aside_mobile_toggle(options)
-    }
-
-    const kt_aside_mobile_toggle_fullpage = (e) => {
-        e.preventDefault()
-        let kt_aside_mobile_toggle = document.querySelector('#kt_aside_mobile_toggle')
-        kt_aside_mobile_toggle.click()
-    }
-
-
 
     return (
         <div className="vertical-menu">
@@ -72,7 +12,6 @@ function Sidebar(props) {
                 <div id="sidebar-menu">
                     {/* Left Menu Start */}
                     <ul className="metismenu list-unstyled" id="side-menu">
-                        <li className="menu-title" data-key="t-menu">Menu</li>
                         <li>
                             <Link to="/dashboard">
                                 <i data-feather="home" />

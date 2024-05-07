@@ -1,14 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
-import { LOGOUT, MY_NOTIFICATIONS, UPDATE_ALL_MY_NOTIFICATIONS_AS_VIEWED, UPDATE_SPECIFIC_NOTIFICATION_AS_VIEWED } from '../api/apiPath'
+import { LOGOUT } from '../api/apiPath'
 import { postCall } from '../api/apiService'
 import { USER_LOGOUT } from '../redux/action'
 import Loader from './Loader'
-import { createActivityLog, userAgent, ip_address } from './Helpers/CommonHelpers'
 
-import moment from 'moment';
 import INIT from '../route/utils/Init';
 
 function Header(props) {
@@ -20,7 +18,7 @@ function Header(props) {
 
     const userLogout = async (e) => {
         e.preventDefault()
-        var response = await postCall(LOGOUT, null, props.user?.access_token, { hitmap: 'logout submit', pageurl: window.location.href, page: 'logout' })
+        const response = await postCall(LOGOUT, null, props.user?.access_token, { hitmap: 'logout submit', pageurl: window.location.href, page: 'logout' })
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.logout()
@@ -56,18 +54,18 @@ function Header(props) {
                         <div className="navbar-brand-box">
                             <a href="index.html" className="logo logo-dark">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo-sm.svg" alt="image" height={24} />
+                                    <img src="assets/images/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo-sm.svg" alt="image" height={24} /> <span className="logo-txt">Minia</span>
+                                    <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
                             </a>
                             <a href="index.html" className="logo logo-light">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo-sm.svg" alt="image" height={24} />
+                                    <img src="assets/images/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo-sm.svg" alt="image" height={24} /> <span className="logo-txt">Minia</span>
+                                    <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
                             </a>
                         </div>
