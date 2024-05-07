@@ -271,15 +271,15 @@ export const badge_colors = ['badge-light-primary', 'badge-light-info', 'badge-l
 // api_request longtext 
 // api_response longtext 
 // user_agent varchar(200) 
-export const createAuditLog = async (props, formData) => {
-    var response = await postCall(CREATE_AUDIT_LOG, {...formData, user_id : props?.user?.userId}, props?.user?.access_token)
-    if (response?.code === 200) {
-        console.log('Log generated!');
-    }
-    else{
-        console.error('Log generation failed!');
-    } 
-}
-// usage
-// import { permissionsResets, createAuditLog, getCrrentUrlFull } from '../components/Helpers/CommonHelpers'
-// createAuditLog(props, {log_type_id:2, hit_map:'page', page:breadcrumb?.pageTitle, page_url:getCrrentUrlFull()})
+// export const createActivityLog = async (props, formData) => {
+//     var response = await postCall(CREATE_AUDIT_LOG, {...formData, user_id : props?.user?.userId}, props?.user?.access_token)
+//     if (response?.code === 200) {
+//         console.log('Log generated!');
+//     }
+//     else{
+//         console.error('Log generation failed!');
+//     } 
+// }
+// // usage
+// // import { permissionsResets, createActivityLog, getCrrentUrlFull } from '../components/Helpers/CommonHelpers'
+// // createActivityLog(props, {log_type_id:2, hit_map:'page', page:breadcrumb?.pageTitle, page_url:getCrrentUrlFull()})

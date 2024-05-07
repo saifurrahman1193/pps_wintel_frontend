@@ -28,12 +28,12 @@ function Breadcrumb(props) {
                                     props?.breadcrumb?.layers?.map((layer, i) => {
                                         return (
                                             <Fragment key={'layer-' + i}>
-                                                {
+                                                {/* {
                                                     i > 0 ?
                                                         <li className="breadcrumb-item">
                                                             <Link to="#!"> </Link>
                                                         </li> : null
-                                                }
+                                                } */}
                                                 <li className="breadcrumb-item">
 
                                                     {

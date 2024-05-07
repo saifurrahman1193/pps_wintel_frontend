@@ -43,7 +43,8 @@ function Router(props) {
                                         <Breadcrumb />
 
                                         <AuthRoute exact path='/dashboard' element={<Dashboard />} />
-                                        {/* <AuthRoute exact path='/profile' element={<Profile/>} />
+                                        <AuthRoute exact path='/profile' element={<Profile/>} />
+                                        {/* 
                                         <AuthRoute exact path='/users' element={<Users/>} />
                                         <AuthRoute exact path='/roles' element={<Roles/>} />
                                         <AuthRoute exact path='/permissions' element={<Permissions/>} /> */}
