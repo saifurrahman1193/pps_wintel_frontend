@@ -193,7 +193,7 @@ function Profile(props) {
                                 </div>
                                 <div className="card-body">
                                     <div>
-                                        <div className="pb-3">
+                                        <div className="pb-0">
                                             <div className="row">
                                                 <div className="col-xl">
                                                 <ProfileDetails userId={props?.user?.userId} token={props?.user?.access_token} />
@@ -232,7 +232,7 @@ function Profile(props) {
                                 <div>
                                     <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
 
-                                    <div className="col-md-12 my-2">
+                                    <div className="col-md-12 my-0">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
@@ -242,7 +242,7 @@ function Profile(props) {
                                     </div>
                                     <div className="separator separator-content my-15"><span className="w-250px">Change Password</span></div>
 
-                                    <div className="col-md-12 my-2">
+                                    <div className="col-md-12 my-0">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Current Password<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
@@ -251,7 +251,7 @@ function Profile(props) {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-12 my-2">
+                                    <div className="col-md-12 my-0">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">New Password<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
@@ -260,7 +260,7 @@ function Profile(props) {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-12 my-2">
+                                    <div className="col-md-12 my-0">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">New Confirm Password<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
