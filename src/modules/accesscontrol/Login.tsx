@@ -26,7 +26,8 @@ function Login(props) {
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)
-            navigate('/dashboard')
+            // navigate('/dashboard')
+            window.location.href = '/dashboard';
             onSubmitProps.setSubmitting(false)
             document.body.style.background = ''
 

@@ -9,8 +9,12 @@ import Loader from './Loader'
 import { createActivityLog, userAgent, ip_address } from './Helpers/CommonHelpers'
 
 import moment from 'moment';
+import INIT from '../route/utils/Init';
 
 function Header(props) {
+    useEffect(() => {
+        INIT()
+    }, [])
 
     const navigate = useNavigate();
 
@@ -21,6 +25,9 @@ function Header(props) {
             toast.success(response?.message?.[0])
             props.logout()
             navigate('/')
+            setTimeout(() => {
+                window.location.reload();
+            }, 50)
         } else {
             if (response?.message) {
                 toast.error(response?.message?.[0]);
@@ -30,113 +37,13 @@ function Header(props) {
             }
             props.logout();
             navigate('/')
+            setTimeout(() => {
+                window.location.reload();
+            }, 50)
         }
     }
 
-
-
-    const MINUTE_MS = 15000;
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getMyNotifications()
-        }, MINUTE_MS);
-
-        return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-    }, [])
-
-
-    const topbarMenuChecker = (e) => {
-
-        // mobile-nav-trigger
-        let mobile_nav_trigger = document.querySelector('#mobile-nav-trigger')
-
-        let navigation = document.querySelector('#navigation')
-
-        if (mobile_nav_trigger.classList.contains('open')) {
-            mobile_nav_trigger.classList.remove('open')
-            navigation.style.display = 'none'
-        }
-        else {
-            mobile_nav_trigger.classList.add('open')
-            navigation.style.display = 'block'
-        }
-    }
-
-
-    const [notificationsData, setNotificationsData] = useState({})
-    const getMyNotifications = async () => {
-        var response = await postCall(MY_NOTIFICATIONS, { limit: 50 }, props?.user?.access_token)
-        if (response.code === 200) {
-            setNotificationsData(response?.data)
-        } else {
-        }
-    }
-
-    const notificationClickHandler = (e, row) => {
-        e.preventDefault()
-
-        let row_response = JSON.parse(row?.response) || {}
-
-        updateSpecificNotificationAsViewed(row?.id)
-
-        setTimeout(() => {
-            downloadFile(row_response)
-        }, 1000);
-
-    }
-
-    const updateAllMyNotificationsAsViewed = async () => {
-        if (window.confirm('Are you sure you want to clear all notifications?')) {
-            var response = await postCall(UPDATE_ALL_MY_NOTIFICATIONS_AS_VIEWED, null, props?.user?.access_token)
-            if (response.code === 200) {
-                getMyNotifications()
-            } else {
-            }
-        }
-    }
-
-    const updateSpecificNotificationAsViewed = async (id) => {
-        var response = await postCall(UPDATE_SPECIFIC_NOTIFICATION_AS_VIEWED, { id: id }, props?.user?.access_token)
-        if (response.code === 200) {
-            getMyNotifications()
-        } else {
-        }
-    }
-
-    const downloadFile = (response) => {
-        let file_url = process?.env?.REACT_APP_PUBLIC_UPLOADS_BASE_URL + response?.filePath
-        // console.log(file_url, response?.type);
-        // var data = new Blob(['http://localhost:8001/uploads/reports/transactions/2022-06-07/csv/file_2022-06-07-154606-682.csv'], {type: response?.type});
-        // var fileURL = window.URL.createObjectURL(data);
-        const tempLink = document.createElement('a');
-        tempLink.href = file_url;
-        tempLink.setAttribute('download', (response?.filePath)?.split('/')?.pop());
-        tempLink.click();
-    }
-
-    const vCurPathA = (pathname) => {
-        var path = props?.breadcrumb?.currentPath
-        if (path == pathname) {
-            return 'active dropdown-active'
-        }
-        return ''
-    }
-
-    const vSubMenuCurPathA = (arr) => {
-        var path = props?.breadcrumb?.currentPath
-        if (arr.includes(path)) {
-            return 'text-white'
-        }
-        return ''
-    }
-    const vSubMenuCurPathA2 = (arr) => {
-        var path = props?.breadcrumb?.currentPath
-        if (arr.includes(path)) {
-            return 'level-2-submenu-active'
-        }
-        return ''
-    }
+    
 
     return (
         <Fragment>

@@ -18,6 +18,7 @@ import Notfound from '../modules/accesscontrol/Error/Notfound';
 import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
 import INIT from './utils/Init';
+import Breadcrumb from '../components/Breadcrumb';
 
 function Router(props) {
 
@@ -38,6 +39,8 @@ function Router(props) {
 
                                 <div className="page-content">
                                     <div className="container-fluid">
+
+                                        <Breadcrumb />
 
                                         <AuthRoute exact path='/dashboard' element={<Dashboard />} />
                                         {/* <AuthRoute exact path='/profile' element={<Profile/>} />
