@@ -234,8 +234,8 @@ function Header(props) {
                             </button>
                             <div className="dropdown-menu dropdown-menu-end">
                                 {/* item*/}
-                                <a className="dropdown-item" href="apps-contacts-profile.html"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</a>
-                                <a className="dropdown-item" href="auth-lock-screen.html"><i className="mdi mdi-lock font-size-16 align-middle me-1" /> Lock Screen</a>
+                                <Link className="dropdown-item" to="/profile"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</Link>
+                               
                                 <div className="dropdown-divider" />
                                 <Link className="dropdown-item" to="/" onClick={userLogout}>
                                     <i className="mdi mdi-logout font-size-16 align-middle me-1" /> Log out
