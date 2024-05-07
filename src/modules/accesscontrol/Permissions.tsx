@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { permissionsResets,  userAgent, badge_colors } from '../../components/Helpers/CommonHelpers'
 import Select from 'react-select'
 import Badge  from '../../components/Badges/Badge';
+import INIT from '../../route/utils/Init';
 
 function Permissions(props) {
 
@@ -85,6 +86,8 @@ function Permissions(props) {
     
     
     useEffect(() => {
+        INIT()
+
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 

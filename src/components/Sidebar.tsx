@@ -25,9 +25,9 @@ function Sidebar(props) {
                                 <span data-key="t-authentication">Access Control</span>
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="/user" data-key="t-user">User</Link></li>
-                                <li><Link to="/role" data-key="t-role">Role</Link></li>
-                                <li><Link to="/permission" data-key="t-permission">Permission</Link></li>
+                                <li><Link to="/users" data-key="t-user">User</Link></li>
+                                <li><Link to="/roles" data-key="t-role">Role</Link></li>
+                                <li><Link to="/permissions" data-key="t-permission">Permission</Link></li>
                             </ul>
                         </li>
 

@@ -10,6 +10,7 @@ import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { permissionsResets,  userAgent } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
+import INIT from '../../route/utils/Init';
 
 function Roles(props) {
 
@@ -83,6 +84,8 @@ function Roles(props) {
 
 
     useEffect(() => {
+        INIT()
+
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 

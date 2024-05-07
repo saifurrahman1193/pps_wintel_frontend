@@ -13,6 +13,7 @@ import Badge  from '../../components/Badges/Badge';
 import { permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers.js'
 import { Link } from 'react-router-dom';
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
+import INIT from '../../route/utils/Init';
 
 function Users(props) {
 
@@ -109,10 +110,10 @@ function Users(props) {
     }, [roleSelectedOption])
 
     const getRoles = async () => {        
-        var response = await postCall(ROLES_ALL , null, props.user.access_token)
+        var response = await postCall(ROLES_ALL , null, props?.user?.access_token)
         if (response?.code === 200) {
             var rolesData = (response?.data?.rolelist).map((role) => {
-                return { label: role.name.capitalize(), value: role.name  }
+                return { label: role?.name?.capitalize(), value: role?.name  }
             })
             setRolesOptions(rolesData || [])
         } else {
@@ -121,6 +122,7 @@ function Users(props) {
 
 
     useEffect(() => {
+        INIT()
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
         getRoles()
