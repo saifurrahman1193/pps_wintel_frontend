@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 function PublicRoute(props) {
+   
     const checkIfuser = () => {
         if (props?.user) {
             return true

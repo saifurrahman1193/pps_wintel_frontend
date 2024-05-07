@@ -22,10 +22,6 @@ import Breadcrumb from '../components/Breadcrumb';
 
 function Router(props) {
 
-    useEffect(() => {
-        INIT()
-
-    }, [])
 
     return (
         <Fragment>
@@ -39,19 +35,14 @@ function Router(props) {
 
                                 <div className="page-content">
                                     <div className="container-fluid">
-
                                         <Breadcrumb />
-
                                         <AuthRoute exact path='/dashboard' element={<Dashboard />} />
-                                        <AuthRoute exact path='/profile' element={<Profile/>} />
-                                        {/* 
-                                        <AuthRoute exact path='/users' element={<Users/>} />
-                                        <AuthRoute exact path='/roles' element={<Roles/>} />
-                                        <AuthRoute exact path='/permissions' element={<Permissions/>} /> */}
-
+                                        <AuthRoute exact path='/profile' element={<Profile />} />
+                                        <AuthRoute exact path='/users' element={<Users />} />
+                                        <AuthRoute exact path='/roles' element={<Roles />} />
+                                        <AuthRoute exact path='/permissions' element={<Permissions />} />
                                     </div>
                                 </div>
-
                                 <Footer />
                             </div>
                         </div>

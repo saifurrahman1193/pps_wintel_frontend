@@ -8,7 +8,7 @@ import Paginate from '../../components/Datatable/Paginate'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import { permissionsResets, createAuditLog, userAgent } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets,  userAgent } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
 
 function Roles(props) {
@@ -78,7 +78,6 @@ function Roles(props) {
             setIsLoading(false)
             setNoDataFound(true);
         }
-        createAuditLog(props, { log_type_id: 3, hit_map: 'role list', page: breadcrumb?.pageTitle, page_url: window.location.href, user_agent: userAgent, api_path: process.env.REACT_APP_API_BASE_URL + ROLES_P, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
 
@@ -87,7 +86,6 @@ function Roles(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 
-        createAuditLog(props, { log_type_id: 3, hit_map: 'page', page: breadcrumb?.pageTitle, page_url: window.location.href, user_agent: userAgent })
         getRolesData()
         getAllModules()
     }, [])
@@ -115,9 +113,6 @@ function Roles(props) {
         } else {
             toast.error(response?.message?.[0])
         }
-
-        createAuditLog(props, { log_type_id: 3, hit_map: `${formData?.id ? 'update' : 'create'} role`, page: breadcrumb?.pageTitle, page_url: window.location.href, user_agent: userAgent, api_path: process.env.REACT_APP_API_BASE_URL + api, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
-
     }
 
     const updateModalProcess = async (id) => {

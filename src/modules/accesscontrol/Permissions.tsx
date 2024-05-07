@@ -9,7 +9,7 @@ import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponen
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { Link } from 'react-router-dom';
-import { permissionsResets, createAuditLog, userAgent, badge_colors } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets,  userAgent, badge_colors } from '../../components/Helpers/CommonHelpers'
 import Select from 'react-select'
 import Badge  from '../../components/Badges/Badge';
 
@@ -79,7 +79,6 @@ function Permissions(props) {
             setIsLoading(false)
             setNoDataFound(true);
         }
-        createAuditLog(props, {log_type_id:3, hit_map:'role list', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent, api_path: process.env.REACT_APP_API_BASE_URL+PERMISSION_P, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
     
@@ -87,7 +86,6 @@ function Permissions(props) {
     
     useEffect(() => {
         permissionsResets(props)
-        createAuditLog(props, {log_type_id:3, hit_map:'page', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent })
         props.setPageBreadcrumb(breadcrumb)
 
         getPermissionsData()
@@ -116,7 +114,6 @@ function Permissions(props) {
         } else {
             toast.error(response?.message?.[0])
         }
-        createAuditLog(props, {log_type_id:3, hit_map:`${formData?.id ?  'update' : 'create'} permission`, page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent, api_path: process.env.REACT_APP_API_BASE_URL+api, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
     const updateModalProcess = async(id) => {

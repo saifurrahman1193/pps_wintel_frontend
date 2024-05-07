@@ -117,25 +117,12 @@ export const getTomorrow = () => {
 
 
 export const permission_routes = [
-    { pathname: '/transaction-report', permission: 'transaction report'},
-    { pathname: '/activity-log', permission: 'activity log list'},
-    { pathname: '/reduction-list', permission: 'transaction amount reduction list'},
-    { pathname: '/retry-app-status', permission: 'retry app status'},
-    { pathname: '/ibbl-transaction-search', permission: 'ibbl transaction search'},
-    
-    { pathname: '/trigger-amount', permission: 'trigger amount'},
-    { pathname: '/offer-expire', permission: 'trigger amount offer expire'},
-    { pathname: '/client-bulk-expire', permission: 'trigger amount client bulk expire'},
-    { pathname: '/allow-all-trigger-amount-to-client', permission: 'allow all trigger amount to a client'},
-    { pathname: '/add-new-trigger-amount-to-clients', permission: 'add new trigger amount to clients'},
-    { pathname: '/blocked-amount-list', permission: 'blocked amount list'},
-
     { pathname: '/users', permission: 'user list'},
     { pathname: '/roles', permission: 'role list'},
     { pathname: '/permissions', permission: 'permission list'},
+
+    { pathname: '/profile', permission: 'permission list'},
     
-    { pathname: '/manage-callback', permission: 'callback list'},
-    { pathname: '/client-ip', permission: 'client ip list'},
 ] 
 
 export const checkPermissionsWiseRouteChecker = (props) => {

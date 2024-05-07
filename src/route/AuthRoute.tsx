@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 function AuthRoute(props) {
+
+    
 
     const checkAccessibility = () => {
         if (props.can && props.ability) {

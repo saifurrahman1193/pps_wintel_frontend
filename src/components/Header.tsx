@@ -7,12 +7,9 @@ import { postCall } from '../api/apiService'
 import { USER_LOGOUT } from '../redux/action'
 import Loader from './Loader'
 
-import INIT from '../route/utils/Init';
 
 function Header(props) {
-    useEffect(() => {
-        INIT()
-    }, [])
+ 
 
     const navigate = useNavigate();
 

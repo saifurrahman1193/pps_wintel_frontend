@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../redux/action'
-import { permissionsResets, createAuditLog, userAgent, numberFormat } from '../components/Helpers/CommonHelpers'
+import { permissionsResets, userAgent, numberFormat } from '../components/Helpers/CommonHelpers'
 import { toast } from 'react-toastify'
 import { postCall } from '../api/apiService'
 import INIT from '../route/utils/Init';

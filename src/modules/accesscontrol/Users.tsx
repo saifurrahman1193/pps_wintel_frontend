@@ -10,7 +10,7 @@ import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponen
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import Badge  from '../../components/Badges/Badge';
-import { permissionsResets, createAuditLog, userAgent } from '../../components/Helpers/CommonHelpers.js'
+import { permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers.js'
 import { Link } from 'react-router-dom';
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 
@@ -81,7 +81,6 @@ function Users(props) {
             setNoDataFound(true);
         }
 
-        createAuditLog(props, {log_type_id:3, hit_map:'user list', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent, api_path: process.env.REACT_APP_API_BASE_URL+USERS, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
     // role select process
@@ -123,7 +122,6 @@ function Users(props) {
 
     useEffect(() => {
         permissionsResets(props)
-        createAuditLog(props, {log_type_id:3, hit_map:'page', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent })
         props.setPageBreadcrumb(breadcrumb)
         getRoles()
         getUsersData()
@@ -154,7 +152,6 @@ function Users(props) {
         } else {
             toast.error(response?.message?.[0])
         }
-        createAuditLog(props, {log_type_id:3, hit_map:`${formData?.id ?  'update' : 'create'} user`, page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent, api_path: process.env.REACT_APP_API_BASE_URL+api, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
     const updateModalProcess = async(id) => {

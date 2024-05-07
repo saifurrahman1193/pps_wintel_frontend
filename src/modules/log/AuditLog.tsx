@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import Select from 'react-select'
 import Submitbutton from '../../components/Buttons/Submitbutton'
-import { permissionsResets, createAuditLog, userAgent, getTodayStartTime, getTodayEndTime, getSpecificDateTimeAMPM } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets, userAgent, getTodayStartTime, getTodayEndTime, getSpecificDateTimeAMPM } from '../../components/Helpers/CommonHelpers'
 
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -87,13 +87,11 @@ function AuditLog(props) {
             setIsLoading(false)
             setNoDataFound(true);
         }
-        createAuditLog(props, {log_type_id:4, hit_map:'audit log list', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent, api_path: process.env.REACT_APP_API_BASE_URL+ALL_AUDIT_LOG_P, api_request: JSON.stringify(request), api_response: JSON.stringify(response) })
     }
 
 
     useEffect(() => {
         permissionsResets(props)
-        createAuditLog(props, {log_type_id:4, hit_map:'page', page:breadcrumb?.pageTitle, page_url:window.location.href, user_agent:userAgent })
         props.setPageBreadcrumb(breadcrumb)
         getAllAuditLog_p()
         getAllUserList()
