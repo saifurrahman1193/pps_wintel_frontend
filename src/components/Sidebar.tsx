@@ -5,6 +5,22 @@ import { USER_LOGOUT } from '../redux/action'
 
 function Sidebar(props) {
 
+    const vCurPathA = (pathname='') => {
+        const path = props.breadcrumb.currentPath
+        if (path == pathname) {
+            return 'active'
+        }
+        return ''
+    }
+
+    const vCurPathLi = (pathname='') => {
+        const path = props.breadcrumb.currentPath
+        if (path == pathname) {
+            return 'mm-active'
+        }
+        return ''
+    }
+
     return (
         <div className="vertical-menu">
             <div data-simplebar className="h-100">
@@ -12,8 +28,8 @@ function Sidebar(props) {
                 <div id="sidebar-menu">
                     {/* Left Menu Start */}
                     <ul className="metismenu list-unstyled" id="side-menu">
-                        <li>
-                            <Link to="/dashboard">
+                        <li className={vCurPathLi('/dashboard')}>
+                            <Link to="/dashboard" className={vCurPathA('/dashboard')}>
                                 <i data-feather="home" />
                                 <span data-key="t-dashboard">Dashboard</span>
                             </Link>
@@ -25,9 +41,9 @@ function Sidebar(props) {
                                 <span data-key="t-authentication">Access Control</span>
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="/users" data-key="t-user">User</Link></li>
-                                <li><Link to="/roles" data-key="t-role">Role</Link></li>
-                                <li><Link to="/permissions" data-key="t-permission">Permission</Link></li>
+                                <li className={vCurPathLi('/users')}><Link to="/users" data-key="t-user" className={vCurPathA('/users')}>User</Link></li>
+                                <li className={vCurPathLi('/roles')}><Link to="/roles" data-key="t-role" className={vCurPathA('/roles')}>Role</Link></li>
+                                <li className={vCurPathLi('/permissions')}><Link to="/permissions" data-key="t-permission" className={vCurPathA('/permissions')}>Permission</Link></li>
                             </ul>
                         </li>
 

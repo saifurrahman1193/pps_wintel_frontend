@@ -10,6 +10,13 @@ import Loader from './Loader'
 
 function Header(props) {
  
+    const vCurPathA = (pathname='') => {
+        const path = props.breadcrumb.currentPath
+        if (path == pathname) {
+            return 'active'
+        }
+        return ''
+    }
 
     const navigate = useNavigate();
 
@@ -229,9 +236,9 @@ function Header(props) {
                                 <span className="d-none d-xl-inline-block ms-1 fw-medium">Shawn L.</span>
                                 <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
                             </button>
-                            <div className="dropdown-menu dropdown-menu-end">
+                            <div className="dropdown-menu dropdown-menu-end dropdownmenu-primary">
                                 {/* item*/}
-                                <Link className="dropdown-item" to="/profile"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</Link>
+                                <Link className={"dropdown-item "+vCurPathA('/profile')} to="/profile"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</Link>
                                
                                 <div className="dropdown-divider" />
                                 <Link className="dropdown-item" to="/" onClick={userLogout}>
