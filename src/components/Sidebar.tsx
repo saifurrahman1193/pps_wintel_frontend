@@ -24,10 +24,29 @@ function Sidebar(props) {
     }
 
     useEffect(() => {
-        document?.getElementById('vertical-menu-btn')?.addEventListener('click', () => {
-            INIT();
-        });
+        sidbar_handler()
+
     }, []);
+
+    const sidbar_handler = () => {
+        const menu_button = document?.getElementById('vertical-menu-btn');
+        if (menu_button) {
+            menu_button.addEventListener('click', () => {
+                const body = document.querySelector('body');
+                if (body && body.classList.contains('sidebar-enable') && body.getAttribute('data-sidebar-size') === 'lg') {
+                    setTimeout(() => {
+                        body.setAttribute('data-sidebar-size', 'sm');
+                        body.classList.remove('sidebar-enable');
+                    }, 200);
+                } else {
+                    setTimeout(() => {
+                        body.setAttribute('data-sidebar-size', 'lg');
+                        body.classList.add('sidebar-enable');
+                    }, 200);
+                }
+            });
+        }
+    }
 
     return (
         <div className="vertical-menu">
