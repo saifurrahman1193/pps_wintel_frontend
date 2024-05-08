@@ -7,7 +7,7 @@ import INIT from '../route/utils/Init'
 
 function Sidebar(props) {
 
-    const vCurPathA = (pathname='') => {
+    const vCurPathA = (pathname = '') => {
         const path = props.breadcrumb.currentPath
         if (path == pathname) {
             return 'active'
@@ -15,7 +15,7 @@ function Sidebar(props) {
         return ''
     }
 
-    const vCurPathLi = (pathname='') => {
+    const vCurPathLi = (pathname = '') => {
         const path = props.breadcrumb.currentPath
         if (path == pathname) {
             return 'mm-active'
@@ -24,9 +24,9 @@ function Sidebar(props) {
     }
 
     useEffect(() => {
-        if (document.getElementById('vertical-menu-btn')) {
-            document.getElementById('vertical-menu-btn').addEventListener('click', INIT);
-        }
+        document?.getElementById('vertical-menu-btn')?.addEventListener('click', () => {
+            INIT();
+        });
     }, []);
 
     return (
@@ -42,7 +42,7 @@ function Sidebar(props) {
                                 <span data-key="t-dashboard">Dashboard</span>
                             </Link>
                         </li>
-                       
+
                         <li>
                             <Link to="#!" className="has-arrow">
                                 <i data-feather="shield" />
@@ -101,9 +101,9 @@ function Sidebar(props) {
                                 <li><Link to="auth-logout.html" data-key="t-masking-request">Masking Request</Link></li>
                             </ul>
                         </li>
-                        
+
                     </ul>
-                   
+
                 </div>
                 {/* Sidebar */}
             </div>
