@@ -90,7 +90,9 @@ function Profile(props) {
     }
 
     useEffect(() => {
-        INIT()
+        setTimeout(function() {
+            INIT()
+        }, 2000);
         permissionsResets(props, { checkPermissionsWiseRouteChecker: false })
         props.setPageBreadcrumb(breadcrumb)
         getUser()

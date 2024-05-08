@@ -49,22 +49,22 @@ function Header(props) {
                     <div className="d-flex">
                         {/* LOGO */}
                         <div className="navbar-brand-box">
-                            <a href="index.html" className="logo logo-dark">
+                            <Link to="/dashboard" className="logo logo-dark">
                                 <span className="logo-sm">
                                     <img src="assets/images/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
                                     <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
-                            </a>
-                            <a href="index.html" className="logo logo-light">
+                            </Link>
+                            <Link to="/dashboard" className="logo logo-light">
                                 <span className="logo-sm">
                                     <img src="assets/images/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
                                     <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
-                            </a>
+                            </Link>
                         </div>
                         <button type="button" className="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
                             <i className="fa fa-fw fa-bars" />
