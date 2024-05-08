@@ -53,7 +53,7 @@ function Profile(props) {
 
         let request = { ...formData, id: formData?.id }
         let api = UPDATE_PROFILE
-        var response = await postCall(api, request, props.user.access_token)
+        const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getUser(null, true)
             setFormData(formInitial)
@@ -73,7 +73,7 @@ function Profile(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        var response = await postCall(SINGLE_USER_INFO, { id: props?.user?.userId }, props.user.access_token)
+        const response = await postCall(SINGLE_USER_INFO, { id: props?.user?.userId }, props.user.access_token)
         if (response?.code === 200) {
             // console.log(response)
             var userData = response?.data

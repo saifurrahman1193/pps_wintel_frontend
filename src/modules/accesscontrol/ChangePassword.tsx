@@ -33,7 +33,7 @@ function ChangePassword(props) {
         if (e && e.preventDefault) { 
             e.preventDefault();
         }
-        var response = await postCall(CHANGE_PASSWORD, formData, props.user.access_token)
+        const response = await postCall(CHANGE_PASSWORD, formData, props.user.access_token)
         if (response?.code === 200) {
             setFormData(formInitial);
             toast.success(response?.message?.[0])

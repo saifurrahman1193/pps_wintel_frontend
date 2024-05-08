@@ -65,7 +65,7 @@ function Roles(props) {
             e.preventDefault();
         }
         let request = { page: page }
-        var response = await postCall(ROLES_P, request, props.user.access_token)
+        const response = await postCall(ROLES_P, request, props.user.access_token)
         if (response?.code === 200) {
             setRolesData(response?.data?.data);
             setPaginator(response?.data?.paginator);
@@ -107,7 +107,7 @@ function Roles(props) {
         }
         let request = { ...formData, id: formData?.id }
         let api = getApi()
-        var response = await postCall(api, request, props.user.access_token)
+        const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getRolesData(null, paginator?.current_page)
             clear()
@@ -125,7 +125,7 @@ function Roles(props) {
 
         // get permissions for single role
         let permissions = []
-        var response = await postCall(SINGLE_ROLE_INFO, { id: id }, props.user.access_token)
+        const response = await postCall(SINGLE_ROLE_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
             permissions = response?.data?.permissions
             let modules = handle_module_permissions_select(null, permissions)
@@ -148,7 +148,7 @@ function Roles(props) {
     // modules checkboxes select process
     const [modulesData, setModulesData] = useState([])
     const getAllModules = async () => {
-        var response = await postCall(MODULE_ALL, null, props?.user?.access_token)
+        const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
             setModulesData(response?.data?.modulelist)
             setFormData({ ...formInitial, modules: response?.data?.modulelist })

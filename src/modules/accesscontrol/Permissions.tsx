@@ -66,7 +66,7 @@ function Permissions(props) {
             e.preventDefault();
         }
         let request = { page: page, search: search }
-        var response = await postCall(PERMISSION_P, request, props.user.access_token)
+        const response = await postCall(PERMISSION_P, request, props.user.access_token)
         if (response?.code === 200) {
             setPermissionsData(response?.data?.data);
             setPaginator(response?.data?.paginator);
@@ -108,7 +108,7 @@ function Permissions(props) {
         }
         let request = { ...formData, id: formData?.id }
         let api = getApi()
-        var response = await postCall(api, request, props.user.access_token)
+        const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getPermissionsData(null, paginator?.current_page)
             setFormData(formInitial)
@@ -150,7 +150,7 @@ function Permissions(props) {
 
 
     const getAllModules = async () => {
-        var response = await postCall(MODULE_ALL, null, props?.user?.access_token)
+        const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
             var list = (response?.data?.modulelist).map((item) => {
                 return { label: item?.name, value: item?.id }

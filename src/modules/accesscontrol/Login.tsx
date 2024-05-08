@@ -22,7 +22,7 @@ function Login(props) {
 
     const onSubmit = async (request, onSubmitProps) => {
         // console.log('Form request =', request);
-        var response = await postCall(LOGIN, request, null, { hitmap: 'login submit', pageurl: window.location.href, page: 'Login' })
+        const response = await postCall(LOGIN, request, null, { hitmap: 'login submit', pageurl: window.location.href, page: 'Login' })
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)

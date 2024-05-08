@@ -10,7 +10,7 @@ import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponen
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import Badge from '../../components/Badges/Badge';
-import { badge_colors, permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers.js'
+import { badge_colors, permissionsResets, capitalizeFirstLetter } from '../../components/Helpers/CommonHelpers.js'
 import { Link } from 'react-router-dom';
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
@@ -67,7 +67,7 @@ function Users(props) {
             e.preventDefault();
         }
         let request = { page: page, search: search }
-        var response = await postCall(USERS, request, props.user.access_token)
+        const response = await postCall(USERS, request, props.user.access_token)
         if (response?.code === 200) {
             setUsersData(response?.data?.data);
             setPaginator(response?.data?.paginator);
@@ -110,10 +110,10 @@ function Users(props) {
     }, [roleSelectedOption])
 
     const getRoles = async () => {
-        var response = await postCall(ROLES_ALL, null, props?.user?.access_token)
+        const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
-            var rolesData = (response?.data?.rolelist).map((role) => {
-                return { label: role?.name?.capitalize(), value: role?.name }
+            const rolesData = (response?.data?.rolelist).map((role) => {
+                return { label: capitalizeFirstLetter(role?.name || ''), value: role?.name }
             })
             setRolesOptions(rolesData || [])
         } else {
@@ -143,7 +143,7 @@ function Users(props) {
         }
         let request = { ...formData, id: formData?.id }
         let api = getApi()
-        var response = await postCall(api, request, props.user.access_token)
+        const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getUsersData(null, paginator?.current_page)
             setFormData(formInitial)
@@ -157,16 +157,16 @@ function Users(props) {
     }
 
     const updateModalProcess = async (id) => {
-        var userData = usersData.filter((item) => {
+        const userData = usersData.filter((item) => {
             return item.id == id
         })[0]
         setFormData({ ...formData, ...userData, id: id, password: '' })
 
         // get roles for single user
-        var response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
+        const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
-            var rolesOptions = (response?.data?.roles_names_array).map((role) => {
-                return { label: role?.capitalize(), value: role }
+            const rolesOptions = (response?.data?.roles_names_array).map((role) => {
+                return { label: capitalizeFirstLetter(role || ''), value: role }
             })
             setRoleSelectedOption(rolesOptions)
         }

@@ -73,7 +73,7 @@ function AuditLog(props) {
             e.preventDefault();
         }
         let request = { page: page, ...formData?.filter }
-        var response = await postCall(ALL_AUDIT_LOG_P, request, props.user.access_token)
+        const response = await postCall(ALL_AUDIT_LOG_P, request, props.user.access_token)
         if (response?.code === 200) {
             setReportData(response?.data?.data);
             setPaginator(response?.data?.paginator);

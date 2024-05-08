@@ -34,7 +34,7 @@ function ProfileDetails(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        var response = await postCall(SINGLE_USER_INFO, { id: userId }, token)
+        const response = await postCall(SINGLE_USER_INFO, { id: userId }, token)
         if (response?.code === 200) {
             var userData = response?.data
 
@@ -48,7 +48,7 @@ function ProfileDetails(props) {
     // modules checkboxes select process
     const [modulesData, setModulesData] = useState([])
     const getAllModules = async () => {
-        var response = await postCall(MODULE_ALL, null, token)
+        const response = await postCall(MODULE_ALL, null, token)
         if (response?.code === 200) {
             setModulesData(response?.data?.modulelist)
             setFormData({ ...formInitial, modules: response?.data?.modulelist })
