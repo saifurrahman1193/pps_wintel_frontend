@@ -5,7 +5,7 @@ function Badge(props) {
     return (
         <Fragment>
             {
-                ReactHtmlParser(`<span class="badge ${props?.badgeClass||'badge-light-primary'} fs-7 m-1">${props?.badgeValue}</span>`)
+                ReactHtmlParser(`<span class="badge ${props?.badgeClass||'badge-soft-primary'} m-1">${props?.badgeValue}</span>`)
             }
         </Fragment>
     )

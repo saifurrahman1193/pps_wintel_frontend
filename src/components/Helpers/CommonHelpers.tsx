@@ -242,7 +242,7 @@ export const convertEngToBanglaNumber = (str = '') => {
 }
 
 
-export const badge_colors = ['badge-light-primary', 'badge-light-info', 'badge-light-success', 'badge-light-danger', 'badge-light-warning',]
+export const badge_colors = ['badge-soft-primary', 'badge-soft-info', 'badge-soft-success', 'badge-soft-danger']
 
 
 
