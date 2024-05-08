@@ -124,8 +124,7 @@ export const permission_routes = [
 ]
 
 export const checkPermissionsWiseRouteChecker = (props) => {
-
-    const current_pathname = props?.location?.pathname || ''
+    const current_pathname = window.location.pathname || ''
 
     const permission_route = permission_routes?.find((item) => {
         return item?.pathname == current_pathname
@@ -133,6 +132,7 @@ export const checkPermissionsWiseRouteChecker = (props) => {
 
     if (!(props?.permissions?.includes(permission_route?.permission))) {
         window.location.href = '/dashboard'
+        // props.history.push('/')
     }
 }
 
