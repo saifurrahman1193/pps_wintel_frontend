@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { USER_LOGOUT } from '../redux/action'
+import INIT from '../route/utils/Init'
 
 
 function Sidebar(props) {
@@ -20,6 +22,12 @@ function Sidebar(props) {
         }
         return ''
     }
+
+    useEffect(() => {
+        if (document.getElementById('vertical-menu-btn')) {
+            document.getElementById('vertical-menu-btn').addEventListener('click', INIT);
+        }
+    }, []);
 
     return (
         <div className="vertical-menu">

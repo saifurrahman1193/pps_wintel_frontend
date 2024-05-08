@@ -86,10 +86,7 @@ function Permissions(props) {
 
 
     useEffect(() => {
-        setTimeout(function() {
-            INIT()
-        }, 200);
-
+        INIT()
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 

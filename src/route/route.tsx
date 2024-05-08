@@ -17,7 +17,6 @@ import Footer from '../components/Footer';
 import Notfound from '../modules/accesscontrol/Error/Notfound';
 import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
-import INIT from './utils/Init';
 import Breadcrumb from '../components/Breadcrumb';
 
 function Router(props) {

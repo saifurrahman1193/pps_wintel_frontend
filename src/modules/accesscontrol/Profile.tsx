@@ -90,9 +90,7 @@ function Profile(props) {
     }
 
     useEffect(() => {
-        setTimeout(function() {
-            INIT()
-        }, 200);
+        INIT()
         permissionsResets(props, { checkPermissionsWiseRouteChecker: false })
         props.setPageBreadcrumb(breadcrumb)
         getUser()
@@ -180,7 +178,7 @@ function Profile(props) {
                                 <li className="nav-item">
                                     <a className="nav-link px-3 active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         {/* end card body */}
@@ -197,25 +195,25 @@ function Profile(props) {
                                         <div className="pb-0">
                                             <div className="row">
                                                 <div className="col-xl">
-                                                <ProfileDetails userId={props?.user?.userId} token={props?.user?.access_token} />
+                                                    <ProfileDetails userId={props?.user?.userId} token={props?.user?.access_token} />
                                                 </div>
                                             </div>
                                         </div>
-                                     
+
                                     </div>
                                 </div>
                                 {/* end card body */}
                             </div>
                             {/* end card */}
-                          
+
                         </div>
                         {/* end tab pane */}
-                       
+
                     </div>
                     {/* end tab content */}
                 </div>
                 {/* end col */}
-           
+
             </div>
 
 
