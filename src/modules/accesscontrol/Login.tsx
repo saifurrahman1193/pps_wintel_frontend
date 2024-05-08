@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, useFormik, Form } from 'formik';
 import Animate1 from '../../components/Animate/Animate1/Animate1'
@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 function Login(props) {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [initialValues, setInitialValues] = useState({
         email: '',

@@ -5,11 +5,10 @@ import { postCall } from '../../api/apiService'
 import { PERMISSION_P, CREATE_PERMISSION, UPDATE_PERMISSION, MODULE_ALL } from '../../api/apiPath'
 import Paginate from '../../components/Datatable/Paginate'
 import { toast } from 'react-toastify'
-import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponent'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { Link } from 'react-router-dom';
-import { permissionsResets, userAgent, badge_colors } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets, badge_colors } from '../../components/Helpers/CommonHelpers'
 import Select from 'react-select'
 import Badge from '../../components/Badges/Badge';
 import INIT from '../../route/utils/Init';

@@ -6,12 +6,9 @@ import { postCall } from '../../api/apiService'
 import { USERS, ROLES_ALL, CREATE_USER, UPDATE_USER, SINGLE_USER_INFO } from '../../api/apiPath'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
-import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponent'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import Badge from '../../components/Badges/Badge';
-import { badge_colors, permissionsResets, capitalizeFirstLetter } from '../../components/Helpers/CommonHelpers.js'
-import { Link } from 'react-router-dom';
+import { permissionsResets, capitalizeFirstLetter } from '../../components/Helpers/CommonHelpers.js'
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
 
@@ -96,7 +93,7 @@ function Users(props) {
     }
     const handleRoleMultipleSelectAfter = () => {
         if (roleSelectedOption) {
-            var roles = roleSelectedOption?.map((role) => {
+            const roles = roleSelectedOption?.map((role) => {
                 return role.value
             })
             setFormData({ ...formData, roles: roles })
@@ -112,11 +109,10 @@ function Users(props) {
     const getRoles = async () => {
         const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
-            const rolesData = (response?.data?.rolelist).map((role) => {
+            const rolesData = (response?.data?.rolelist || []).map((role) => {
                 return { label: capitalizeFirstLetter(role?.name || ''), value: role?.name }
             })
             setRolesOptions(rolesData || [])
-        } else {
         }
     }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
 import { postCall } from '../../api/apiService'
-import { SINGLE_USER_INFO, UPDATE_PROFILE, MODULE_ALL } from '../../api/apiPath'
+import { SINGLE_USER_INFO, UPDATE_PROFILE } from '../../api/apiPath'
 import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { permissionsResets } from '../../components/Helpers/CommonHelpers'

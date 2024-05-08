@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
 import MultiColorBadges from '../../components/Badges/MultiColor';
@@ -8,7 +8,7 @@ import Paginate from '../../components/Datatable/Paginate'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import { permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
 import INIT from '../../route/utils/Init';
 
