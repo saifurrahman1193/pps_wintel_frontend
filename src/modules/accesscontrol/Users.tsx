@@ -276,62 +276,64 @@ function Users(props) {
                         usersData?.length > 0 ?
                             <Fragment>
 
+                                <div className='table-responsive'>
+                                    <table className="table table-custom-sm table-hover table-rounded table-striped border">
+                                        <thead>
+                                            <tr className="text-start text-muted fw-bolder text-uppercase">
+                                                <th>Serial</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Roles</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                usersData.map((row, i) => {
+                                                    return (
+                                                        <tr key={'row-' + i}>
+                                                            <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>
+                                                                <ProfileDetailsModal
+                                                                    token={props?.user?.access_token}
+                                                                    text={row.name}
+                                                                    profiledetail_row_id={i}
+                                                                    userId_row={row?.id}
+                                                                    userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
+                                                                    profileDetailModalUpdate={profileDetailModalUpdate}
+                                                                    key={'profile-details-modal-' + i}
+                                                                />
+                                                            </td>
+                                                            <td>{row.email}</td>
+                                                            <td>{row.roles_comma_seperated}</td>
+                                                            <td>
+                                                                <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    props.permissions.includes('user update') ?
+                                                                        <div className="form-inline" >
+                                                                            <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                                onClick={() => updateModalProcess(row.id)}
+                                                                            >
+                                                                                <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
+                                                                            </a>
+                                                                        </div>
+                                                                        :
+                                                                        null
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
 
 
-                                <table className="table table-custom-sm table-hover table-rounded table-striped border">
-                                    <thead>
-                                        <tr className="text-start text-muted fw-bolder text-uppercase">
-                                            <th>Serial</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Roles</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody >
-                                        {
-                                            usersData.map((row, i) => {
-                                                return (
-                                                    <tr key={'row-' + i}>
-                                                        <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                        <td>
-                                                            <ProfileDetailsModal
-                                                                token={props?.user?.access_token}
-                                                                text={row.name}
-                                                                profiledetail_row_id={i}
-                                                                userId_row={row?.id}
-                                                                userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
-                                                                profileDetailModalUpdate={profileDetailModalUpdate}
-                                                                key={'profile-details-modal-' + i}
-                                                            />
-                                                        </td>
-                                                        <td>{row.email}</td>
-                                                        <td>{row.roles_comma_seperated}</td>
-                                                        <td>
-                                                            <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                props.permissions.includes('user update') ?
-                                                                    <div className="form-inline" >
-                                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
-                                                                            onClick={() => updateModalProcess(row.id)}
-                                                                        >
-                                                                            <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                        </a>
-                                                                    </div>
-                                                                    :
-                                                                    null
-                                                            }
-
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
                             </Fragment>
                             : null
                     }

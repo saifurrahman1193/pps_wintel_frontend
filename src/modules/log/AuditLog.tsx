@@ -237,59 +237,58 @@ function AuditLog(props) {
                     {
                         reportData?.length > 0 ?
                             <Fragment>
+                                <div className='table-responsive'>
+                                    <table className="table table-hover table-rounded table-striped border">
+                                        <thead>
+                                            <tr className="text-start text-muted fw-bolder text-uppercase">
+                                                <th>Serial</th>
+                                                <th>User</th>
+                                                <th>Log Type</th>
+                                                <th>Page</th>
+                                                <th>Sagment</th>
+                                                <th>Page URL</th>
+                                                <th>Log Time</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
 
-                                <table className="table table-hover table-rounded table-striped border">
-                                    <thead>
-                                        <tr className="text-start text-muted fw-bolder text-uppercase">
-                                            <th>Serial</th>
-                                            <th>User</th>
-                                            <th>Log Type</th>
-                                            <th>Page</th>
-                                            <th>Sagment</th>
-                                            <th>Page URL</th>
-                                            <th>Log Time</th>
-                                            <th>Details</th>
-                                        </tr>
-                                    </thead>
+                                        <tbody>
+                                            {
+                                                reportData.map((row, i) => {
+                                                    return (
+                                                        <tr key={'row-' + i}>
+                                                            <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>
+                                                                <ProfileDetailsModal
+                                                                    token={props?.user?.access_token}
+                                                                    text={row?.user?.name}
+                                                                    profiledetail_row_id={i}
+                                                                    userId_row={row?.user?.id}
+                                                                    userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
+                                                                    profileDetailModalUpdate={profileDetailModalUpdate}
+                                                                    key={'profile-details-modal-' + i}
+                                                                />
+                                                            </td>
+                                                            <td>{row?.logtype?.log_type}</td>
+                                                            <td>{row?.page}</td>
+                                                            <td>{row?.hit_map}</td>
+                                                            <td>{row?.page_url}</td>
+                                                            <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
+                                                            <td>
+                                                                <a role="button" data-bs-toggle="modal" data-bs-target="#file_paths_modal" title="Edit Record?" href="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                                                    onClick={() => updateDetailModalData(row)}
+                                                                >
+                                                                    <i className="las la-eye fs-2"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
 
-                                    <tbody>
-                                        {
-                                            reportData.map((row, i) => {
-                                                return (
-                                                    <tr key={'row-' + i}>
-                                                        <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                        <td>
-                                                            <ProfileDetailsModal
-                                                                token={props?.user?.access_token}
-                                                                text={row?.user?.name}
-                                                                profiledetail_row_id={i}
-                                                                userId_row={row?.user?.id}
-                                                                userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
-                                                                profileDetailModalUpdate={profileDetailModalUpdate}
-                                                                key={'profile-details-modal-' + i}
-                                                            />
-                                                        </td>
-                                                        <td>{row?.logtype?.log_type}</td>
-                                                        <td>{row?.page}</td>
-                                                        <td>{row?.hit_map}</td>
-                                                        <td>{row?.page_url}</td>
-                                                        <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
-                                                        <td>
-                                                            <a role="button" data-bs-toggle="modal" data-bs-target="#file_paths_modal" title="Edit Record?" href="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
-                                                                onClick={() => updateDetailModalData(row)}
-                                                            >
-                                                                <i className="las la-eye fs-2"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-
-                                </table>
-
-
+                                    </table>
+                                </div>
                             </Fragment>
                             : null
                     }

@@ -236,52 +236,51 @@ function Permissions(props) {
                     {
                         permissionsData?.length > 0 ?
                             <Fragment>
-
-                                <table className="table table-custom-sm table-hover table-rounded table-striped border">
-                                    <thead>
-                                        <tr className="text-start text-muted fw-bolder text-uppercase">
-                                            <th>Serial</th>
-                                            <th>Name</th>
-                                            <th>Module</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            permissionsData.map((row, i) => {
-                                                return (
-                                                    <tr key={'row-permission-' + i}>
-                                                        <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                        <td>{row.name}</td>
-                                                        <td>
-                                                            {
-                                                                row?.module_id ?
-                                                                    <Badge badgeValue={row?.module?.name} badgeClass={badge_colors[(row?.module_id - 1) % 5]} />
-                                                                    : null
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                props.permissions.includes('permission update') ?
-                                                                    <div className="form-inline" >
-                                                                        <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
-                                                                            onClick={() => updateModalProcess(row.id)}
-                                                                        >
-                                                                            <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                        </Link>
-                                                                    </div>
-                                                                    :
-                                                                    null
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-
-
+                                <div className='table-responsive'>
+                                    <table className="table table-custom-sm table-hover table-rounded table-striped border">
+                                        <thead>
+                                            <tr className="text-start text-muted fw-bolder text-uppercase">
+                                                <th>Serial</th>
+                                                <th>Name</th>
+                                                <th>Module</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                permissionsData.map((row, i) => {
+                                                    return (
+                                                        <tr key={'row-permission-' + i}>
+                                                            <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>{row.name}</td>
+                                                            <td>
+                                                                {
+                                                                    row?.module_id ?
+                                                                        <Badge badgeValue={row?.module?.name} badgeClass={badge_colors[(row?.module_id - 1) % 5]} />
+                                                                        : null
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    props.permissions.includes('permission update') ?
+                                                                        <div className="form-inline" >
+                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                                onClick={() => updateModalProcess(row.id)}
+                                                                            >
+                                                                                <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
+                                                                            </Link>
+                                                                        </div>
+                                                                        :
+                                                                        null
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </Fragment>
                             : null
                     }

@@ -259,45 +259,48 @@ function Roles(props) {
 
                     {
                         rolesData?.length > 0 ?
-                            <table className="table table-custom-sm table-hover table-rounded table-striped border">
-                                <thead>
-                                    <tr className="text-start text-muted fw-bolder text-uppercase">
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Permissions</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        rolesData.map((row, i) => {
-                                            return (
-                                                <tr key={'row-' + i}>
-                                                    <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                    <td className="align-middle">{row?.name}</td>
-                                                    <td style={{ maxWidth: "250px", whiteSpace: "normal" }} >
-                                                        <MultiColorBadges listingtype='serial' dataList={row?.permissions_list} />
-                                                    </td>
-                                                    <td className="align-middle">
-                                                        {
-                                                            props?.permissions?.includes('role update') ?
-                                                                <div className="form-inline" >
-                                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
-                                                                        onClick={() => updateModalProcess(row.id)}
-                                                                    >
-                                                                        <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                    </a>
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
+                            <div className='table-responsive'>
+                                <table className="table table-custom-sm table-hover table-rounded table-striped border">
+                                    <thead>
+                                        <tr className="text-start text-muted fw-bolder text-uppercase">
+                                            <th>Serial</th>
+                                            <th>Name</th>
+                                            <th>Permissions</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            rolesData.map((row, i) => {
+                                                return (
+                                                    <tr key={'row-' + i}>
+                                                        <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                        <td className="align-middle">{row?.name}</td>
+                                                        <td style={{ maxWidth: "250px", whiteSpace: "normal" }} >
+                                                            <MultiColorBadges listingtype='serial' dataList={row?.permissions_list} />
+                                                        </td>
+                                                        <td className="align-middle">
+                                                            {
+                                                                props?.permissions?.includes('role update') ?
+                                                                    <div className="form-inline" >
+                                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                            onClick={() => updateModalProcess(row.id)}
+                                                                        >
+                                                                            <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
+                                                                        </a>
+                                                                    </div>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
                             : null
                     }
 
