@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, useFormik, Form } from 'formik';
 import Animate1 from '../../components/Animate/Animate1/Animate1'
@@ -13,8 +12,6 @@ import { toast } from 'react-toastify';
 
 function Login(props) {
 
-    const navigate = useNavigate();
-
     const [initialValues, setInitialValues] = useState({
         email: '',
         password: ''
@@ -26,7 +23,6 @@ function Login(props) {
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)
-            // navigate('/dashboard')
             window.location.href = '/dashboard';
             onSubmitProps.setSubmitting(false)
             document.body.style.background = ''
