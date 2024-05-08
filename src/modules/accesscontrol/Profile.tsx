@@ -51,8 +51,8 @@ function Profile(props) {
             e.preventDefault();
         }
 
-        let request = { ...formData, id: formData?.id }
-        let api = UPDATE_PROFILE
+        const request = { ...formData, id: formData?.id }
+        const api = UPDATE_PROFILE
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getUser(null, true)

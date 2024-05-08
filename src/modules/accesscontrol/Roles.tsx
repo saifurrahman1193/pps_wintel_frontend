@@ -52,7 +52,7 @@ function Roles(props) {
 
 
     const [rolesData, setRolesData] = useState({})
-    var [paginator, setPaginator] = useState({})
+    const [paginator, setPaginator] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
@@ -118,7 +118,7 @@ function Roles(props) {
     }
 
     const updateModalProcess = async (id) => {
-        var roleData = rolesData.find((item) => {
+        const roleData = rolesData.find((item) => {
             return item.id == id
         })
 
@@ -127,7 +127,7 @@ function Roles(props) {
         const response = await postCall(SINGLE_ROLE_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
             permissions = response?.data?.permissions
-            let modules = handle_module_permissions_select(null, permissions)
+            const modules = handle_module_permissions_select(null, permissions)
             setFormData({ ...formData, ...roleData, id: id, permissions: permissions, modules: modules })
         }
     }

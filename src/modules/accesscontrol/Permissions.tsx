@@ -52,7 +52,7 @@ function Permissions(props) {
 
 
     const [permissionsData, setPermissionsData] = useState({})
-    var [paginator, setPaginator] = useState({})
+    const [paginator, setPaginator] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
@@ -104,8 +104,8 @@ function Permissions(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { ...formData, id: formData?.id }
-        let api = getApi()
+        const request = { ...formData, id: formData?.id }
+        const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getPermissionsData(null, paginator?.current_page)
@@ -118,11 +118,11 @@ function Permissions(props) {
     }
 
     const updateModalProcess = async (id) => {
-        var permissionData = permissionsData.find((item) => {
+        const permissionData = permissionsData.find((item) => {
             return item.id == id
         })
 
-        var moduleData = moduleOptions?.find((item) => {
+        const moduleData = moduleOptions?.find((item) => {
             return item?.value == permissionData?.module_id
         })
 
@@ -150,13 +150,12 @@ function Permissions(props) {
     const getAllModules = async () => {
         const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
-            var list = (response?.data?.modulelist).map((item) => {
+            const list = (response?.data?.modulelist || []).map((item) => {
                 return { label: item?.name, value: item?.id }
             })
 
             setModuleOptions(list)
-        } else {
-        }
+        } 
     }
 
     // modules select process

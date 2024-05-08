@@ -51,7 +51,7 @@ function Users(props) {
     }
 
     const [usersData, setUsersData] = useState({})
-    var [paginator, setPaginator] = useState({})
+    const [paginator, setPaginator] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
@@ -138,8 +138,8 @@ function Users(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { ...formData, id: formData?.id }
-        let api = getApi()
+        const request = { ...formData, id: formData?.id }
+        const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getUsersData(null, paginator?.current_page)
