@@ -8,7 +8,7 @@ import Paginate from '../../components/Datatable/Paginate'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import { permissionsResets,  userAgent } from '../../components/Helpers/CommonHelpers'
+import { permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
 import INIT from '../../route/utils/Init';
 
@@ -135,8 +135,8 @@ function Roles(props) {
 
 
     const closeDialog = () => {
-        let modalclosebtn = document.getElementById('modalclosebtn')
-        modalclosebtn.click();
+        const modalclosebtn = document.getElementById('modalclosebtn')
+        modalclosebtn ? modalclosebtn.click() : null;
     }
 
 
@@ -231,7 +231,7 @@ function Roles(props) {
 
             <div className="card col-12">
 
-                <div className="card-block py-5 px-2">
+                <div className="card-block py-2 px-2">
                     {
                         props.permissions.includes('role create') ?
                             <a className="btn btn-sm btn-primary ms-1 mb-2" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0">
@@ -249,8 +249,8 @@ function Roles(props) {
                         }
                         {
                             noDataFound ?
-                                <div className="mx-auto">
-                                    <label className="badge badge-inverse-warning label-lg label" style={{ fontSize: "18px" }} >No Data Found!</label>
+                                <div className="text-center">
+                                    <span className="badge badge-soft-danger" style={{ fontSize: "18px" }}>No Data Found!</span>
                                 </div>
                                 : null
                         }
@@ -259,9 +259,9 @@ function Roles(props) {
 
                     {
                         rolesData?.length > 0 ?
-                            <table className="table table-hover table-rounded table-striped border gy-7 gs-7">
+                            <table className="table table-custom-sm table-hover table-rounded table-striped border">
                                 <thead>
-                                    <tr className="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                    <tr className="text-start text-muted fw-bolder text-uppercase">
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Permissions</th>
@@ -282,7 +282,7 @@ function Roles(props) {
                                                         {
                                                             props?.permissions?.includes('role update') ?
                                                                 <div className="form-inline" >
-                                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
                                                                         onClick={() => updateModalProcess(row.id)}
                                                                     >
                                                                         <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
@@ -317,9 +317,7 @@ function Roles(props) {
                     <div className="modal-content">
                         <div className="modal-header  py-4">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Role</p>
-                            <div className="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close" onClick={clear}>
-                                <i className="icofont icofont-ui-close me-1"></i>
-                            </div>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={clear} data-bs-dismiss="modal"><i className="bx bx-x font-size-24 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-5" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >

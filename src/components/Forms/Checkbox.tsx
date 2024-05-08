@@ -16,9 +16,9 @@ const Checkbox = ({ label, labelClass, value, onChange, disabled }) => {
   
     return (
       <>
-          <div className="custom-control custom-checkbox mb-2 mx-1">
-              <input className="custom-control-input" type="checkbox" checked={value} onChange={onChange} id={cb_element} style={{ "cursor" : "pointer" }} disabled={disabled} />
-              <label className={"custom-control-label "+(labelClass||"")+" "+(disabled ? "text-muted":"")} htmlFor={cb_element} style={{ "cursor" : "pointer" }}>{label}</label>
+          <div className="form-check">
+              <input className="form-check-input" type="checkbox" checked={value} onChange={onChange} id={cb_element} style={{ "cursor" : "pointer" }} disabled={disabled} />
+              <label className={"form-check-label "+(labelClass||"")+" "+(disabled ? "text-muted":"")} htmlFor={cb_element} style={{ "cursor" : "pointer" }}>{label}</label>
           </div>
       </>
     );

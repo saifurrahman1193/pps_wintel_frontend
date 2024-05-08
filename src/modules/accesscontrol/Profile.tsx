@@ -65,10 +65,9 @@ function Profile(props) {
     }
 
     const closeDialog = () => {
-        let modalclosebtn = document.getElementById('modalclosebtn')
-        modalclosebtn.click();
+        const modalclosebtn = document.getElementById('modalclosebtn')
+        modalclosebtn ? modalclosebtn.click() : null;
     }
-
 
     const getUser = async (e, reload = false) => {
         if (e && e.preventDefault) {
@@ -165,11 +164,11 @@ function Profile(props) {
                                 <div className="col-sm-auto order-1 order-sm-2">
                                     <div className="d-flex align-items-start justify-content-end gap-2">
                                         <div>
-                                            <Link className="btn btn-soft-light"
+                                            <Link className="btn btn-primary waves-effect btn-label waves-light"
                                                 role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" modal-backdrop="static" data-keyboard="false"
                                                 onClick={updateModalProcess}
                                             >
-                                                Edit Profile
+                                                <i className="bx bx-pencil label-icon"></i> Edit Profile
                                             </Link>
                                         </div>
                                     </div>

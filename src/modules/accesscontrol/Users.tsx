@@ -1,6 +1,6 @@
-import React, { useEffect, useState, Fragment} from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
-import Validation  from '../../components/Forms/Validation.js';
+import Validation from '../../components/Forms/Validation.js';
 import Select from 'react-select'
 import { postCall } from '../../api/apiService'
 import { USERS, ROLES_ALL, CREATE_USER, UPDATE_USER, SINGLE_USER_INFO } from '../../api/apiPath'
@@ -9,8 +9,8 @@ import { toast } from 'react-toastify'
 import Svgsearchiconcomponent from '../../components/Icons/Svgsearchiconcomponent'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import Badge  from '../../components/Badges/Badge';
-import { permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers.js'
+import Badge from '../../components/Badges/Badge';
+import { badge_colors, permissionsResets, userAgent } from '../../components/Helpers/CommonHelpers.js'
 import { Link } from 'react-router-dom';
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
@@ -20,7 +20,7 @@ function Users(props) {
     const breadcrumb = {
         pageTitle: 'Users',
         currentPath: '/users',
-        layers:[
+        layers: [
             {
                 title: 'Home',
                 link: '/'
@@ -43,7 +43,7 @@ function Users(props) {
         status: 1,
         roles: [],
     }
-    
+
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e) => {
@@ -54,25 +54,25 @@ function Users(props) {
     }
 
     const [usersData, setUsersData] = useState({})
-    var [paginator, setPaginator] =  useState({})
+    var [paginator, setPaginator] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getUsersData = async (e, page=1, search='') => {
+    const getUsersData = async (e, page = 1, search = '') => {
         setNoDataFound(false)
 
         setIsLoading(true)
         setUsersData([])
-        if (e && e.preventDefault) { 
+        if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = {page:page, search:search}
+        let request = { page: page, search: search }
         var response = await postCall(USERS, request, props.user.access_token)
         if (response?.code === 200) {
             setUsersData(response?.data?.data);
             setPaginator(response?.data?.paginator);
             setIsLoading(false)
-            if(response?.data?.data?.length==0) { setNoDataFound(true); }
+            if (response?.data?.data?.length == 0) { setNoDataFound(true); }
             else setNoDataFound(false)
         } else {
             toast.error(response?.message?.[0])
@@ -87,7 +87,7 @@ function Users(props) {
     // role select process
     const [rolesOptions, setRolesOptions] = useState([])
     const [roleSelectedOption, setRoleSelectedOption] = useState('')
-    const roleHandle = (value) =>{
+    const roleHandle = (value) => {
         setRoleSelectedOption(value)
     }
 
@@ -99,21 +99,21 @@ function Users(props) {
             var roles = roleSelectedOption?.map((role) => {
                 return role.value
             })
-            setFormData({...formData, roles: roles})
+            setFormData({ ...formData, roles: roles })
         }
-    } 
+    }
 
-    
+
 
     useEffect(() => {
-        handleRoleMultipleSelectAfter()        
+        handleRoleMultipleSelectAfter()
     }, [roleSelectedOption])
 
-    const getRoles = async () => {        
-        var response = await postCall(ROLES_ALL , null, props?.user?.access_token)
+    const getRoles = async () => {
+        var response = await postCall(ROLES_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
             var rolesData = (response?.data?.rolelist).map((role) => {
-                return { label: role?.name?.capitalize(), value: role?.name  }
+                return { label: role?.name?.capitalize(), value: role?.name }
             })
             setRolesOptions(rolesData || [])
         } else {
@@ -128,20 +128,20 @@ function Users(props) {
         getRoles()
         getUsersData()
     }, [])
-    
+
 
     const getApi = () => {
-        if(formData?.id){
+        if (formData?.id) {
             return UPDATE_USER
         }
         return CREATE_USER
     }
 
     const handleSubmit = async (e) => {
-        if (e && e.preventDefault) { 
+        if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = {...formData, id:formData?.id}
+        let request = { ...formData, id: formData?.id }
         let api = getApi()
         var response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
@@ -156,15 +156,15 @@ function Users(props) {
         }
     }
 
-    const updateModalProcess = async(id) => {
+    const updateModalProcess = async (id) => {
         var userData = usersData.filter((item) => {
-            return item.id==id
+            return item.id == id
         })[0]
-        setFormData({...formData, ...userData, id: id, password: ''})
+        setFormData({ ...formData, ...userData, id: id, password: '' })
 
         // get roles for single user
-        var response = await postCall(SINGLE_USER_INFO, {id: id}, props.user.access_token)
-        if (response?.code===200) {
+        var response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
+        if (response?.code === 200) {
             var rolesOptions = (response?.data?.roles_names_array).map((role) => {
                 return { label: role?.capitalize(), value: role }
             })
@@ -174,8 +174,8 @@ function Users(props) {
 
 
     useEffect(() => {
-        if (formData?.roles?.length==0 || (formData?.roles?.length==1 &&  formData?.roles[0]==null)) {
-            setFormData({...formData, roles: ''})
+        if (formData?.roles?.length == 0 || (formData?.roles?.length == 1 && formData?.roles[0] == null)) {
+            setFormData({ ...formData, roles: '' })
             setRoleSelectedOption('')
         }
     }, [formData?.roles])
@@ -183,15 +183,15 @@ function Users(props) {
     // search
     const [search, setSearch] = useState('')
     const handleKeyPressForSearch = (event) => {
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             getUsersData(null, null, search)
         }
     }
 
 
-    const closeDialog = () =>  {
-        let modalclosebtn = document.getElementById('modalclosebtn')
-        modalclosebtn.click();
+    const closeDialog = () => {
+        const modalclosebtn = document.getElementById('modalclosebtn')
+        modalclosebtn ? modalclosebtn.click() : null;
     }
 
     const clear = () => {
@@ -203,7 +203,7 @@ function Users(props) {
     // profile detail modal component related
     const [profileDetailModalUserId, setProfileDetailModalUserId] = useState('')
     const [profiledetail_row_id, setProfiledetail_row_id] = useState('')
-    const profileDetailModalUpdate = (userId='', row_id='') => {
+    const profileDetailModalUpdate = (userId = '', row_id = '') => {
         setProfileDetailModalUserId(userId)
         setProfiledetail_row_id(row_id)
     }
@@ -214,59 +214,73 @@ function Users(props) {
 
             <div className="card col-12">
 
-       
-                <div className="card-block py-5 px-2">
-                    {
-                        props.permissions.includes('user create') ?
+
+                <div className="card-block py-2 px-2">
+
+                    <div className="row mb-2">
+                        <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
+                            {/* Left side content */}
+                            {props.permissions.includes('user create') && (
                                 <a className="btn btn-sm btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
                                     <i className="icofont icofont-ui-add me-1"></i>
                                     Create New User
                                 </a>
-                        :
-                        null
-                    }
-
-
-                    <div className="col-md-4 input-group mb-3 float-right w-lg-400px">
-                        <input type="text" id="search" name="search" onChange={(e) => setSearch(e.target.value)} onKeyPress={handleKeyPressForSearch} value={search} placeholder="Search..." className="form-control form-control-sm form-control-solid h-38px bg-body fs-7 "  />
-                        <div className="input-group-append">
-                            <Link className="input-group btn btn-primary"  onClick={() => getUsersData(null, null, search)} style={{ borderRadius: '0', padding: '9px'}}>
-                                <Svgsearchiconcomponent />
-                            </Link>
+                            )}
+                        </div>
+                        <div className="col col-12 col-xs-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mt-2">
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <input
+                                        type="text"
+                                        id="search"
+                                        name="search"
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        onKeyPress={handleKeyPressForSearch}
+                                        value={search}
+                                        placeholder="Search..."
+                                        className="form-control"
+                                        style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
+                                    />
+                                    <div className="input-group-append">
+                                        <button className="btn btn-primary" onClick={() => getUsersData(null, null, search)}><i className="bx bx-search-alt align-middle"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    
 
-                    
+
+
+
 
                     {
-                        isLoading || noDataFound ? 
-                        <div className="row col-12" style={{marginTop: "100px"}}>
+                        isLoading || noDataFound ?
+                            <div className="row col-12" style={{ marginTop: "50px" }}>
                                 {
                                     isLoading ?
-                                    <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height:"70px"}} alt="Loading..." ></div>
-                                    : null
+                                        <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
+                                        : null
                                 }
                                 {
                                     noDataFound ?
-                                    <div className="mx-auto">
-                                        <label className="badge badge-inverse-warning label-lg label" style={{fontSize: "18px"}} >No Data Found!</label>
-                                    </div>
-                                    : null
+                                        <div className="text-center">
+                                            <span className="badge badge-soft-danger" style={{ fontSize: "18px" }}>No Data Found!</span>
+                                        </div>
+                                        : null
                                 }
-                        </div>: null
+                            </div> : null
                     }
 
                     {
                         usersData?.length > 0 ?
                             <Fragment>
 
-                                
 
-                                <table className="table table-hover table-rounded table-striped border gy-7 gs-7">
+
+                                <table className="table table-custom-sm table-hover table-rounded table-striped border">
                                     <thead>
-                                        <tr className="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                        <tr className="text-start text-muted fw-bolder text-uppercase">
                                             <th>Serial</th>
                                             <th>Name</th>
                                             <th>Email</th>
@@ -279,31 +293,33 @@ function Users(props) {
                                         {
                                             usersData.map((row, i) => {
                                                 return (
-                                                    <tr key={'row-'+i}>
-                                                        <td>{ paginator?.current_page>1 ? ((paginator?.current_page-1)*paginator?.record_per_page)+i+1 :  i+1 }</td>
+                                                    <tr key={'row-' + i}>
+                                                        <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
                                                         <td>
-                                                            <ProfileDetailsModal 
+                                                            <ProfileDetailsModal
                                                                 token={props?.user?.access_token}
-                                                                text={row.name} 
+                                                                text={row.name}
                                                                 profiledetail_row_id={i}
                                                                 userId_row={row?.id}
-                                                                userId={(i == profiledetail_row_id) ? profileDetailModalUserId : '' }
+                                                                userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
                                                                 profileDetailModalUpdate={profileDetailModalUpdate}
-                                                                key={'profile-details-modal-'+i}
+                                                                key={'profile-details-modal-' + i}
                                                             />
                                                         </td>
                                                         <td>{row.email}</td>
                                                         <td>{row.roles_comma_seperated}</td>
-                                                        <td><Badge badgeClass={row?.status==1?'badge-light-success':'badge-light-danger'} badgeValue={row?.status==1?'Active':'Inactive'} /></td>
+                                                        <td>
+                                                            <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
+                                                        </td>
                                                         <td>
                                                             {
                                                                 props.permissions.includes('user update') ?
-                                                                    <div className="form-inline" > 
-                                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
-                                                                            onClick={()=>updateModalProcess(row.id)}
+                                                                    <div className="form-inline" >
+                                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                            onClick={() => updateModalProcess(row.id)}
                                                                         >
                                                                             <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                        </a> 
+                                                                        </a>
                                                                     </div>
                                                                     :
                                                                     null
@@ -317,36 +333,34 @@ function Users(props) {
                                     </tbody>
                                 </table>
                             </Fragment>
-                        : null
+                            : null
                     }
 
                     {
-                        paginator?.total_pages>1 ? 
-                        <Paginate paginator={paginator} pagechanged={(page) => getUsersData(null, page )} /> : null
+                        paginator?.total_pages > 1 ?
+                            <Paginate paginator={paginator} pagechanged={(page) => getUsersData(null, page)} /> : null
                     }
 
-                </div>                    
+                </div>
             </div>
 
 
 
-            <div className="modal fade" id="saveConfirmationModal" tabIndex="-1"  aria-labelledby="saveConfirmationModal" aria-hidden="true"   data-bs-backdrop="static" data-bs-keyboard="false">
+            <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
-                        <div className="modal-header  py-4">
-                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{flex: "auto"}}>{formData?.id ? 'Update': 'Create New' } User</p>
-                            <div className="btn btn-icon btn-sm btn-active-light-danger ms-2" data-bs-dismiss="modal" aria-label="Close" onClick={() => setFormData(formInitial)}>
-                                <i className="icofont icofont-ui-close me-1"></i>
-                            </div>
+                        <div className="modal-header py-2">
+                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} User</p>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-0" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange}  readOnly hidden  style={{heigh: "0", width: "0"}}/>
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar/></label>
+                                            <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
                                             </div>
@@ -354,17 +368,17 @@ function Users(props) {
                                     </div>
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Email<Validation.RequiredStar/></label>
+                                            <label className="col-sm-4 col-form-label control-label">Email<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="email" className="form-control form-control-sm form-control-solid" id="email" name="email" placeholder="Email"  value={formData?.email} onChange={handleChange} required={formData?.id ? false : true } readOnly={formData?.id ? true : false} />
+                                                <input type="email" className="form-control form-control-sm form-control-solid" id="email" name="email" placeholder="Email" value={formData?.email} onChange={handleChange} required={formData?.id ? false : true} readOnly={formData?.id ? true : false} />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">
-                                                Password{formData?.id ? '': <Validation.RequiredStar/> }
-                                                </label>
+                                                Password{formData?.id ? '' : <Validation.RequiredStar />}
+                                            </label>
                                             <div className="col-sm-8">
                                                 <input type="password" className="form-control form-control-sm form-control-solid" id="password" name="password" placeholder="Password" value={formData?.password} onChange={handleChange} required={formData?.id ? false : true} />
                                             </div>
@@ -373,7 +387,7 @@ function Users(props) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar/></label>
+                                            <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <select className="form-control form-control-sm" id="status" name="status" onChange={handleChange} value={formData?.status} required>
                                                     <option value="0">Inactive</option>
@@ -382,28 +396,28 @@ function Users(props) {
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Roles<Validation.RequiredStar/></label>
+                                            <label className="col-sm-4 col-form-label control-label">Roles<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={rolesOptions} 
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                isMulti
-                                                isClearable
-                                                value={roleSelectedOption} 
-                                                onChange={handleRoleMultipleSelect} 
-                                                placeholder="Select Roles" 
-                                                isOptionDisabled={() => roleSelectedOption.length >= 1}
+                                                <Select options={rolesOptions}
+                                                    className="basic-multi-select"
+                                                    classNamePrefix="select"
+                                                    isMulti
+                                                    isClearable
+                                                    value={roleSelectedOption}
+                                                    onChange={handleRoleMultipleSelect}
+                                                    placeholder="Select Roles"
+                                                    isOptionDisabled={() => roleSelectedOption.length >= 1}
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="modal-footer pb-0">
-                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)}  id="modalclosebtn">Cancel</button>
+                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
                                         <button type="submit" className="btn btn-sm btn-primary" id="formSubmit">Save</button>
                                     </div>
                                 </div>
@@ -413,9 +427,9 @@ function Users(props) {
                 </div>
             </div>
 
-            
+
         </Fragment>
-        
+
     )
 }
 
