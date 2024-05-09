@@ -76,6 +76,12 @@ function ProfileDetails(props) {
                     </div>
                 </div>
                 <div className="row mb-7">
+                    <label className="col-lg-4 fw-bold text-muted">Phone</label>
+                    <div className="col-lg-8">
+                        <span className="fw-bolder fs-6 text-gray-800">{userData?.phone}</span>
+                    </div>
+                </div>
+                <div className="row mb-7">
                     <label className="col-lg-4 fw-bold text-muted">Role</label>
                     <div className="col-lg-8">
                         <span className="fw-bolder fs-6 text-gray-800">{userData?.roles[0]}</span>

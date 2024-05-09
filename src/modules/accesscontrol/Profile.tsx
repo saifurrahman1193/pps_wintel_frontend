@@ -32,6 +32,7 @@ function Profile(props) {
         id: '',
         name: '',
         email: '',
+        phone: '',
     }
 
 
@@ -98,7 +99,7 @@ function Profile(props) {
 
 
     const updateModalProcess = async () => {
-        setFormData({ ...formInitial, name: userData?.user?.name, id: userData?.user?.userId })
+        setFormData({ ...formInitial, name: userData?.name, id: userData?.id, phone: userData?.phone })
     }
 
 
@@ -156,6 +157,9 @@ function Profile(props) {
                                                 {/* <p className="text-muted font-size-13">Full Stack Developer</p> */}
                                                 <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
                                                     <div><i className="mdi mdi-email me-1 text-primary align-middle" />{userData?.email}</div>
+                                                </div>
+                                                <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                                                    <div><i className="mdi mdi-phone me-1 text-primary align-middle" />{userData?.phone}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,13 +233,21 @@ function Profile(props) {
                         <div className="modal-body pt-0 mt-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-0">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12 my-0">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Phone</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="phone" name="phone" placeholder="Phone" value={formData?.phone} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
