@@ -89,7 +89,7 @@ function Roles(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 
-        getRolesData()
+        getRolesData(null, undefined)
         getAllModules()
     }, [])
 
@@ -106,7 +106,7 @@ function Roles(props) {
             e.preventDefault();
         }
         const request = { ...formData, id: formData?.id }
-        let api = getApi()
+        const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getRolesData(null, paginator?.current_page)

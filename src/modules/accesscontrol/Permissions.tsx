@@ -89,7 +89,7 @@ function Permissions(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 
-        getPermissionsData()
+        getPermissionsData(null, undefined, undefined)
         getAllModules()
     }, [])
 
@@ -108,7 +108,7 @@ function Permissions(props) {
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
-            getPermissionsData(null, paginator?.current_page)
+            getPermissionsData(null, paginator?.current_page, undefined)
             setFormData(formInitial)
             toast.success(response?.message?.[0])
             closeDialog()
@@ -155,7 +155,7 @@ function Permissions(props) {
             })
 
             setModuleOptions(list)
-        } 
+        }
     }
 
     // modules select process

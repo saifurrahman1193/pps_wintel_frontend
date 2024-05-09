@@ -76,7 +76,7 @@ function Profile(props) {
         const response = await postCall(SINGLE_USER_INFO, { id: props?.user?.userId }, props.user.access_token)
         if (response?.code === 200) {
             // console.log(response)
-            var userData = response?.data
+            const userData = response?.data
 
             setUserData(userData)
             setFormData({ ...formInitial, name: userData?.name, id: userData?.id })
@@ -93,7 +93,7 @@ function Profile(props) {
         INIT()
         permissionsResets(props, { checkPermissionsWiseRouteChecker: false })
         props.setPageBreadcrumb(breadcrumb)
-        getUser()
+        getUser(null, undefined)
     }, [])
 
 
