@@ -231,14 +231,14 @@ function Header(props) {
                             </div>
                         </div>
                         <div className="dropdown d-inline-block">
-                            <button type="button" className="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img className="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar" />
+                            <button type="button" className="btn header-item bg-soft-light" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img className="rounded-circle header-profile-user" src="assets/images/users/avatar-2.png" alt="Header Avatar" />
                                 <span className="d-none d-xl-inline-block ms-1 fw-medium">Shawn L.</span>
                                 <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
                             </button>
                             <div className="dropdown-menu dropdown-menu-end dropdownmenu-primary">
                                 {/* item*/}
-                                <Link className={"dropdown-item "+vCurPathA('/profile')} to="/profile"><i className="mdi mdi-face-profile font-size-16 align-middle me-1" /> Profile</Link>
+                                <Link className={"dropdown-item "+vCurPathA('/profile')} to="/profile"><i className="bx bx-user font-size-16 align-middle me-1" /> Profile</Link>
                                
                                 <div className="dropdown-divider" />
                                 <Link className="dropdown-item" to="/" onClick={userLogout}>

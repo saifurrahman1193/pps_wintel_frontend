@@ -147,7 +147,7 @@ function Profile(props) {
                                     <div className="d-flex align-items-start mt-3 mt-sm-0">
                                         <div className="flex-shrink-0">
                                             <div className="avatar-xl me-3">
-                                                <img src="assets/images/users/avatar-2.jpg" alt="avatar" className="img-fluid rounded-circle d-block" />
+                                                <img src="assets/images/users/avatar-2.png" alt="avatar" className="img-fluid rounded-circle d-block" />
                                             </div>
                                         </div>
                                         <div className="flex-grow-1">
