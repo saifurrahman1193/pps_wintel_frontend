@@ -2,7 +2,7 @@ import './horizontal_separator_styles.css';
 
 function HorizontalSeparator(props) {
   return (
-    <div className="separator">{props?.text}</div>
+    <div className={'separator '+(props?.class||'')}>{props?.text}</div>
   )
 }
 

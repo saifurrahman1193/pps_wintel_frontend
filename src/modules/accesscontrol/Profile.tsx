@@ -225,11 +225,11 @@ function Profile(props) {
             <div className="modal fade " id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
-                        <div className="modal-header  py-4">
+                        <div className="modal-header">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>Profile Update</p>
-                            <div className="btn btn-icon btn-sm btn-active-light-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                            {/* <div className="btn btn-icon btn-sm btn-active-light-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
                                 <i className="icofont icofont-ui-close me-1"></i>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="modal-body pt-0 mt-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
@@ -253,7 +253,7 @@ function Profile(props) {
                                         </div>
                                     </div>
 
-                                    <HorizontalSeparator text="Change Password" />
+                                    <HorizontalSeparator text="Change Password" class="my-3 fw-medium" />
 
                                     <div className="col-md-12 my-0">
                                         <div className="form-group row">

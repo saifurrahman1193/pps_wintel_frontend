@@ -324,7 +324,7 @@ function Roles(props) {
             <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-fullscreen" role="document">
                     <div className="modal-content">
-                        <div className="modal-header  py-4">
+                        <div className="modal-header">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Role</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={clear} data-bs-dismiss="modal"><i className="bx bx-x font-size-24 align-middle"></i></button>
                         </div>

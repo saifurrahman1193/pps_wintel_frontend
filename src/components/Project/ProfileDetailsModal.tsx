@@ -18,9 +18,9 @@ function ProfileDetailsModal(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id={"profileDetailModal-"+props?.profiledetail_row_id} style={{flex: "auto"}}> Profile Details</p>
-                            <div className="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close" onClick={()=>data_update('','')} >
+                            {/* <div className="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close" onClick={()=>data_update('','')} >
                                 <i className="icofont icofont-ui-close me-1"></i>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="modal-body pt-0 mt-0" >
                             <ProfileDetails {...props} />
