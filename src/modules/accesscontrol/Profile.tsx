@@ -18,7 +18,7 @@ function Profile(props) {
         layers: [
             {
                 title: 'Dashboard',
-                link: props?.user?.force_password == 0 ? '/' : null
+                link: props?.user?.force_password == 0 ? '/dashboard' : null
             },
             {
                 title: 'Profile',

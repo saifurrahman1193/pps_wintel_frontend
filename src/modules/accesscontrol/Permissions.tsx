@@ -21,7 +21,7 @@ function Permissions(props) {
         layers: [
             {
                 title: 'Home',
-                link: '/'
+                link: '/dashboard'
             },
             {
                 title: 'Access Control'

@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Login from '../modules/accesscontrol/Login';
-import ChangePassword from '../modules/accesscontrol/ChangePassword';
 import Profile from '../modules/accesscontrol/Profile';
 import Dashboard from '../modules/Dashboard';
-import Test from '../modules/accesscontrol/Test';
 import Users from '../modules/accesscontrol/Users';
 import Roles from '../modules/accesscontrol/Roles';
 import Permissions from '../modules/accesscontrol/Permissions';
@@ -14,7 +12,6 @@ import Permissions from '../modules/accesscontrol/Permissions';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
-import Notfound from '../modules/accesscontrol/Error/Notfound';
 import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
 import Breadcrumb from '../components/Breadcrumb';

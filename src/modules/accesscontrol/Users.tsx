@@ -21,7 +21,7 @@ function Users(props) {
         layers: [
             {
                 title: 'Home',
-                link: '/'
+                link: '/dashboard'
             },
             {
                 title: 'Access Control'

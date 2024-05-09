@@ -29,7 +29,7 @@ function AuditLog(props) {
         layers: [
             {
                 title: 'Home',
-                link: '/'
+                link: '/dashboard'
             },
             {
                 title: 'Audit Log'
