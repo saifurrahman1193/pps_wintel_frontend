@@ -11,6 +11,7 @@ import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { permissionsResets, capitalizeFirstLetter } from '../../components/Helpers/CommonHelpers.js'
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
+import { Link } from 'react-router-dom';
 
 function Users(props) {
 
@@ -216,12 +217,11 @@ function Users(props) {
 
                     <div className="row mb-2">
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
-                            {/* Left side content */}
                             {props.permissions.includes('user create') && (
-                                <a className="btn btn-sm btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
-                                    <i className="icofont icofont-ui-add me-1"></i>
+                                <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
+                                    <i className="bx bx-plus label-icon"></i>
                                     Create New User
-                                </a>
+                                </Link>
                             )}
                         </div>
                         <div className="col col-12 col-xs-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mt-2">

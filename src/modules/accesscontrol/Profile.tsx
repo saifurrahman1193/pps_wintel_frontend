@@ -122,7 +122,7 @@ function Profile(props) {
                                 You must change your password first!
 
                                 <Link className="fw-bolder ms-2"
-                                    role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Change Password" href="#0"
+                                    role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Change Password" to="#0"
                                     onClick={updateModalProcess}
                                 >Change Password</Link>
 
@@ -165,7 +165,7 @@ function Profile(props) {
                                     <div className="d-flex align-items-start justify-content-end gap-2">
                                         <div>
                                             <Link className="btn btn-primary waves-effect btn-label waves-light"
-                                                role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" modal-backdrop="static" data-keyboard="false"
+                                                role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" to="#0" modal-backdrop="static" data-keyboard="false"
                                                 onClick={updateModalProcess}
                                             >
                                                 <i className="bx bx-pencil label-icon"></i> Edit Profile

@@ -180,10 +180,10 @@ function Permissions(props) {
 
                             {
                                 props.permissions.includes('permission create') ?
-                                    <a className="btn btn-sm btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
-                                        <i className="icofont icofont-ui-add me-1"></i>
+                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
+                                        <i className="bx bx-plus label-icon"></i>
                                         Create New Permission
-                                    </a>
+                                    </Link>
                                     :
                                     null
                             }

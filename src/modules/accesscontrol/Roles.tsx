@@ -11,6 +11,7 @@ import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
 import { permissionsResets } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
 import INIT from '../../route/utils/Init';
+import { Link } from 'react-router-dom';
 
 function Roles(props) {
 
@@ -233,10 +234,10 @@ function Roles(props) {
                 <div className="card-block py-2 px-2">
                     {
                         props.permissions.includes('role create') ?
-                            <a className="btn btn-sm btn-primary ms-1 mb-2" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0">
-                                <i className="icofont icofont-ui-add me-1"></i>
+                            <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0">
+                                <i className="bx bx-plus label-icon"></i>
                                 Create New Role
-                            </a>
+                            </Link>
                             :
                             null
                     }
