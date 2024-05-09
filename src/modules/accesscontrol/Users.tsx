@@ -64,7 +64,7 @@ function Users(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { page: page, search: search }
+        const request = { page: page, search: search }
         const response = await postCall(USERS, request, props.user.access_token)
         if (response?.code === 200) {
             setUsersData(response?.data?.data);
@@ -123,8 +123,7 @@ function Users(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
         getRoles()
-        getUsersData()
-
+        getUsersData(null, undefined, undefined)
     }, [])
 
 
@@ -143,7 +142,7 @@ function Users(props) {
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
-            getUsersData(null, paginator?.current_page)
+            getUsersData(null, paginator?.current_page, undefined)
             setFormData(formInitial)
             setRoleSelectedOption('')
             toast.success(response?.message?.[0])
@@ -163,7 +162,7 @@ function Users(props) {
         // get roles for single user
         const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
-            const rolesOptions = (response?.data?.roles_names_array).map((role) => {
+            const rolesOptions = (response?.data?.roles_names_array || []).map((role) => {
                 return { label: capitalizeFirstLetter(role || ''), value: role }
             })
             setRoleSelectedOption(rolesOptions)
@@ -239,7 +238,7 @@ function Users(props) {
                                         style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
                                     />
                                     <div className="input-group-append">
-                                        <button className="btn btn-primary" onClick={() => getUsersData(null, null, search)}><i className="bx bx-search-alt align-middle"></i></button>
+                                        <button className="btn btn-primary" onClick={() => getUsersData(null, undefined, search)}><i className="bx bx-search-alt align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +269,7 @@ function Users(props) {
                     }
 
                     {
-                        usersData?.length > 0 ?
+                        (usersData || [])?.length > 0 ?
                             <Fragment>
 
                                 <div className='table-responsive'>

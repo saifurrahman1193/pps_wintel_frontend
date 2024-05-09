@@ -64,7 +64,7 @@ function Permissions(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { page: page, search: search }
+        const request = { page: page, search: search }
         const response = await postCall(PERMISSION_P, request, props.user.access_token)
         if (response?.code === 200) {
             setPermissionsData(response?.data?.data);

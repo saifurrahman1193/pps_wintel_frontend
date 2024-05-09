@@ -72,7 +72,7 @@ function AuditLog(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { page: page, ...formData?.filter }
+        const request = { page: page, ...formData?.filter }
         const response = await postCall(ALL_AUDIT_LOG_P, request, props.user.access_token)
         if (response?.code === 200) {
             setReportData(response?.data?.data);

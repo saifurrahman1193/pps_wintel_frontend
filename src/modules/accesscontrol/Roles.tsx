@@ -65,7 +65,7 @@ function Roles(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { page: page }
+        const request = { page: page }
         const response = await postCall(ROLES_P, request, props.user.access_token)
         if (response?.code === 200) {
             setRolesData(response?.data?.data);
@@ -105,7 +105,7 @@ function Roles(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        let request = { ...formData, id: formData?.id }
+        const request = { ...formData, id: formData?.id }
         let api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
