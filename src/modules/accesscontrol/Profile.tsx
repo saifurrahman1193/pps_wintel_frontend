@@ -9,6 +9,7 @@ import { permissionsResets } from '../../components/Helpers/CommonHelpers'
 import { Link } from 'react-router-dom';
 import ProfileDetails from '../../components/Project/ProfileDetails'
 import INIT from '../../route/utils/Init';
+import HorizontalSeparator from '../../components/Separator/HorizontalSeparator';
 
 function Profile(props) {
 
@@ -251,7 +252,8 @@ function Profile(props) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="separator separator-content my-15"><span className="w-250px">Change Password</span></div>
+
+                                    <HorizontalSeparator text="Change Password" />
 
                                     <div className="col-md-12 my-0">
                                         <div className="form-group row">

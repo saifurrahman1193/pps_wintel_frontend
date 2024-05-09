@@ -16,7 +16,7 @@ function ProfileDetailsModal(props) {
             <div className="modal fade" id={"profileDetailModal-"+props?.profiledetail_row_id} tabIndex="-1"  aria-labelledby={"profileDetailModal-"+props?.profiledetail_row_id} aria-hidden="true" >
                 <div className="modal-dialog modal-fullscreen" role="document">
                     <div className="modal-content">
-                        <div className="modal-header  py-4">
+                        <div className="modal-header">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id={"profileDetailModal-"+props?.profiledetail_row_id} style={{flex: "auto"}}> Profile Details</p>
                             <div className="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close" onClick={()=>data_update('','')} >
                                 <i className="icofont icofont-ui-close me-1"></i>
