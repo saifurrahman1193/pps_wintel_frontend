@@ -232,15 +232,21 @@ function Roles(props) {
             <div className="card col-12">
 
                 <div className="card-block py-2 px-2">
-                    {
-                        props.permissions.includes('role create') ?
-                            <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0">
-                                <i className="bx bx-plus label-icon"></i>
-                                Create New Role
-                            </Link>
-                            :
-                            null
-                    }
+                    <div className="row mb-2">
+                        <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
+
+                            {
+                                props.permissions.includes('role create') ?
+                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0">
+                                        <i className="bx bx-plus label-icon"></i>
+                                        Create New Role
+                                    </Link>
+                                    :
+                                    null
+                            }
+                        </div>
+                    </div>
+
                     <div className="row">
                         {
                             isLoading ?
