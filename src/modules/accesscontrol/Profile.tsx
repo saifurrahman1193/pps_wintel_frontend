@@ -155,7 +155,7 @@ function Profile(props) {
                                                 <h5 className="font-size-16 mb-1">{userData?.name}</h5>
                                                 {/* <p className="text-muted font-size-13">Full Stack Developer</p> */}
                                                 <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
-                                                    <div><i className="mdi mdi-email me-1 text-success align-middle" />{userData?.email}</div>
+                                                    <div><i className="mdi mdi-email me-1 text-primary align-middle" />{userData?.email}</div>
                                                 </div>
                                             </div>
                                         </div>
