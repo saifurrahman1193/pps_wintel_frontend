@@ -60,8 +60,6 @@ function ProfileDetails(props) {
     return (
         <Fragment>
 
-
-
             <div className="card-body p-0">
                 <div className="row mb-7">
                     <label className="col-lg-4 fw-bold text-muted">Full Name</label>
