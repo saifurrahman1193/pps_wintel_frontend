@@ -211,7 +211,6 @@ function Roles(props) {
             })
 
             let module_selected = (permissions?.length == permissions?.filter(i => i?.selected == 1)?.length) ? 1 : 0
-            console.log(permissions, permissions?.length, permissions?.filter(i => i?.selected == 1), permissions?.filter(i => i?.selected == 1)?.length);
 
             permissions_n_c_s = permissions?.filter(i => i?.selected == 1)?.map(i => i?.name)
             permissions_n_c_s_f = [...permissions_n_c_s_f, ...permissions_n_c_s]
@@ -236,7 +235,6 @@ function Roles(props) {
         var response = await postCall(SINGLE_ROLE_INFO, { id: id }, props?.user?.access_token)
         if (response.code === 200) {
             let modules_list = response?.data?.modules
-            console.log(response?.data?.modules);
 
             setFormData({ ...formData, ...roleData, id: id, modules_list: modules_list })
         }
