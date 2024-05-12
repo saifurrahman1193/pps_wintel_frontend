@@ -40,7 +40,7 @@ function Users(props) {
         password: '',
         status: 1,
         statusSelectedOption: { label: 'Active', value: 1 },
-        roles: [],
+        role_ids: [],
         rolesSelectedOptions: null
     }
 
@@ -92,9 +92,9 @@ function Users(props) {
         const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
             const rolesData = (response?.data?.rolelist || []).map((role) => {
-                return { label: capitalizeFirstLetter(role?.name || ''), value: role?.name }
+                return { label: role?.name, value: role?.id }
             })
-            setRolesOptions(rolesData || [])
+            setRolesOptions(rolesData)
         }
     }
 
@@ -137,21 +137,23 @@ function Users(props) {
         const userData = usersData.filter((item) => {
             return item.id == id
         })[0]
-        setFormData({ ...formData, ...userData, id: id, password: '' })
+        setFormData((prev) => ({ ...prev, ...userData, id: id, password: '' }))
 
         // get roles for single user
         const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
-            const rolesOptions = (response?.data?.roles_names_array || []).map((role) => {
-                return { label: capitalizeFirstLetter(role || ''), value: role }
+            const selected_options = (response?.data?.roles || []).map((role) => {
+                return { label: role?.role_name, value: role?.role_id }
             })
+
+            setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => item?.role_id), rolesSelectedOptions: selected_options }))
         }
     }
 
 
     useEffect(() => {
         if (formData?.roles?.length == 0 || (formData?.roles?.length == 1 && formData?.roles[0] == null)) {
-            setFormData({ ...formData, roles: '' })
+            setFormData({ ...formData, role_ids: '' })
         }
     }, [formData?.roles])
 
@@ -383,7 +385,7 @@ function Users(props) {
                                                         const roles = selected_options?.map((role) => {
                                                             return role?.value
                                                         })
-                                                        setFormData({ ...formData, roles: roles, rolesSelectedOptions: selected_options })
+                                                        setFormData({ ...formData, role_ids: roles, rolesSelectedOptions: selected_options })
                                                     }}
                                                     placeholder="Select Roles"
                                                 />
