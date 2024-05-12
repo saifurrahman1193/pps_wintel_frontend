@@ -308,7 +308,13 @@ function Users(props) {
                                                                 />
                                                             </td>
                                                             <td>{row.email}</td>
-                                                            <td>{row.roles_comma_seperated}</td>
+                                                            <td>
+                                                                {
+                                                                    [...row?.roles_names_array]?.map((role) => {
+                                                                        return <span className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
+                                                                    })
+                                                                }
+                                                            </td>
                                                             <td>
                                                                 <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
                                                             </td>
@@ -415,7 +421,6 @@ function Users(props) {
                                                     value={roleSelectedOption}
                                                     onChange={handleRoleMultipleSelect}
                                                     placeholder="Select Roles"
-                                                    isOptionDisabled={() => roleSelectedOption.length >= 1}
                                                 />
                                             </div>
                                         </div>
