@@ -12,6 +12,8 @@ import { permissionsResets } from '../../components/Helpers/CommonHelpers'
 import Checkbox from '../../components/Forms/Checkbox.js';
 import INIT from '../../route/utils/Init';
 import { Link } from 'react-router-dom';
+import { Table } from 'react-bootstrap'
+
 
 function Roles(props) {
 
@@ -224,6 +226,24 @@ function Roles(props) {
     }
 
 
+    const getSingleRoleInfo = async (id) => {
+
+        var roleData = rolesData.find((item) => {
+            return item.id == id
+        })
+
+        // get permissions for single role
+        var response = await postCall(SINGLE_ROLE_INFO, { id: id }, props?.user?.access_token)
+        if (response.code === 200) {
+            let modules_list = response?.data?.modules
+            console.log(response?.data?.modules);
+
+            setFormData({ ...formData, ...roleData, id: id, modules_list: modules_list })
+        }
+        else {
+            setFormData({ ...formData, ...roleData, id: id })
+        }
+    }
 
     return (
         <Fragment>
@@ -283,7 +303,8 @@ function Roles(props) {
                                                         <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
                                                         <td className="align-middle">{row?.name}</td>
                                                         <td style={{ maxWidth: "250px", whiteSpace: "normal" }} >
-                                                            <MultiColorBadges listingtype='serial' dataList={row?.permissions_list} />
+                                                            <Link className="btn btn-icon" to="#0" role="button" data-bs-toggle="modal" data-bs-target="#permissions_list_modal" onClick={() => getSingleRoleInfo(row.id)}><i className="mdi mdi-eye mr-1 text-primary"></i>
+                                                            </Link>
                                                         </td>
                                                         <td className="align-middle">
                                                             {
@@ -400,6 +421,70 @@ function Roles(props) {
                     </div>
                 </div>
             </div>
+
+
+            <div className="modal fade" data-backdrop="static" id="permissions_list_modal" tabIndex="-1" role="dialog" aria-labelledby="permissions_list_modal" aria-hidden="true" >
+                <div className="modal-dialog modal-lg" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h4 className="modal-title text-center" id="permissions_list_modal" style={{ flex: "auto" }}>Permission List</h4>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={clear} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
+
+                        </div>
+                        <div className="modal-body" >
+                            <div className={(formData?.permissions_list)?.length > 7 ? 'overflowY450' : ''}>
+
+                                {
+                                    formData?.permissions_list?.length > 0 ?
+                                        <>
+                                            <Table cellPadding={0} cellSpacing={0} responsive striped bordered hover className="table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>SL</th>
+                                                        <th>Module</th>
+                                                        <th>Permissions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        (formData?.modules_list)?.map((item, i) => {
+                                                            return (
+                                                                <tr key={'row-module-permission-' + i}>
+                                                                    <td>{i + 1}</td>
+                                                                    <td>{item?.name}</td>
+                                                                    <td>
+                                                                        {
+                                                                            item?.permissions?.map((perm, perm_i) => {
+                                                                                return (
+                                                                                    <Fragment  key={'row-module-permission-list-' + perm_i}>
+                                                                                        <span className="badge rounded-pill font-size-12 fw-medium bg-light mx-1 mb-0">{perm?.name}</span>
+                                                                                    </Fragment>
+                                                                                )
+                                                                            })
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                    }
+                                                </tbody>
+                                            </Table>
+                                        </>
+                                        :
+
+                                        <div className="text-center">No Data Found!</div>
+
+                                }
+
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={clear}>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </Fragment>
     )
