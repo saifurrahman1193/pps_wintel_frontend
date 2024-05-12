@@ -421,7 +421,7 @@ function Users(props) {
                                         </div>
                                     </div>
 
-                                    <div className="modal-footer pb-0">
+                                    <div className="modal-footer pt-2 pb-0">
                                         <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
                                         <button type="submit" className="btn btn-sm btn-primary" id="formSubmit">Save</button>
                                     </div>

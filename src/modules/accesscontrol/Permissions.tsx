@@ -297,7 +297,7 @@ function Permissions(props) {
             <div className="modal fade modal-backdrop-static" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header py-2">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Permission</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
@@ -327,7 +327,7 @@ function Permissions(props) {
 
                                     <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
 
-                                    <div className="modal-footer pb-0">
+                                    <div className="modal-footer pt-2 pb-0">
                                         <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
                                         <button type="submit" className="btn btn-sm btn-primary" id="formSubmit">Save</button>
                                     </div>
