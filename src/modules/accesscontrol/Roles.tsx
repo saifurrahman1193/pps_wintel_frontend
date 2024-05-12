@@ -346,7 +346,7 @@ function Roles(props) {
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Role</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={clear} data-bs-dismiss="modal"><i className="bx bx-x font-size-24 align-middle"></i></button>
                         </div>
-                        <div className="modal-body pt-0 mt-5" >
+                        <div className="modal-body pt-0 mt-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
                                     <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
@@ -362,15 +362,15 @@ function Roles(props) {
                                         </div>
                                     </div>
 
-                                    <div className="row pt-4">
-                                        <div className="card-header text-center py-4 bg-light-danger fs-5">
+                                    <div className="row pt-2">
+                                        <div className="card-header text-center py-0 bg-light-danger fs-5">
                                             <label>Select Permissions<Validation.RequiredStar /></label>
                                         </div>
                                         {
                                             [...formData?.modules]?.map((module, i) => {
                                                 return (
                                                     <div className="col-lg-4 my-2" key={`module-` + i}>
-                                                        <div className="card card-stretch card-bordered mb-5">
+                                                        <div className="card card-stretch card-bordered mb-0">
                                                             <div className="card-header">
                                                                 <h3 className="card-title">
                                                                     <Checkbox
