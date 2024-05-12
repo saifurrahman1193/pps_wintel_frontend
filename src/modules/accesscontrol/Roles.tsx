@@ -469,7 +469,8 @@ return (
                                     </>
                                     :
 
-                                    <div className="text-center">No Data Found!</div>
+                                    <div className="text-center"><span className="badge badge-soft-danger" style={{ fontSize: "18px" }}>No Data Found!</span></div>
+                                    
 
                             }
 
