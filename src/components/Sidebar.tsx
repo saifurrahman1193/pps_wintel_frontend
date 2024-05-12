@@ -57,7 +57,7 @@ function Sidebar(props) {
                     <ul className="metismenu list-unstyled" id="side-menu">
                         <li className={vCurPathLi('/dashboard')}>
                             <Link to="/dashboard" className={vCurPathA('/dashboard')}>
-                                <i data-feather="home" />
+                                <i data-feather="grid" />
                                 <span data-key="t-dashboard">Dashboard</span>
                             </Link>
                         </li>
