@@ -41,6 +41,7 @@ function Users(props) {
         status: 1,
         statusSelectedOption: { label: 'Active', value: 1 },
         roles: [],
+        rolesSelectedOptions: null
     }
 
     const [formData, setFormData] = useState(formInitial)
@@ -85,25 +86,7 @@ function Users(props) {
 
     // role select process
     const [rolesOptions, setRolesOptions] = useState([])
-    const [roleSelectedOption, setRoleSelectedOption] = useState('')
 
-    const handleRoleMultipleSelect = (val) => {
-        setRoleSelectedOption(val)
-    }
-    const handleRoleMultipleSelectAfter = () => {
-        if (roleSelectedOption) {
-            const roles = roleSelectedOption?.map((role) => {
-                return role.value
-            })
-            setFormData({ ...formData, roles: roles })
-        }
-    }
-
-
-
-    useEffect(() => {
-        handleRoleMultipleSelectAfter()
-    }, [roleSelectedOption])
 
     const getRoles = async () => {
         const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
@@ -142,7 +125,6 @@ function Users(props) {
         if (response?.code === 200) {
             getUsersData(null, paginator?.current_page, undefined)
             setFormData(formInitial)
-            setRoleSelectedOption('')
             toast.success(response?.message?.[0])
             closeDialog()
 
@@ -163,7 +145,6 @@ function Users(props) {
             const rolesOptions = (response?.data?.roles_names_array || []).map((role) => {
                 return { label: capitalizeFirstLetter(role || ''), value: role }
             })
-            setRoleSelectedOption(rolesOptions)
         }
     }
 
@@ -171,7 +152,6 @@ function Users(props) {
     useEffect(() => {
         if (formData?.roles?.length == 0 || (formData?.roles?.length == 1 && formData?.roles[0] == null)) {
             setFormData({ ...formData, roles: '' })
-            setRoleSelectedOption('')
         }
     }, [formData?.roles])
 
@@ -191,7 +171,6 @@ function Users(props) {
 
     const clear = () => {
         setFormData(formInitial)
-        setRoleSelectedOption(null)
     }
 
 
@@ -281,7 +260,7 @@ function Users(props) {
                                             {
                                                 usersData.map((row, i) => {
                                                     return (
-                                                        <tr key={'row-' + i}>
+                                                        <tr key={'table-row-' + i}>
                                                             <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
                                                             <td>
                                                                 <ProfileDetailsModal
@@ -297,8 +276,8 @@ function Users(props) {
                                                             <td>{row.email}</td>
                                                             <td>
                                                                 {
-                                                                    [...row?.roles_names_array]?.map((role) => {
-                                                                        return <span className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
+                                                                    [...row?.roles_names_array]?.map((role, role_i) => {
+                                                                        return <span key={'table-row-' + i+'-role-'+role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
                                                                     })
                                                                 }
                                                             </td>
@@ -399,8 +378,13 @@ function Users(props) {
                                                     classNamePrefix="select"
                                                     isMulti
                                                     isClearable
-                                                    value={roleSelectedOption}
-                                                    onChange={handleRoleMultipleSelect}
+                                                    value={formData?.rolesSelectedOptions}
+                                                    onChange={(selected_options) => {
+                                                        const roles = selected_options?.map((role) => {
+                                                            return role?.value
+                                                        })
+                                                        setFormData({ ...formData, roles: roles, rolesSelectedOptions: selected_options })
+                                                    }}
                                                     placeholder="Select Roles"
                                                 />
                                             </div>
