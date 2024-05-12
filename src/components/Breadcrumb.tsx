@@ -38,7 +38,7 @@ function Breadcrumb(props) {
 
                                                     {
                                                         layer?.link ?
-                                                            <Link to="/dashboard" className='breadcrumb-item' >
+                                                            <Link to={layer?.link} className='breadcrumb-item' >
                                                                 {layer?.title}
                                                             </Link>
                                                             : <span className={(layer?.default == 1 ? 'active' : '')}>{layer?.title}</span>
