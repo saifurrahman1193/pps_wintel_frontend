@@ -86,9 +86,6 @@ function Users(props) {
     // role select process
     const [rolesOptions, setRolesOptions] = useState([])
     const [roleSelectedOption, setRoleSelectedOption] = useState('')
-    const roleHandle = (value) => {
-        setRoleSelectedOption(value)
-    }
 
     const handleRoleMultipleSelect = (val) => {
         setRoleSelectedOption(val)
@@ -213,13 +210,8 @@ function Users(props) {
 
     return (
         <Fragment>
-
-
             <div className="card col-12">
-
-
                 <div className="card-block py-2 px-2">
-
                     <div className="row mb-2">
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
                             {props.permissions.includes('user create') && (
@@ -250,11 +242,6 @@ function Users(props) {
                             </div>
                         </div>
                     </div>
-
-
-
-
-
 
                     {
                         isLoading || noDataFound ?
@@ -331,7 +318,6 @@ function Users(props) {
                                                                         :
                                                                         null
                                                                 }
-
                                                             </td>
                                                         </tr>
                                                     )
@@ -340,17 +326,13 @@ function Users(props) {
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             </Fragment>
                             : null
                     }
-
                     {
                         paginator?.total_pages > 1 ?
                             <Paginate paginator={paginator} pagechanged={(page) => getUsersData(null, page)} /> : null
                     }
-
                 </div>
             </div>
 
@@ -363,7 +345,7 @@ function Users(props) {
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} User</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
-                        <div className="modal-body pt-0 mt-0" >
+                        <div className="modal-body pt-0 mt-0 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
                                     <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
@@ -408,7 +390,6 @@ function Users(props) {
                                         </div>
                                     </div>
 
-
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Roles<Validation.RequiredStar /></label>
@@ -436,13 +417,9 @@ function Users(props) {
                     </div>
                 </div>
             </div>
-
-
         </Fragment>
-
     )
 }
-
 
 
 const mapStateToProps = (state) => ({

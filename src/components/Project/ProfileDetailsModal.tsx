@@ -22,7 +22,7 @@ function ProfileDetailsModal(props) {
                                 <i className="icofont icofont-ui-close me-1"></i>
                             </div> */}
                         </div>
-                        <div className="modal-body pt-0 mt-0" >
+                        <div className="modal-body pt-0 mt-0 pb-2" >
                             <ProfileDetails {...props} />
                         </div>
                     </div>

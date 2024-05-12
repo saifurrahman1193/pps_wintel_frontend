@@ -229,7 +229,7 @@ function Profile(props) {
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>Profile Update</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
-                        <div className="modal-body pt-0 mt-2" >
+                        <div className="modal-body pt-0 mt-2 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
                                     <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
