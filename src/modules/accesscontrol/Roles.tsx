@@ -1,7 +1,6 @@
 import { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
-import MultiColorBadges from '../../components/Badges/MultiColor';
 import { postCall } from '../../api/apiService'
 import { ROLES_P, CREATE_ROLE, UPDATE_ROLE, SINGLE_ROLE_INFO, MODULE_ALL } from '../../api/apiPath'
 import Paginate from '../../components/Datatable/Paginate'
