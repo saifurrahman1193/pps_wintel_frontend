@@ -47,10 +47,10 @@ function Users(props) {
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value
-        })
+        }))
     }
 
     const [usersData, setUsersData] = useState({})
@@ -153,7 +153,7 @@ function Users(props) {
 
     useEffect(() => {
         if (formData?.roles?.length == 0 || (formData?.roles?.length == 1 && formData?.roles[0] == null)) {
-            setFormData({ ...formData, role_ids: '' })
+            setFormData((prev) => ({ ...prev, role_ids: '' }))
         }
     }, [formData?.roles])
 
@@ -279,7 +279,7 @@ function Users(props) {
                                                             <td>
                                                                 {
                                                                     [...row?.roles_names_array]?.map((role, role_i) => {
-                                                                        return <span key={'table-row-' + i+'-role-'+role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
+                                                                        return <span key={'table-row-' + i + '-role-' + role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
                                                                     })
                                                                 }
                                                             </td>
@@ -364,7 +364,7 @@ function Users(props) {
                                             <div className="col-sm-8">
                                                 <Select options={statusOptions} value={formData?.statusSelectedOption}
                                                     onChange={(option) =>
-                                                        setFormData({ ...formData, active: option?.value, statusSelectedOption: option })
+                                                        setFormData((prev) => ({ ...prev, active: option?.value, statusSelectedOption: option }))
                                                     }
                                                     isClearable placeholder="Select Status" required />
                                             </div>
@@ -385,7 +385,7 @@ function Users(props) {
                                                         const roles = selected_options?.map((role) => {
                                                             return role?.value
                                                         })
-                                                        setFormData({ ...formData, role_ids: roles, rolesSelectedOptions: selected_options })
+                                                        setFormData((prev) => ({ ...prev, role_ids: roles, rolesSelectedOptions: selected_options }))
                                                     }}
                                                     placeholder="Select Roles"
                                                 />

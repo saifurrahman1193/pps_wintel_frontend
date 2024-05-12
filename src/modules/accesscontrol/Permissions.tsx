@@ -44,10 +44,10 @@ function Permissions(props) {
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value
-        })
+        }))
     }
 
 
@@ -126,7 +126,7 @@ function Permissions(props) {
             return item?.value == permissionData?.module_id
         })
 
-        setFormData({ ...formData, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData })
+        setFormData((prev) => ({ ...prev, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData }))
     }
 
     // search
@@ -317,7 +317,7 @@ function Permissions(props) {
                                                     options={moduleOptions}
                                                     value={formData?.module_idSelectedOption}
                                                     onChange={(option) =>
-                                                        setFormData((prev)=>({ ...prev, module_id: option?.value, module_idSelectedOption: option }))
+                                                        setFormData((prev) => ({ ...prev, module_id: option?.value, module_idSelectedOption: option }))
                                                     }
                                                     isClearable
                                                     placeholder='Select Module'

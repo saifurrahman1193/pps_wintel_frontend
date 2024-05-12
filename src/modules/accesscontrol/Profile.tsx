@@ -41,10 +41,10 @@ function Profile(props) {
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value
-        })
+        }))
     }
 
 

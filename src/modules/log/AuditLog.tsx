@@ -52,10 +52,10 @@ function AuditLog(props) {
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value
-        })
+        }))
     }
 
     const [reportData, setReportData] = useState({})
@@ -119,18 +119,18 @@ function AuditLog(props) {
     const userListFHandle = (value) => {
         setUserListFSelectedOption(value)
         console.log(value, value?.value);
-        setFormData({ ...formData, filter: { ...formData.filter, user_id: value?.value } })
+        setFormData((prev) => ({ ...prev, filter: { ...formData.filter, user_id: value?.value } }))
     }
 
 
     // start_date process
     const start_date_handle = (value) => {
-        setFormData({ ...formData, filter: { ...formData.filter, start_date: moment(value).format('yy-MM-DD HH:mm:ss') } })
+        setFormData((prev) => ({ ...prev, filter: { ...formData.filter, start_date: moment(value).format('yy-MM-DD HH:mm:ss') } }))
     }
 
     // end_date process
     const end_date_handle = (value) => {
-        setFormData({ ...formData, filter: { ...formData.filter, end_date: moment(value).format('yy-MM-DD HH:mm:ss') } })
+        setFormData((prev) => ({ ...prev, filter: { ...formData.filter, end_date: moment(value).format('yy-MM-DD HH:mm:ss') } }))
     }
 
 
