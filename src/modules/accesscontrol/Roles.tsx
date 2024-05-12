@@ -331,7 +331,7 @@ function Roles(props) {
                         <div className="modal-body pt-0 mt-5" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="row">
                                         <div className="form-group row col-md-6">

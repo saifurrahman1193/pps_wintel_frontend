@@ -39,6 +39,7 @@ function Users(props) {
         email: '',
         password: '',
         status: 1,
+        statusSelectedOption: { label: 'Active', value: 1 },
         roles: [],
     }
 
@@ -205,6 +206,11 @@ function Users(props) {
         setProfiledetail_row_id(row_id)
     }
 
+    const statusOptions = [
+        { label: 'Inactive', value: 0 },
+        { label: 'Active', value: 1 },
+    ]
+
     return (
         <Fragment>
 
@@ -354,7 +360,7 @@ function Users(props) {
                         <div className="modal-body pt-0 mt-0" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
@@ -387,10 +393,11 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <select className="form-control form-control-sm" id="status" name="status" onChange={handleChange} value={formData?.status} required>
-                                                    <option value="0">Inactive</option>
-                                                    <option value="1">Active</option>
-                                                </select>
+                                                <Select options={statusOptions} value={formData?.statusSelectedOption}
+                                                    onChange={(option) =>
+                                                        setFormData({ ...formData, active: option?.value, statusSelectedOption: option })
+                                                    }
+                                                    isClearable placeholder="Select Status" required />
                                             </div>
                                         </div>
                                     </div>

@@ -304,7 +304,7 @@ function Permissions(props) {
                         <div className="modal-body pt-0 mt-0" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ heigh: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
@@ -315,7 +315,7 @@ function Permissions(props) {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label" >Module<Validation.RequiredStar /></label>
                                             <div className="col-md-8">
@@ -326,8 +326,6 @@ function Permissions(props) {
 
 
                                     <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
-
-
 
                                     <div className="modal-footer pb-0">
                                         <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
