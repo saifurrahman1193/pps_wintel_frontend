@@ -8,7 +8,7 @@ import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action'
-import { permissionsResets, capitalizeFirstLetter } from '../../components/Helpers/CommonHelpers.js'
+import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
 import { Link } from 'react-router-dom';

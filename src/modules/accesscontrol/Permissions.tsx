@@ -126,7 +126,7 @@ function Permissions(props) {
             return item?.value == permissionData?.module_id
         })
 
-        setFormData({ ...formData, ...permissionData, id: id, module_idSelectedOption: moduleData })
+        setFormData({ ...formData, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData })
     }
 
     // search
@@ -160,12 +160,6 @@ function Permissions(props) {
 
     // modules select process
     const [moduleOptions, setModuleOptions] = useState([])
-    const moduleHandle = (value) => {
-        setFormData({ ...formData, module_id: value?.value, module_idSelectedOption: value })
-    }
-
-
-
 
     return (
         <Fragment>
@@ -319,7 +313,15 @@ function Permissions(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label" >Module<Validation.RequiredStar /></label>
                                             <div className="col-md-8">
-                                                <Select options={moduleOptions} value={formData?.module_idSelectedOption} onChange={moduleHandle} isClearable placeholder='Select Module' />
+                                                <Select
+                                                    options={moduleOptions}
+                                                    value={formData?.module_idSelectedOption}
+                                                    onChange={(option) =>
+                                                        setFormData((prev)=>({ ...prev, module_id: option?.value, module_idSelectedOption: option }))
+                                                    }
+                                                    isClearable
+                                                    placeholder='Select Module'
+                                                />
                                             </div>
                                         </div>
                                     </div>
