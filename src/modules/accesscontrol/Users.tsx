@@ -92,7 +92,7 @@ function Users(props) {
         const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
             const rolesData = (response?.data?.rolelist || []).map((role) => {
-                return { label: role?.name, value: role?.id }
+                return { label: role?.name, value: parseInt(role?.id) }
             })
             setRolesOptions(rolesData)
         }
@@ -143,10 +143,10 @@ function Users(props) {
         const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
             const selected_options = (response?.data?.roles || []).map((role) => {
-                return { label: role?.role_name, value: role?.role_id }
+                return { label: role?.role_name, value: parseInt(role?.role_id) }
             })
 
-            setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => item?.role_id), rolesSelectedOptions: selected_options }))
+            setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => parseInt(item?.role_id)), rolesSelectedOptions: selected_options }))
         }
     }
 
@@ -383,7 +383,7 @@ function Users(props) {
                                                     value={formData?.rolesSelectedOptions}
                                                     onChange={(selected_options) => {
                                                         const roles = selected_options?.map((role) => {
-                                                            return role?.value
+                                                            return parseInt(role?.value)
                                                         })
                                                         setFormData((prev) => ({ ...prev, role_ids: roles, rolesSelectedOptions: selected_options }))
                                                     }}
