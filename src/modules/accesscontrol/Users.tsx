@@ -278,8 +278,8 @@ function Users(props) {
                                                             <td>{row.email}</td>
                                                             <td>
                                                                 {
-                                                                    [...row?.roles_names_array]?.map((role, role_i) => {
-                                                                        return <span key={'table-row-' + i + '-role-' + role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role}</span>;
+                                                                    [...row?.roles]?.map((role, role_i) => {
+                                                                        return <span key={'table-row-' + i + '-role-' + role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role?.name}</span>;
                                                                     })
                                                                 }
                                                             </td>

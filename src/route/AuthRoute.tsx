@@ -4,9 +4,13 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 function AuthRoute(props) {
 
-    
-
     const checkAccessibility = () => {
+        
+        // console.log('=============props.can && props.ability=============', props.can && props.ability);
+        // console.log('=============props.can && !props.ability=============', props.can && !props.ability);
+        // console.log('=============props.ability && !props.can=============', props.ability && !props.can);
+        // console.log('=============props.user=============', props.user);
+
         if (props.can && props.ability) {
             if (props.permissions.includes(props.can) && props.roles.includes(props.ability)) {
                 return true
@@ -32,6 +36,7 @@ function AuthRoute(props) {
                 return false
             }
         }
+
     }
 
     return (

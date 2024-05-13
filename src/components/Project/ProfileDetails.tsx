@@ -30,17 +30,13 @@ function ProfileDetails(props) {
     }, [userId]);
 
 
-    const getUser = async (e, reload = false) => {
-        if (e && e.preventDefault) {
-            e.preventDefault();
-        }
+    const getUser = async () => {
         const response = await postCall(SINGLE_USER_INFO, { id: userId }, token)
         if (response?.code === 200) {
-            var userData = response?.data
+            const userData = response?.data
 
             setUserData(userData)
             setFormData({ ...formInitial, name: userData?.name, id: userData?.userId })
-        } else {
         }
     }
 
@@ -82,7 +78,12 @@ function ProfileDetails(props) {
                 <div className="row mb-7">
                     <label className="col-lg-4 fw-bold text-muted">Role</label>
                     <div className="col-lg-8">
-                        <span className="fw-bolder fs-6 text-gray-800">{userData?.roles[0]}</span>
+                        {/* <span className="fw-bolder fs-6 text-gray-800">{userData?.roles_comma_seperated}</span> */}
+                        {
+                            userData?.roles?.map((role, role_i) => {
+                                return <span key={'role-' + role_i} className="badge rounded-pill font-size-12 fw-medium mx-1 bg-light">{role?.role_name}</span>;
+                            })
+                        }
                     </div>
                 </div>
 
