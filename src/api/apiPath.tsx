@@ -52,3 +52,11 @@ export const USER_LIST = '/list/getAllUserList'
 export const CLIENT_LIST_B_O_OPERATOR_CONN_TYPE = '/list/getClientBOOperatorConnType'
 export const LOG_TYPES = '/list/getLogTypes'
 
+
+
+
+// Merchant routes
+export const MERCHANT_P = '/merchant/merchant-list-paginate'
+export const CREATE_MERCHANT = '/merchant/createPermission'
+export const SINGLE_MERCHANT_INFO = '/merchant/getPermission'
+export const UPDATE_MERCHANT = '/merchant/updatePermission'

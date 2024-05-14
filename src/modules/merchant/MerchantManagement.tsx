@@ -1,14 +1,14 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
-import { postCall } from '../../api/apiService.js'
-import { PERMISSION_P, CREATE_PERMISSION, UPDATE_PERMISSION, MODULE_ALL } from '../../api/apiPath.js'
+import { postCall, getCall } from '../../api/apiService.js'
+import { MERCHANT_P, CREATE_MERCHANT, UPDATE_MERCHANT } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent.js'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
 import { Link } from 'react-router-dom';
-import { permissionsResets, badge_colors } from '../../components/Helpers/CommonHelpers.js'
+import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
 import Select from 'react-select'
 import Badge from '../../components/Badges/Badge.js';
 import INIT from '../../route/utils/Init.js';
@@ -31,11 +31,20 @@ function MerchantManagement(props) {
     }
 
     const formInitial = {
-        id: '',
-        name: '',
-        module_id: '',
-        module_idSelectedOption: '',
-        guard_name: 'web',
+        filter:{},
+        formdata: {
+            id: '',
+            name: '',
+            phone: '',
+            email: '',
+            email_verified_at: '',
+            password: '',
+            status: '',
+            log_viewer: '',
+            force_password: '',
+            remember_token: '',
+            organization_id: '',
+        }
     }
 
     const [formData, setFormData] = useState(formInitial)
@@ -61,8 +70,8 @@ function MerchantManagement(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { page: page}
-        const response = await postCall(PERMISSION_P, request, props.user.access_token)
+        const request = { page: page }
+        const response = await getCall(MERCHANT_P, request, props.user.access_token)
         if (response?.code === 200) {
             setPermissionsData(response?.data?.data);
             setPaginator(response?.data?.paginator);
@@ -87,14 +96,13 @@ function MerchantManagement(props) {
         props.setPageBreadcrumb(breadcrumb)
 
         getPermissionsData(null, undefined, undefined)
-        getAllModules()
     }, [])
 
     const getApi = () => {
         if (formData?.id) {
-            return UPDATE_PERMISSION
+            return UPDATE_MERCHANT
         }
-        return CREATE_PERMISSION
+        return CREATE_MERCHANT
     }
 
     const handleSubmit = async (e) => {
@@ -126,7 +134,7 @@ function MerchantManagement(props) {
         setFormData((prev) => ({ ...prev, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData }))
     }
 
-   
+
 
     const closeDialog = () => {
         const modalclosebtn = document.getElementById('modalclosebtn')
@@ -138,31 +146,13 @@ function MerchantManagement(props) {
     }
 
 
-    const getAllModules = async () => {
-        const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
-        if (response?.code === 200) {
-            const list = (response?.data?.modulelist || []).map((item) => {
-                return { label: item?.name, value: item?.id }
-            })
-
-            setModuleOptions(list)
-        }
-    }
-
-    // modules select process
-    const [moduleOptions, setModuleOptions] = useState([])
 
     return (
         <Fragment>
-
-
             <div className="card col-12">
-
                 <div className="card-block py-2 px-2">
-
                     <div className="row mb-2">
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
-
                             {
                                 props.permissions.includes('merchant create') ?
                                     <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
@@ -173,9 +163,8 @@ function MerchantManagement(props) {
                                     null
                             }
                         </div>
-                        
-                    </div>
 
+                    </div>
 
                     {
                         isLoading || noDataFound ?
@@ -219,11 +208,15 @@ function MerchantManagement(props) {
                                                     return (
                                                         <tr key={'row-permission-' + i}>
                                                             <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                            <td>{row.name}</td>
+                                                            <td>{row?.client_name}</td>
+                                                            <td>{row?.client_poc_name}</td>
+                                                            <td>{row?.client_contact_no}</td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td>
                                                                 {
-                                                                    row?.module_id ?
-                                                                        <Badge badgeValue={row?.module?.name} badgeClass={badge_colors[(row?.module_id - 1) % 5]} />
+                                                                    row?.status ?
+                                                                        <Badge badgeValue={row?.status} badgeClass={row?.status=='active' ?'badge-soft-success' : 'badge-soft-danger' } />
                                                                         : null
                                                                 }
                                                             </td>
@@ -344,23 +337,7 @@ function MerchantManagement(props) {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-12 my-2">
-                                        <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label" >Module<Validation.RequiredStar /></label>
-                                            <div className="col-md-8">
-                                                <Select
-                                                    options={moduleOptions}
-                                                    value={formData?.module_idSelectedOption}
-                                                    onChange={(option) =>
-                                                        setFormData((prev) => ({ ...prev, module_id: option?.value, module_idSelectedOption: option }))
-                                                    }
-                                                    isClearable
-                                                    placeholder='Select Module'
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
 
                                     <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
 
