@@ -32,7 +32,7 @@ function MerchantManagement(props) {
 
     const formInitial = {
         filter:{},
-        formdata: {
+        form: {
             id: '',
             name: '',
             phone: '',
@@ -261,13 +261,13 @@ function MerchantManagement(props) {
                         <div className="modal-body pt-0 mt-0 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.form?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Merchant Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_name" placeholder="Merchant Name" value={formData?.form?.client_name} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +276,7 @@ function MerchantManagement(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Address<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_address" placeholder="Address" value={formData?.form?.client_address} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@ function MerchantManagement(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Authorized Person Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_poc_name" placeholder="Name" value={formData?.form?.client_poc_name} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
@@ -294,7 +294,16 @@ function MerchantManagement(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Phone<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_contact_no" placeholder="Client Contact No" value={formData?.form?.client_contact_no} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Email<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_poc_email" placeholder="Client POC Email" value={formData?.form?.client_poc_email} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
@@ -303,43 +312,16 @@ function MerchantManagement(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Provided Document<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="client_provided_doc" placeholder="Client Provided Document" value={formData?.form?.client_provided_doc} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
 
-
-                                    <div className="col-md-12 my-2">
-                                        <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Username<Validation.RequiredStar /></label>
-                                            <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="col-md-12 my-2">
-                                        <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Password<Validation.RequiredStar /></label>
-                                            <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-12 my-2">
-                                        <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Confirm Password<Validation.RequiredStar /></label>
-                                            <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     
+                                    
 
-                                    <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
+                                    <input type="text" className="form-control form-control-sm form-control-solid" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
 
                                     <div className="modal-footer pt-2 pb-0">
                                         <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
