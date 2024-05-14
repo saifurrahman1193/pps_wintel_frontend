@@ -7,7 +7,7 @@ import Dashboard from '../modules/Dashboard';
 import Users from '../modules/accesscontrol/Users';
 import Roles from '../modules/accesscontrol/Roles';
 import Permissions from '../modules/accesscontrol/Permissions';
-// import AuditLog from '../modules/log/AuditLog';
+import MerchantManagement from '../modules/merchant/MerchantManagement';
 
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -17,7 +17,6 @@ import PublicRoute from './PublicRoute';
 import Breadcrumb from '../components/Breadcrumb';
 
 function Router(props) {
-
 
     return (
         <Fragment>
@@ -33,10 +32,14 @@ function Router(props) {
                                     <div className="container-fluid">
                                         <Breadcrumb />
                                         <AuthRoute exact path='/dashboard' element={<Dashboard />} />
+
                                         <AuthRoute exact path='/profile' element={<Profile />} />
+
                                         <AuthRoute exact path='/users' element={<Users />} />
                                         <AuthRoute exact path='/roles' element={<Roles />} />
                                         <AuthRoute exact path='/permissions' element={<Permissions />} />
+
+                                        <AuthRoute exact path='/merchant-management' element={<MerchantManagement />} />
                                     </div>
                                 </div>
                                 <Footer />

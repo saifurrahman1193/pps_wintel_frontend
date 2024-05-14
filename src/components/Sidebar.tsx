@@ -74,7 +74,14 @@ function Sidebar(props) {
                             </ul>
                         </li>
 
-                        <li>
+                        <li className={vCurPathLi('/merchant-management')}>
+                            <Link to="/merchant-management" className={vCurPathA('/merchant-management')}>
+                                <i data-feather="user" />
+                                <span data-key="t-merchant-management">Merchant</span>
+                            </Link>
+                        </li>
+
+                        {/* <li>
                             <Link to="#!" className="has-arrow">
                                 <i data-feather="dollar-sign" />
                                 <span data-key="t-authentication">Balance</span>
@@ -84,9 +91,10 @@ function Sidebar(props) {
                                 <li><Link to="/masking-balance" data-key="t-masking-balance">Masking Balance</Link></li>
                                 <li><Link to="/non-masking-balance" data-key="t-non-masking-balance">Non-Masking Balance</Link></li>
                             </ul>
-                        </li>
+                        </li> */}
+                        
 
-                        <li>
+                        {/* <li>
                             <Link to="#!" className="has-arrow">
                                 <i data-feather="message-square" />
                                 <span data-key="t-authentication">SMS Inventory</span>
@@ -119,7 +127,7 @@ function Sidebar(props) {
                                 <li><Link to="auth-logout.html" data-key="t-content-request">Content Request</Link></li>
                                 <li><Link to="auth-logout.html" data-key="t-masking-request">Masking Request</Link></li>
                             </ul>
-                        </li>
+                        </li> */}
 
                     </ul>
 
