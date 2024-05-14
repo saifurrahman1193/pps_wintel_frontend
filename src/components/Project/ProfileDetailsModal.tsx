@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import ProfileDetails from './ProfileDetails'
+import { Link } from 'react-router-dom';
 
 function ProfileDetailsModal(props) {
 
@@ -9,9 +10,9 @@ function ProfileDetailsModal(props) {
 
     return (
         <Fragment>
-            <a data-bs-toggle="modal" data-bs-target={"#profileDetailModal-"+props?.profiledetail_row_id} href="#0" onClick={()=>data_update(props?.userId_row, props?.profiledetail_row_id)}>
+            <Link data-bs-toggle="modal" data-bs-target={"#profileDetailModal-"+props?.profiledetail_row_id} to="#0" onClick={()=>data_update(props?.userId_row, props?.profiledetail_row_id)}>
                 {props?.text}
-            </a>
+            </Link>
 
             <div className="modal fade" id={"profileDetailModal-"+props?.profiledetail_row_id} tabIndex="-1"  aria-labelledby={"profileDetailModal-"+props?.profiledetail_row_id} aria-hidden="true" >
                 <div className="modal-dialog modal-fullscreen" role="document">

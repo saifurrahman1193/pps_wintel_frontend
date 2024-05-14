@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom';
 
 function Paginate(props) {
 
@@ -32,25 +33,25 @@ function Paginate(props) {
                         <ul className="pagination pagination-sm justify-content-end">
 
                             <li className={`page-item ${previous_page_url ? '' : 'disabled'}`}>
-                                <a href="#0" className="page-link" onClick={(e) => onClickPage(e, 1)} aria-label="First page" title="First page">
+                                <Link to="#0" className="page-link" onClick={(e) => onClickPage(e, 1)} aria-label="First page" title="First page">
                                     <i className="fa fa-fast-backward"></i>
-                                </a>
+                                </Link>
                             </li>
 
                             <li className={`page-item ${previous_page_url ? '' : 'disabled'}`}>
-                                <a href="#0" className="page-link" onClick={(e) => onClickPage(e, current_page - 1)} aria-label="Previous" title="Previous page">
+                                <Link to="#0" className="page-link" onClick={(e) => onClickPage(e, current_page - 1)} aria-label="Previous" title="Previous page">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span className="sr-only">Previous</span>
-                                </a>
+                                </Link>
                             </li>
 
 
                             {
                                 paginator?.current_page > 3 ?
                                     <li className="page-item">
-                                        <a className="page-link" href="#0" onClick={(e) => onClickPage(e, 1)}
+                                        <Link className="page-link" to="#0" onClick={(e) => onClickPage(e, 1)}
                                             title={'Go to page 1'}
-                                        >1</a>
+                                        >1</Link>
                                     </li>
                                     : null
                             }
@@ -68,18 +69,18 @@ function Paginate(props) {
                                     (pageNumber >= (paginator?.current_page - 2) && pageNumber <= (paginator?.current_page + 2)) ?
                                         (pageNumber == paginator?.current_page) ?
                                             <li key={'page-num-' + pageNumber} className={`page-item ${(paginator?.current_page == pageNumber) ? ' active' : ''}`}  >
-                                                <a className="page-link"
+                                                <Link className="page-link"
                                                     onClick={(e) => onClickPage(e, pageNumber)}
                                                     title={'Go to page ' + pageNumber}
-                                                    href="#0"
-                                                >{pageNumber}</a>
+                                                    to="#0"
+                                                >{pageNumber}</Link>
                                             </li>
                                             :
                                             <li key={'page-num-' + pageNumber}>
-                                                <a className="page-link" href="#0"
+                                                <Link className="page-link" to="#0"
                                                     onClick={(e) => onClickPage(e, pageNumber)}
                                                     title={'Go to page ' + pageNumber}
-                                                >{pageNumber}</a>
+                                                >{pageNumber}</Link>
                                             </li>
 
                                         : null
@@ -97,17 +98,17 @@ function Paginate(props) {
                             }
 
                             <li className={`page-item ${next_page_url ? '' : 'disabled'}`}>
-                                <a href="#0" className="page-link" onClick={(e) => onClickPage(e, current_page + 1)} aria-label="Next" title="Next page">
+                                <Link to="#0" className="page-link" onClick={(e) => onClickPage(e, current_page + 1)} aria-label="Next" title="Next page">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span className="sr-only">Next</span>
-                                </a>
+                                </Link>
                             </li>
 
 
                             <li className={`page-item ${next_page_url ? '' : 'disabled'}`}>
-                                <a href="#0" className="page-link" onClick={(e) => onClickPage(e, total_pages)} aria-label="Last page" title="Last page">
+                                <Link to="#0" className="page-link" onClick={(e) => onClickPage(e, total_pages)} aria-label="Last page" title="Last page">
                                     <i className="fa fa-fast-forward"></i>
-                                </a>
+                                </Link>
                             </li>
 
                         </ul>

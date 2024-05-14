@@ -174,7 +174,7 @@ function Permissions(props) {
 
                             {
                                 props.permissions.includes('permission create') ?
-                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
+                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
                                         <i className="bx bx-plus label-icon"></i>
                                         Create New Permission
                                     </Link>
@@ -255,7 +255,7 @@ function Permissions(props) {
                                                                 {
                                                                     props.permissions.includes('permission update') ?
                                                                         <div className="form-inline" >
-                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" to="#0" className="btn btn-icon btn-sm btn-active-light-primary"
                                                                                 onClick={() => updateModalProcess(row.id)}
                                                                             >
                                                                                 <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>

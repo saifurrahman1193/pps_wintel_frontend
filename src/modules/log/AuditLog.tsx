@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { postCall } from '../../api/apiService'
 import { ALL_AUDIT_LOG_P, USER_LIST } from '../../api/apiPath'
 import Paginate from '../../components/Datatable/Paginate'
@@ -275,11 +276,11 @@ function AuditLog(props) {
                                                             <td>{row?.page_url}</td>
                                                             <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
                                                             <td>
-                                                                <a role="button" data-bs-toggle="modal" data-bs-target="#file_paths_modal" title="Edit Record?" href="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                                                <Link role="button" data-bs-toggle="modal" data-bs-target="#file_paths_modal" title="Edit Record?" to="#0" className="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
                                                                     onClick={() => updateDetailModalData(row)}
                                                                 >
                                                                     <i className="las la-eye fs-2"></i>
-                                                                </a>
+                                                                </Link>
                                                             </td>
                                                         </tr>
                                                     )

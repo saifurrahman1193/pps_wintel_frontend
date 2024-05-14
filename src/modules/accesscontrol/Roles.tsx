@@ -306,11 +306,11 @@ function Roles(props) {
                                                             {
                                                                 props?.permissions?.includes('role update') ?
                                                                     <div className="form-inline" >
-                                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                        <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" to="#0" className="btn btn-icon btn-sm btn-active-light-primary"
                                                                             onClick={() => updateModalProcess(row.id)}
                                                                         >
                                                                             <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                        </a>
+                                                                        </Link>
                                                                     </div>
                                                                     :
                                                                     null

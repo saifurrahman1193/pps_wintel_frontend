@@ -165,9 +165,9 @@ function MerchantManagement(props) {
 
                             {
                                 props.permissions.includes('merchant create') ?
-                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
+                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
                                         <i className="bx bx-plus label-icon"></i>
-                                        Create New Permission
+                                        Create New Merchant
                                     </Link>
                                     :
                                     null
@@ -204,8 +204,12 @@ function MerchantManagement(props) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Name</th>
-                                                <th>Module</th>
+                                                <th>Merchant Name</th>
+                                                <th>POC Name</th>
+                                                <th>POC Phone</th>
+                                                <th>Masking Balance</th>
+                                                <th>Non-masking Balance</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -227,7 +231,7 @@ function MerchantManagement(props) {
                                                                 {
                                                                     props.permissions.includes('merchant update') ?
                                                                         <div className="form-inline" >
-                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
+                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" to="#0" className="btn btn-icon btn-sm btn-active-light-primary"
                                                                                 onClick={() => updateModalProcess(row.id)}
                                                                             >
                                                                                 <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
@@ -258,7 +262,7 @@ function MerchantManagement(props) {
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
-                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Permission</p>
+                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Merchant</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-0 pb-2" >
@@ -268,7 +272,72 @@ function MerchantManagement(props) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar /></label>
+                                            <label className="col-sm-4 col-form-label control-label">Merchant Name<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Address<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Authorized Person Name<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Phone<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Provided Document<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Username<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Password<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Confirm Password<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
                                             </div>

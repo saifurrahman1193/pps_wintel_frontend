@@ -181,7 +181,7 @@ function Profile(props) {
                             </div>
                             <ul className="nav nav-tabs-custom card-header-tabs border-top mt-4" id="pills-tab" role="tablist">
                                 <li className="nav-item">
-                                    <a className="nav-link px-3 active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
+                                    <Link className="nav-link px-3 active" data-bs-toggle="tab" to="#overview" role="tab">Overview</Link>
                                 </li>
 
                             </ul>
