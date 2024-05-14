@@ -30,7 +30,10 @@ function AuthRoute(props) {
                 return false
             }
         } else {
-            if (props.user) {
+            if (location.pathname === '/' && props.user) {
+                window.location.href = '/dashboard'
+            }
+            else if (props.user) {
                 return true
             } else {
                 return false
@@ -45,7 +48,7 @@ function AuthRoute(props) {
                 checkAccessibility() ?
                     <Routes><Route {...props} /></Routes>
                     :
-                    <Navigate to="/" replace={true} />
+                    <Navigate to="/" />
             }
         </React.Fragment>
     )
