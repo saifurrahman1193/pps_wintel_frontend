@@ -15,13 +15,15 @@ function Sidebar(props) {
         return ''
     }
 
-    const vCurPathLi = (pathname = '') => {
+    const sidebarCurPathLi = (pathname = '') => {
         const path = props.breadcrumb.currentPath
         if (path == pathname) {
             return 'mm-active'
         }
         return ''
     }
+
+
 
     useEffect(() => {
         sidbar_handler()
@@ -55,32 +57,58 @@ function Sidebar(props) {
                 <div id="sidebar-menu">
                     {/* Left Menu Start */}
                     <ul className="metismenu list-unstyled" id="side-menu">
-                        <li className={vCurPathLi('/dashboard')}>
+                        <li className={sidebarCurPathLi('/dashboard')}>
                             <Link to="/dashboard" className={vCurPathA('/dashboard')}>
                                 <i data-feather="grid" />
                                 <span data-key="t-dashboard">Dashboard</span>
                             </Link>
                         </li>
 
-                        <li>
-                            <Link to="#!" className="has-arrow">
-                                <i data-feather="shield" />
-                                <span data-key="t-authentication">Access Control</span>
-                            </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li className={vCurPathLi('/users')}><Link to="/users" data-key="t-user" className={vCurPathA('/users')}>User</Link></li>
-                                <li className={vCurPathLi('/roles')}><Link to="/roles" data-key="t-role" className={vCurPathA('/roles')}>Role</Link></li>
-                                <li className={vCurPathLi('/permissions')}><Link to="/permissions" data-key="t-permission" className={vCurPathA('/permissions')}>Permission</Link></li>
-                            </ul>
-                        </li>
+                        {
+                            ['user list', 'role list', 'permission list'].some(ai => props?.permissions?.includes(ai)) ?
+                                <li>
+                                    <Link to="#!" className="has-arrow">
+                                        <i data-feather="shield" />
+                                        <span data-key="t-authentication">Access Control</span>
+                                    </Link>
+                                    <ul className="sub-menu" aria-expanded="false">
+                                        {
+                                            props.permissions.includes('user list') ?
+                                                <li className={sidebarCurPathLi('/users')}><Link to="/users" data-key="t-user" className={vCurPathA('/users')}>User</Link></li>
+                                                :
+                                                null
+                                        }
 
-                        <li className={vCurPathLi('/merchant-management')}>
-                            <Link to="/merchant-management" className={vCurPathA('/merchant-management')}>
-                                <i data-feather="user" />
-                                <span data-key="t-merchant-management">Merchant</span>
-                            </Link>
-                        </li>
+                                        {
+                                            props.permissions.includes('role list') ?
+                                                <li className={sidebarCurPathLi('/roles')}><Link to="/roles" data-key="t-role" className={vCurPathA('/roles')}>Role</Link></li>
+                                                :
+                                                null
+                                        }
 
+                                        {
+                                            props.permissions.includes('permission list') ?
+                                                <li className={sidebarCurPathLi('/permissions')}><Link to="/permissions" data-key="t-permission" className={vCurPathA('/permissions')}>Permission</Link></li>
+                                                :
+                                                null
+                                        }
+                                    </ul>
+                                </li>
+                                :
+                                null
+                        }
+
+                        {
+                            props.permissions.includes('merchant list') ?
+                                <li className={sidebarCurPathLi('/merchant-management')}>
+                                    <Link to="/merchant-management" className={vCurPathA('/merchant-management')}>
+                                        <i data-feather="user" />
+                                        <span data-key="t-merchant-management">Merchant</span>
+                                    </Link>
+                                </li>
+                                :
+                                null
+                        }
                         {/* <li>
                             <Link to="#!" className="has-arrow">
                                 <i data-feather="dollar-sign" />
@@ -92,7 +120,7 @@ function Sidebar(props) {
                                 <li><Link to="/non-masking-balance" data-key="t-non-masking-balance">Non-Masking Balance</Link></li>
                             </ul>
                         </li> */}
-                        
+
 
                         {/* <li>
                             <Link to="#!" className="has-arrow">

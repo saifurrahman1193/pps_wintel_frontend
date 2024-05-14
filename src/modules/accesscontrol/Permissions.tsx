@@ -20,7 +20,7 @@ function Permissions(props) {
         currentPath: '/permissions',
         layers: [
             {
-                title: 'Home',
+                title: 'Dashboard',
                 link: '/dashboard'
             },
             {

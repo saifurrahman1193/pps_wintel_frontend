@@ -20,7 +20,7 @@ function Users(props) {
         currentPath: '/users',
         layers: [
             {
-                title: 'Home',
+                title: 'Dashboard',
                 link: '/dashboard'
             },
             {

@@ -20,11 +20,8 @@ function MerchantManagement(props) {
         currentPath: '/merchant-management',
         layers: [
             {
-                title: 'Home',
+                title: 'Dashboard',
                 link: '/dashboard'
-            },
-            {
-                title: 'Access Control'
             },
             {
                 title: 'Manage Merchant',
@@ -56,7 +53,7 @@ function MerchantManagement(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getPermissionsData = async (e, page = 1, search = '') => {
+    const getPermissionsData = async (e, page = 1) => {
         setNoDataFound(false)
 
         setIsLoading(true)
@@ -64,7 +61,7 @@ function MerchantManagement(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { page: page, search: search }
+        const request = { page: page}
         const response = await postCall(PERMISSION_P, request, props.user.access_token)
         if (response?.code === 200) {
             setPermissionsData(response?.data?.data);
@@ -129,13 +126,7 @@ function MerchantManagement(props) {
         setFormData((prev) => ({ ...prev, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData }))
     }
 
-    // search
-    const [search, setSearch] = useState('')
-    const handleKeyPressForSearch = (event) => {
-        if (event.key === 'Enter') {
-            getPermissionsData(null, null, search)
-        }
-    }
+   
 
     const closeDialog = () => {
         const modalclosebtn = document.getElementById('modalclosebtn')
@@ -173,7 +164,7 @@ function MerchantManagement(props) {
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
 
                             {
-                                props.permissions.includes('permission create') ?
+                                props.permissions.includes('merchant create') ?
                                     <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" href="#0" onClick={clear}>
                                         <i className="bx bx-plus label-icon"></i>
                                         Create New Permission
@@ -182,26 +173,7 @@ function MerchantManagement(props) {
                                     null
                             }
                         </div>
-                        <div className="col col-12 col-xs-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mt-2">
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <input
-                                        type="text"
-                                        id="search"
-                                        name="search"
-                                        onChange={(e) => setSearch(e.target.value)}
-                                        onKeyPress={handleKeyPressForSearch}
-                                        value={search}
-                                        placeholder="Search..."
-                                        className="form-control"
-                                        style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
-                                    />
-                                    <div className="input-group-append">
-                                        <button className="btn btn-primary" type="submit" onClick={() => getPermissionsData(null, null, search)}><i className="bx bx-search-alt align-middle"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
 
@@ -253,7 +225,7 @@ function MerchantManagement(props) {
                                                             </td>
                                                             <td>
                                                                 {
-                                                                    props.permissions.includes('permission update') ?
+                                                                    props.permissions.includes('merchant update') ?
                                                                         <div className="form-inline" >
                                                                             <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" href="#0" className="btn btn-icon btn-sm btn-active-light-primary"
                                                                                 onClick={() => updateModalProcess(row.id)}
@@ -275,18 +247,12 @@ function MerchantManagement(props) {
                             </Fragment>
                             : null
                     }
-
-
                     {
                         paginator?.total_pages > 1 ?
                             <Paginate paginator={paginator} pagechanged={(page) => getPermissionsData(null, page)} /> : null
                     }
-
-
                 </div>
             </div>
-
-
 
             <div className="modal fade modal-backdrop-static" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -133,7 +133,6 @@ export const checkPermissionsWiseRouteChecker = (props) => {
 
     if (!(props?.permissions?.includes(permission_route?.permission))) {
         window.location.href = '/dashboard'
-        // props.history.push('/')
     }
 }
 
@@ -274,3 +273,4 @@ export const badge_colors = ['badge-soft-primary', 'badge-soft-info', 'badge-sof
 export const capitalizeFirstLetter = (string='') => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
