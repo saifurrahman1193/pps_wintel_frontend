@@ -1,15 +1,13 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
-import { postCall, getCall } from '../../api/apiService.js'
-import { MERCHANT_P, CREATE_MERCHANT, UPDATE_MERCHANT } from '../../api/apiPath.js'
+import { postCall, putCall, getCall } from '../../api/apiService.js'
+import { MERCHANT_P, CREATE_MERCHANT, UPDATE_MERCHANT, SINGLE_MERCHANT_INFO } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
-import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent.js'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
 import { Link } from 'react-router-dom';
 import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
-import Select from 'react-select'
 import Badge from '../../components/Badges/Badge.js';
 import INIT from '../../route/utils/Init.js';
 
@@ -31,19 +29,21 @@ function MerchantManagement(props) {
     }
 
     const formInitial = {
-        filter:{},
+        filter: {},
         form: {
             id: '',
-            name: '',
-            phone: '',
-            email: '',
-            email_verified_at: '',
-            password: '',
+            client_name: '',
+            client_address: '',
+            client_poc_name: '',
+            client_contact_no: '',
+            client_poc_email: '',
+            client_provided_doc: '',
+            client_id: '',
+            login_pass: '',
+            role: '',
+            create_time: '',
             status: '',
-            log_viewer: '',
-            force_password: '',
-            remember_token: '',
-            organization_id: '',
+            is_real_client: '',
         }
     }
 
@@ -52,7 +52,10 @@ function MerchantManagement(props) {
     const handleChange = (e) => {
         setFormData((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value
+            form: {
+                ...formData?.form,
+                [e.target.name]: e.target.value
+            }
         }))
     }
 
@@ -62,7 +65,7 @@ function MerchantManagement(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getPermissionsData = async (e, page = 1) => {
+    const getTableData = async (e, page = 1) => {
         setNoDataFound(false)
 
         setIsLoading(true)
@@ -87,19 +90,16 @@ function MerchantManagement(props) {
         }
     }
 
-
-
-
     useEffect(() => {
         INIT()
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 
-        getPermissionsData(null, undefined, undefined)
+        getTableData(null, undefined, undefined)
     }, [])
 
     const getApi = () => {
-        if (formData?.id) {
+        if (formData?.form?.id) {
             return UPDATE_MERCHANT
         }
         return CREATE_MERCHANT
@@ -109,43 +109,40 @@ function MerchantManagement(props) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { ...formData, id: formData?.id }
-        const api = getApi()
-        const response = await postCall(api, request, props.user.access_token)
+        const request = { ...formData?.form, id: formData?.form?.id }
+        let response;
+        if (formData?.form?.id) {
+            response = await putCall(UPDATE_MERCHANT, request, props.user.access_token)
+        }
+        else{
+            response = await postCall(CREATE_MERCHANT, request, props.user.access_token)
+        }
         if (response?.code === 200) {
-            getPermissionsData(null, paginator?.current_page, undefined)
+            getTableData(null, paginator?.current_page, undefined)
             setFormData(formInitial)
             toast.success(response?.message?.[0])
-            closeDialog()
+            closeFormModal()
         } else {
             toast.error(response?.message?.[0])
         }
     }
 
     const updateModalProcess = async (id) => {
-        const permissionData = permissionsData.find((item) => {
-            return item.id == id
-        })
-
-        const moduleData = moduleOptions?.find((item) => {
-            return item?.value == permissionData?.module_id
-        })
-
-        setFormData((prev) => ({ ...prev, ...permissionData, id: id, module_id: moduleData?.value, module_idSelectedOption: moduleData }))
+        const response = await getCall(`${SINGLE_MERCHANT_INFO}/${id}`, {}, props.user.access_token)
+        if (response?.code === 200) {
+            setFormData((prev) => ({ ...prev, form: response?.data }))
+        }
     }
 
-
-
-    const closeDialog = () => {
+    const closeFormModal = () => {
         const modalclosebtn = document.getElementById('modalclosebtn')
         modalclosebtn ? modalclosebtn.click() : null;
+        setFormData((prev) => ({...prev, form: formInitial?.form}))
     }
 
-    const clear = () => {
-        setFormData(formInitial)
+    const formClear = () => {
+        setFormData((prev) => ({...prev, form: formInitial?.form}))
     }
-
-
 
     return (
         <Fragment>
@@ -155,7 +152,7 @@ function MerchantManagement(props) {
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
                             {
                                 props.permissions.includes('merchant create') ?
-                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
+                                    <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveModal" to="#0" onClick={formClear}>
                                         <i className="bx bx-plus label-icon"></i>
                                         Create New Merchant
                                     </Link>
@@ -216,19 +213,23 @@ function MerchantManagement(props) {
                                                             <td>
                                                                 {
                                                                     row?.status ?
-                                                                        <Badge badgeValue={row?.status} badgeClass={row?.status=='active' ?'badge-soft-success' : 'badge-soft-danger' } />
+                                                                        <Badge badgeValue={row?.status} badgeClassName={row?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
                                                                         : null
                                                                 }
                                                             </td>
                                                             <td>
                                                                 {
                                                                     props.permissions.includes('merchant update') ?
-                                                                        <div className="form-inline" >
-                                                                            <Link role="button" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" title="Edit Record?" to="#0" className="btn btn-icon btn-sm btn-active-light-primary"
-                                                                                onClick={() => updateModalProcess(row.id)}
-                                                                            >
-                                                                                <span className="svg-icon svg-icon-3"><Svgediticoncomponent /></span>
-                                                                            </Link>
+                                                                        <div className="dropdown">
+                                                                            <button className="btn btn-link font-size-16 shadow-none py-0 text-muted dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                <i className="bx bx-dots-horizontal-rounded"></i>
+                                                                            </button>
+                                                                            <ul className="dropdown-menu dropdown-menu-end">
+
+                                                                                <li><Link role="button" data-bs-toggle="modal" data-bs-target="#saveModal" title="Edit Record?" className="dropdown-item px-1" to="#!" onClick={() => updateModalProcess(row.id)}><i className="mdi mdi-pencil" /> <span className='mx-2'>Edit</span></Link></li>
+
+                                                                                <li><Link role="button" data-bs-toggle="modal" data-bs-target="#viewModal" title="View Record?" className="dropdown-item px-1" to="#!" onClick={() => updateModalProcess(row.id)}><i className="mdi mdi-eye" /> <span className='mx-2'>View</span></Link></li>
+                                                                            </ul>
                                                                         </div>
                                                                         :
                                                                         null
@@ -246,17 +247,17 @@ function MerchantManagement(props) {
                     }
                     {
                         paginator?.total_pages > 1 ?
-                            <Paginate paginator={paginator} pagechanged={(page) => getPermissionsData(null, page)} /> : null
+                            <Paginate paginator={paginator} pagechanged={(page) => getTableData(null, page)} /> : null
                     }
                 </div>
             </div>
 
-            <div className="modal fade modal-backdrop-static" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+            <div className="modal fade modal-backdrop-static" id="saveModal" tabIndex="-1" aria-labelledby="saveModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
-                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} Merchant</p>
-                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
+                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveModal" style={{ flex: "auto" }}>{formData?.form?.id ? 'Update' : 'Create New'} Merchant</p>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={formClear} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-0 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
@@ -318,17 +319,76 @@ function MerchantManagement(props) {
                                     </div>
 
 
-                                    
-                                    
-
-                                    <input type="text" className="form-control form-control-sm form-control-solid" name="name" placeholder="Guard name, Ex:web" value={formData?.guard_name} onChange={handleChange} required hidden />
-
                                     <div className="modal-footer pt-2 pb-0">
-                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
+                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={formClear} id="modalclosebtn">Cancel</button>
                                         <button type="submit" className="btn btn-sm btn-primary" id="formSubmit">Save</button>
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="modal fade modal-backdrop-static" id="viewModal" tabIndex="-1" aria-labelledby="viewModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+                <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header py-2">
+                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="viewModal" style={{ flex: "auto" }}> Merchant Details</p>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={formClear} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
+                        </div>
+                        <div className="modal-body pt-0 mt-0 pb-2" >
+                            <div className="table-responsive my-1">
+                                <table className="table table-custom-sm table-bordered table-striped table-nowrap mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Merchant Name</th>
+                                            <td>{formData?.form?.client_name}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Address</th>
+                                            <td>{formData?.form?.client_address}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Authorized Person Name</th>
+                                            <td>{formData?.form?.client_poc_name}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Phone</th>
+                                            <td>{formData?.form?.client_contact_no}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Email</th>
+                                            <td>{formData?.form?.client_poc_email}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Client Provided Document</th>
+                                            <td>{formData?.form?.client_provided_doc}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Status</th>
+                                            <td>
+                                                {
+                                                    formData?.form?.status ?
+                                                        <Badge badgeValue={formData?.form?.status} badgeClassName={formData?.form?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
+                                                        : null
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-nowrap" scope="row">Is Real Client</th>
+                                            <td>
+                                                {
+                                                    formData?.form?.is_real_client ?
+                                                        <Badge badgeValue={formData?.form?.is_real_client ? 'YES' : 'NO'} badgeClassName={formData?.form?.is_real_client ? 'badge-soft-success' : 'badge-soft-danger'} />
+                                                        : null
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

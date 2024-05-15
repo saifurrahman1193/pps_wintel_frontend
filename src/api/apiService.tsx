@@ -47,6 +47,33 @@ export const getCall = async (path, data, token = null, headers = {}) => {
     }
 };
 
+export const putCall = async (path, data, token = null, headers = {}) => {
+    try {
+        const res = await axios.put(API_BASE_URL + path, data, {
+            headers: {
+                Authorization: token ? `Bearer ${token}` : "",
+                ...headers
+            },
+        });
+        if (res?.data?.code != 200) {
+            if ([401, 403]?.includes(res?.data?.code)) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('roles');
+                localStorage.removeItem('permissions');
+                store.dispatch(USER_LOGOUT());
+                logout_cleaner();
+            }
+            return res?.data;
+        } else {
+            return res?.data;
+        }
+    } catch (error) {
+        console.log("error", error);
+        return {};
+    }
+};
+
+
 export const postCall = async (path, data, token = null, headers = {}) => {
     try {
         // alert(path+' '+token)

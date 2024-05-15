@@ -57,6 +57,6 @@ export const LOG_TYPES = '/list/getLogTypes'
 
 // Merchant routes
 export const MERCHANT_P = '/merchant/merchant-list-paginate'
-export const CREATE_MERCHANT = '/merchant/createPermission'
-export const SINGLE_MERCHANT_INFO = '/merchant/getPermission'
-export const UPDATE_MERCHANT = '/merchant/updatePermission'
+export const CREATE_MERCHANT = '/merchant/merchant-create'
+export const SINGLE_MERCHANT_INFO = '/merchant/single-merchant-data'
+export const UPDATE_MERCHANT = '/merchant/merchant-update'
