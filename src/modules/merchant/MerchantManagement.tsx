@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
 import Badge from '../../components/Badges/Badge.js';
 import INIT from '../../route/utils/Init.js';
+import './merchantstyle.css';
 
 function MerchantManagement(props) {
 
@@ -42,8 +43,8 @@ function MerchantManagement(props) {
             login_pass: '',
             role: '',
             create_time: '',
-            status: '',
-            is_real_client: '',
+            status: 'active',
+            is_real_client: 1,
         }
     }
 
@@ -53,7 +54,7 @@ function MerchantManagement(props) {
         setFormData((prev) => ({
             ...prev,
             form: {
-                ...formData?.form,
+                ...prev?.form,
                 [e.target.name]: e.target.value
             }
         }))
@@ -114,7 +115,7 @@ function MerchantManagement(props) {
         if (formData?.form?.id) {
             response = await putCall(UPDATE_MERCHANT, request, props.user.access_token)
         }
-        else{
+        else {
             response = await postCall(CREATE_MERCHANT, request, props.user.access_token)
         }
         if (response?.code === 200) {
@@ -137,11 +138,11 @@ function MerchantManagement(props) {
     const closeFormModal = () => {
         const modalclosebtn = document.getElementById('modalclosebtn')
         modalclosebtn ? modalclosebtn.click() : null;
-        setFormData((prev) => ({...prev, form: formInitial?.form}))
+        setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
     const formClear = () => {
-        setFormData((prev) => ({...prev, form: formInitial?.form}))
+        setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
     return (
@@ -213,7 +214,7 @@ function MerchantManagement(props) {
                                                             <td>
                                                                 {
                                                                     row?.status ?
-                                                                        <Badge badgeValue={row?.status} badgeClassName={row?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
+                                                                        <Badge badgeValue={row?.status} badgeClass={row?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
                                                                         : null
                                                                 }
                                                             </td>
@@ -318,6 +319,42 @@ function MerchantManagement(props) {
                                         </div>
                                     </div>
 
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <div className="square-switch merchant-status">
+                                                    <input type="checkbox" id="status" switch="bool" checked={formData?.form?.status == 'active' ? true : false}
+                                                        onChange={(e) => {
+                                                            const value = e.target.checked ? 'active' : 'disable'
+                                                            setFormData((prev) => ({ ...prev, form: { ...prev?.form, status: value } }))
+                                                        }}
+                                                        value={formData?.form?.status} />
+                                                    <label htmlFor="status" data-on-label="Active" data-off-label="Disable" style={{ fontSize: '14px', width: '75px' }} ></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Is Real Client<Validation.RequiredStar /></label>
+                                            <div className="col-sm-8">
+                                                <div className="square-switch merchant-is_real_client">
+                                                    <input type="checkbox" id="is_real_client" switch="bool" defaultChecked={formData?.form?.is_real_client == 1 ? true : false}
+                                                        onChange={(e) => {
+                                                            const value = e.target.checked ? 1 : 0;
+                                                            setFormData((prev) => ({ ...prev, form: { ...prev?.form, is_real_client: value } }))
+                                                        }}
+                                                        value={formData?.form?.is_real_client} />
+                                                    <label htmlFor="is_real_client" data-on-label="Yes" data-off-label="No" style={{ fontSize: '14px', width: '56px' }} ></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
 
                                     <div className="modal-footer pt-2 pb-0">
                                         <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={formClear} id="modalclosebtn">Cancel</button>
@@ -371,7 +408,7 @@ function MerchantManagement(props) {
                                             <td>
                                                 {
                                                     formData?.form?.status ?
-                                                        <Badge badgeValue={formData?.form?.status} badgeClassName={formData?.form?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
+                                                        <Badge badgeValue={formData?.form?.status} badgeClass={formData?.form?.status == 'active' ? 'badge-soft-success' : 'badge-soft-danger'} />
                                                         : null
                                                 }
                                             </td>
@@ -381,7 +418,7 @@ function MerchantManagement(props) {
                                             <td>
                                                 {
                                                     formData?.form?.is_real_client ?
-                                                        <Badge badgeValue={formData?.form?.is_real_client ? 'YES' : 'NO'} badgeClassName={formData?.form?.is_real_client ? 'badge-soft-success' : 'badge-soft-danger'} />
+                                                        <Badge badgeValue={formData?.form?.is_real_client ? 'YES' : 'NO'} badgeClass={formData?.form?.is_real_client ? 'badge-soft-success' : 'badge-soft-danger'} />
                                                         : null
                                                 }
                                             </td>
