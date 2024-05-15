@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
 import { Link } from 'react-router-dom';
 import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
+import Sorting from '../../components/Datatable/Sorting'
 import Badge from '../../components/Badges/Badge.js';
 import INIT from '../../route/utils/Init.js';
 import './merchantstyle.css';
@@ -145,6 +146,8 @@ function MerchantManagement(props) {
         setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
+
+
     return (
         <Fragment>
             <div className="card col-12">
@@ -191,7 +194,7 @@ function MerchantManagement(props) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Merchant Name</th>
+                                                <th>Merchant Name <Sorting column="client_name"/></th>
                                                 <th>POC Name</th>
                                                 <th>POC Phone</th>
                                                 <th>Masking Balance</th>
