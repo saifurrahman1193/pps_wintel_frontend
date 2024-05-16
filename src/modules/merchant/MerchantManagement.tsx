@@ -12,7 +12,7 @@ import Sorting from '../../components/Datatable/Sorting'
 import Badge from '../../components/Badges/Badge.js';
 import INIT from '../../route/utils/Init.js';
 import './merchantstyle.css';
-import TextErrorMessage from '../../components/Error/TextErrorMessage.js';
+import ValidationTextErrorMessage from '../../components/Error/ValidationTextErrorMessage.js';
 
 function MerchantManagement(props) {
 
@@ -48,7 +48,8 @@ function MerchantManagement(props) {
                 create_time: '',
                 status: 'active',
                 is_real_client: 1,
-            }
+            },
+            errors: null
         },
         table: {
             data: null,
@@ -305,7 +306,7 @@ function MerchantManagement(props) {
                                             <label className="col-sm-4 col-form-label control-label">Email<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="client_poc_email" placeholder="Client POC Email" value={formData?.form?.data?.client_poc_email} onChange={handleChange} required />
-                                                {/* <TextErrorMessage message={processErrorMessages(formData?.form?.errors)} /> */}
+                                                <ValidationTextErrorMessage errors={formData?.form?.errors} field="client_poc_email" />
                                             </div>
                                         </div>
                                     </div>
