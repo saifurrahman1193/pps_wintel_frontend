@@ -51,7 +51,12 @@ function MerchantManagement(props) {
             data: null,
             paginator: null,
             loading: false,
-            empty: true
+            empty: true,
+            sort: {
+                column: null,
+                table: null,
+                order: null,
+            }
         }
     }
 
@@ -68,7 +73,7 @@ function MerchantManagement(props) {
     }
 
     const getTableData = async (e, page = 1) => {
-        setFormData((prev) => ({ ...prev, table: {...formInitial?.table, loading: true, empty: true} }))
+        setFormData((prev) => ({ ...prev, table: { ...formInitial?.table, loading: true, empty: true } }))
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -76,10 +81,10 @@ function MerchantManagement(props) {
         const response = await getCall(MERCHANT_P, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
-            setFormData((prev) => ({ ...prev, table: { data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
+            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
         } else {
             toast.error(response?.message?.[0])
-            setFormData((prev) => ({ ...prev, table: formInitial?.table }))
+            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, loading: false, empty: false } }))
         }
     }
 
@@ -131,6 +136,9 @@ function MerchantManagement(props) {
     }
 
 
+    const handleSortChange = (column, table, order) => {
+        setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
+    };
 
     return (
         <Fragment>
@@ -178,7 +186,7 @@ function MerchantManagement(props) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Merchant Name <Sorting column="client_name" /></th>
+                                                <th>Merchant Name <Sorting column="client_name" order={formData?.table?.sort?.column == 'client_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>POC Name</th>
                                                 <th>POC Phone</th>
                                                 <th>Masking Balance</th>
