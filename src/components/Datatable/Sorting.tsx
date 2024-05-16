@@ -6,7 +6,6 @@ const Sorting = ({ column, table, order, onSortChange }) => {
         const newOrder = order == 'asc' ? 'desc' : 'asc';
         // Trigger sorting change
         onSortChange(column, table, newOrder);
-        iconClassHandler(newOrder)
     };
 
     const [iconClass, setIconClass] = useState('');
@@ -15,15 +14,14 @@ const Sorting = ({ column, table, order, onSortChange }) => {
     const iconClassHandler = (order=null) => {
         if (order == 'asc') setIconClass('mdi mdi-sort-alphabetical-ascending');
         else if (order == 'desc') setIconClass('mdi mdi-sort-alphabetical-descending');
-        else return setIconClass('mdi mdi-order-alphabetical-ascending');
+        else setIconClass('mdi mdi-order-alphabetical-ascending');
     }
     useEffect(() => {
-        iconClassHandler()
     }, []);
 
     return (
         <>
-            <i className={iconClass}
+            <i className={['asc','desc'].includes(order) ? (order=='asc'? 'mdi mdi-sort-alphabetical-ascending': 'mdi mdi-sort-alphabetical-descending') : 'mdi mdi-order-alphabetical-ascending'}
                 title="Click to sort"
                 onClick={handleClick}
                 style={{ cursor: 'pointer', color: (order ? '#74788d' : '#808080a8') }}

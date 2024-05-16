@@ -187,11 +187,11 @@ function MerchantManagement(props) {
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
                                                 <th>Merchant Name <Sorting column="client_name" order={formData?.table?.sort?.column == 'client_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
-                                                <th>POC Name</th>
-                                                <th>POC Phone</th>
+                                                <th>POC Name <Sorting column="client_poc_name" order={formData?.table?.sort?.column == 'client_poc_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>POC Phone <Sorting column="client_contact_no" order={formData?.table?.sort?.column == 'client_contact_no' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Masking Balance</th>
                                                 <th>Non-masking Balance</th>
-                                                <th>Status</th>
+                                                <th>Status <Sorting column="status" order={formData?.table?.sort?.column == 'status' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
