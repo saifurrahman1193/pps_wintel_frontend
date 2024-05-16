@@ -72,11 +72,9 @@ function MerchantManagement(props) {
         }))
     }
 
-    const getTableData = async (e, page = 1, sort=null) => {
+    const getTableData = async (e, page = 1, sort = null) => {
         setFormData((prev) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
-        if (e && e.preventDefault) {
-            e.preventDefault();
-        }
+        if (e && e.preventDefault) e.preventDefault();
         const request = { page, sort }
         const response = await getCall(MERCHANT_P, request, props.user.access_token)
         if (response?.code === 200) {
@@ -138,7 +136,7 @@ function MerchantManagement(props) {
 
     const handleSortChange = (column, table, order) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
-        getTableData(null, null, {column, table, order})
+        getTableData(null, null, { column, table, order })
     };
 
     return (
