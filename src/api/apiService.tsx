@@ -19,6 +19,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 export const getCall = async (path, data, token = null, headers = {}) => {
     try {
+        console.log('data', data);
+        
         const res = await axios.get(API_BASE_URL + path, {
             headers: {
                 Authorization: token ? `Bearer ${token}` : "",
