@@ -133,7 +133,6 @@ function MerchantManagement(props) {
         setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
-
     const handleSortChange = (column, table, order) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
         getTableData(null, null, { column, table, order })
