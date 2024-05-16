@@ -46,6 +46,12 @@ function MerchantManagement(props) {
             create_time: '',
             status: 'active',
             is_real_client: 1,
+        },
+        table: {
+            data: null,
+            paginator: null,
+            loading: false,
+            empty: true
         }
     }
 
@@ -61,34 +67,19 @@ function MerchantManagement(props) {
         }))
     }
 
-
-    const [permissionsData, setPermissionsData] = useState({})
-    const [paginator, setPaginator] = useState({})
-    const [isLoading, setIsLoading] = useState(false)
-    const [noDataFound, setNoDataFound] = useState(false)
-
     const getTableData = async (e, page = 1) => {
-        setNoDataFound(false)
-
-        setIsLoading(true)
-        setPermissionsData([])
+        setFormData((prev) => ({ ...prev, table: {...formInitial?.table, loading: true, empty: true} }))
         if (e && e.preventDefault) {
             e.preventDefault();
         }
         const request = { page: page }
         const response = await getCall(MERCHANT_P, request, props.user.access_token)
         if (response?.code === 200) {
-            setPermissionsData(response?.data?.data);
-            setPaginator(response?.data?.paginator);
-            setIsLoading(false)
-            if (response?.data?.data?.length == 0) { setNoDataFound(true); }
-            else setNoDataFound(false)
+            let empty = (response?.data?.data?.length == 0) ? true : false
+            setFormData((prev) => ({ ...prev, table: { data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
         } else {
             toast.error(response?.message?.[0])
-            setPermissionsData([]);
-            setPaginator({});
-            setIsLoading(false)
-            setNoDataFound(true);
+            setFormData((prev) => ({ ...prev, table: formInitial?.table }))
         }
     }
 
@@ -97,15 +88,8 @@ function MerchantManagement(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
 
-        getTableData(null, undefined, undefined)
+        getTableData(null, undefined)
     }, [])
-
-    const getApi = () => {
-        if (formData?.form?.id) {
-            return UPDATE_MERCHANT
-        }
-        return CREATE_MERCHANT
-    }
 
     const handleSubmit = async (e) => {
         if (e && e.preventDefault) {
@@ -120,8 +104,8 @@ function MerchantManagement(props) {
             response = await postCall(CREATE_MERCHANT, request, props.user.access_token)
         }
         if (response?.code === 200) {
-            getTableData(null, paginator?.current_page, undefined)
-            setFormData(formInitial)
+            getTableData(null, paginator?.current_page)
+            setFormData((prev) => ({ ...prev, form: formInitial?.form }))
             toast.success(response?.message?.[0])
             closeFormModal()
         } else {
@@ -168,15 +152,15 @@ function MerchantManagement(props) {
                     </div>
 
                     {
-                        isLoading || noDataFound ?
+                        formData?.table?.loading || formData?.table?.empty ?
                             <div className="row col-12" style={{ marginTop: "50px" }}>
                                 {
-                                    isLoading ?
+                                    formData?.table?.loading ?
                                         <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
                                         : null
                                 }
                                 {
-                                    noDataFound ?
+                                    !formData?.table?.loading && formData?.table?.empty ?
                                         <div className="text-center">
                                             <span className="badge badge-soft-danger" style={{ fontSize: "18px" }}>No Data Found!</span>
                                         </div>
@@ -187,14 +171,14 @@ function MerchantManagement(props) {
 
 
                     {
-                        permissionsData?.length > 0 ?
+                        formData?.table?.data?.length > 0 ?
                             <Fragment>
                                 <div className='table-responsive'>
                                     <table className="table table-custom-sm table-hover table-rounded table-striped border">
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Merchant Name <Sorting column="client_name"/></th>
+                                                <th>Merchant Name <Sorting column="client_name" /></th>
                                                 <th>POC Name</th>
                                                 <th>POC Phone</th>
                                                 <th>Masking Balance</th>
@@ -205,10 +189,10 @@ function MerchantManagement(props) {
                                         </thead>
                                         <tbody>
                                             {
-                                                permissionsData.map((row, i) => {
+                                                formData?.table?.data?.map((row, i) => {
                                                     return (
                                                         <tr key={'row-permission-' + i}>
-                                                            <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
                                                             <td>{row?.client_name}</td>
                                                             <td>{row?.client_poc_name}</td>
                                                             <td>{row?.client_contact_no}</td>
@@ -250,8 +234,8 @@ function MerchantManagement(props) {
                             : null
                     }
                     {
-                        paginator?.total_pages > 1 ?
-                            <Paginate paginator={paginator} pagechanged={(page) => getTableData(null, page)} /> : null
+                        formData?.table?.paginator?.total_pages > 1 ?
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page) => getTableData(null, page)} /> : null
                     }
                 </div>
             </div>
