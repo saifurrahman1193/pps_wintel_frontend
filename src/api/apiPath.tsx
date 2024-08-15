@@ -15,6 +15,7 @@ export const USERS = '/getAllUsers_p'
 export const CREATE_USER = '/createUser'
 export const SINGLE_USER_INFO = '/getUser'
 export const UPDATE_USER = '/updateUser'
+export const FILTER_DATA = '/filter-data'
 
 // roles route
 export const ROLES_P = '/role/getAllRoles_p'

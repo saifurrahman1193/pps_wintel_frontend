@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Validation from '../../components/Forms/Validation.js';
 import Select from 'react-select'
 import { postCall } from '../../api/apiService'
-import { USERS, ROLES_ALL, CREATE_USER, UPDATE_USER, SINGLE_USER_INFO } from '../../api/apiPath'
+import { USERS, FILTER_DATA, CREATE_USER, UPDATE_USER, SINGLE_USER_INFO } from '../../api/apiPath'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import Svgediticoncomponent from '../../components/Icons/Svgediticoncomponent'
@@ -34,14 +34,34 @@ function Users(props) {
     }
 
     const formInitial = {
-        id: '',
-        name: '',
-        email: '',
-        password: '',
-        status: 1,
-        statusSelectedOption: { label: 'Active', value: 1 },
-        role_ids: [],
-        rolesSelectedOptions: null
+        filter: {
+            brand_list: [],
+            role_list: [],
+        },
+        form: {
+            data: {
+                id: '',
+                name: '',
+                email: '',
+                password: '',
+                status: 1,
+                statusSelectedOption: { label: 'Active', value: 1 },
+                role_ids: [],
+                rolesSelectedOptions: null,
+            },
+            errors: null
+        },
+        table: {
+            data: null,
+            paginator: null,
+            loading: false,
+            empty: true,
+            sort: {
+                column: null,
+                table: null,
+                order: null,
+            }
+        },
     }
 
     const [formData, setFormData] = useState(formInitial)
@@ -49,64 +69,51 @@ function Users(props) {
     const handleChange = (e) => {
         setFormData((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value
+            form: {
+                ...prev?.form,
+                data: {
+                    ...prev?.form?.data,
+                    [e.target.name]: e.target.value
+                }
+            }
         }))
     }
 
-    const [usersData, setUsersData] = useState({})
-    const [paginator, setPaginator] = useState({})
-    const [isLoading, setIsLoading] = useState(false)
-    const [noDataFound, setNoDataFound] = useState(false)
+    const getTableData = async (e, page = 1, search = '', sort = null) => {
+        setFormData((prev) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
 
-    const getUsersData = async (e, page = 1, search = '') => {
-        setNoDataFound(false)
-
-        setIsLoading(true)
-        setUsersData([])
         if (e && e.preventDefault) {
             e.preventDefault();
         }
         const request = { page: page, search: search }
         const response = await postCall(USERS, request, props.user.access_token)
         if (response?.code === 200) {
-            setUsersData(response?.data?.data);
-            setPaginator(response?.data?.paginator);
-            setIsLoading(false)
-            if (response?.data?.data?.length == 0) { setNoDataFound(true); }
-            else setNoDataFound(false)
+            let empty = (response?.data?.data?.length == 0) ? true : false
+            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
         } else {
             toast.error(response?.message?.[0])
-            setUsersData([]);
-            setPaginator({});
-            setIsLoading(false)
-            setNoDataFound(true);
+            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, loading: false, empty: false } }))
         }
 
     }
 
-    // role select process
-    const [rolesOptions, setRolesOptions] = useState([])
-
-
-    const getRoles = async () => {
-        const response = await postCall(ROLES_ALL, null, props?.user?.access_token)
+    const getFilterList = async () => {
+        const response = await postCall(FILTER_DATA, null, props?.user?.access_token)
         if (response?.code === 200) {
-            const rolesData = (response?.data?.rolelist || []).map((role) => {
-                return { label: role?.name, value: parseInt(role?.id) }
-            })
-            setRolesOptions(rolesData)
+            setFormData((prev) => ({
+                ...prev,
+                filter: response?.data
+            }))
         }
     }
-
 
     useEffect(() => {
         INIT()
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
-        getRoles()
-        getUsersData(null, undefined, undefined)
+        getFilterList()
+        getTableData(null, undefined, undefined, null)
     }, [])
-
 
     const getApi = () => {
         if (formData?.id) {
@@ -123,7 +130,7 @@ function Users(props) {
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
-            getUsersData(null, paginator?.current_page, undefined)
+            getTableData(null, paginator?.current_page, undefined, null)
             setFormData(formInitial)
             toast.success(response?.message?.[0])
             closeDialog()
@@ -161,7 +168,7 @@ function Users(props) {
     const [search, setSearch] = useState('')
     const handleKeyPressForSearch = (event) => {
         if (event.key === 'Enter') {
-            getUsersData(null, null, search)
+            getTableData(null, null, search, null)
         }
     }
 
@@ -171,8 +178,8 @@ function Users(props) {
         modalclosebtn ? modalclosebtn.click() : null;
     }
 
-    const clear = () => {
-        setFormData(formInitial)
+    const formClear = () => {
+        setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
 
@@ -189,6 +196,11 @@ function Users(props) {
         { label: 'Active', value: 1 },
     ]
 
+    const handleSortChange = (column: any, table: any, order: any) => {
+        setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
+        getTableData(null, null, { column, table, order }, null)
+    };
+
     return (
         <Fragment>
             <div className="card col-12">
@@ -196,7 +208,7 @@ function Users(props) {
                     <div className="row mb-2">
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
                             {props.permissions.includes('user create') && (
-                                <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={clear}>
+                                <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={formClear}>
                                     <i className="bx bx-plus label-icon"></i>
                                     Create New User
                                 </Link>
@@ -217,7 +229,7 @@ function Users(props) {
                                         style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
                                     />
                                     <div className="input-group-append">
-                                        <button className="btn btn-primary" onClick={() => getUsersData(null, undefined, search)}><i className="bx bx-search-alt align-middle"></i></button>
+                                        <button className="btn btn-primary" onClick={() => getTableData(null, undefined, search, null)}><i className="bx bx-search-alt align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -225,15 +237,15 @@ function Users(props) {
                     </div>
 
                     {
-                        isLoading || noDataFound ?
+                        formData?.table?.loading || formData?.table?.empty ?
                             <div className="row col-12" style={{ marginTop: "50px" }}>
                                 {
-                                    isLoading ?
+                                    formData?.table?.loading ?
                                         <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
                                         : null
                                 }
                                 {
-                                    noDataFound ?
+                                    !formData?.table?.loading && formData?.table?.empty ?
                                         <div className="text-center">
                                             <span className="badge badge-soft-danger" style={{ fontSize: "18px" }}>No Data Found!</span>
                                         </div>
@@ -243,7 +255,7 @@ function Users(props) {
                     }
 
                     {
-                        (usersData || [])?.length > 0 ?
+                        formData?.table?.data?.length > 0 ?
                             <Fragment>
 
                                 <div className='table-responsive'>
@@ -260,10 +272,10 @@ function Users(props) {
                                         </thead>
                                         <tbody >
                                             {
-                                                usersData.map((row, i) => {
+                                                formData?.table?.data?.map((row, i) => {
                                                     return (
                                                         <tr key={'table-row-' + i}>
-                                                            <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
                                                             <td>
                                                                 <ProfileDetailsModal
                                                                     token={props?.user?.access_token}
@@ -311,8 +323,8 @@ function Users(props) {
                             : null
                     }
                     {
-                        paginator?.total_pages > 1 ?
-                            <Paginate paginator={paginator} pagechanged={(page) => getUsersData(null, page)} /> : null
+                        formData?.table?.paginator?.total_pages > 1 ?
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page) => getTableData(null, page, formData?.table?.sort, null)} /> : null
                     }
                 </div>
             </div>
@@ -324,7 +336,7 @@ function Users(props) {
                     <div className="modal-content">
                         <div className="modal-header py-2">
                             <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} User</p>
-                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={() => setFormData(formInitial)} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={formClear} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-0 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
@@ -335,7 +347,7 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Name<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.name} onChange={handleChange} required />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" id="name" name="name" placeholder="Name" value={formData?.form?.data?.name} onChange={handleChange} required />
                                             </div>
                                         </div>
                                     </div>
@@ -343,17 +355,17 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Email<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="email" className="form-control form-control-sm form-control-solid" id="email" name="email" placeholder="Email" value={formData?.email} onChange={handleChange} required={formData?.id ? false : true} readOnly={formData?.id ? true : false} />
+                                                <input type="email" className="form-control form-control-sm form-control-solid" id="email" name="email" placeholder="Email" value={formData?.form?.data?.email} onChange={handleChange} required={formData?.form?.data?.id ? false : true} readOnly={formData?.form?.data?.id ? true : false} />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">
-                                                Password{formData?.id ? '' : <Validation.RequiredStar />}
+                                                Password{formData?.form?.data?.id ? '' : <Validation.RequiredStar />}
                                             </label>
                                             <div className="col-sm-8">
-                                                <input type="password" className="form-control form-control-sm form-control-solid" id="password" name="password" placeholder="Password" value={formData?.password} onChange={handleChange} required={formData?.id ? false : true} />
+                                                <input type="password" className="form-control form-control-sm form-control-solid" id="password" name="password" placeholder="Password" value={formData?.form?.data?.password} onChange={handleChange} required={formData?.form?.data?.id ? false : true} />
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +374,7 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={statusOptions} value={formData?.statusSelectedOption}
+                                                <Select options={statusOptions} value={formData?.form?.data?.statusSelectedOption}
                                                     onChange={(option) =>
                                                         setFormData((prev) => ({ ...prev, active: option?.value, statusSelectedOption: option }))
                                                     }
@@ -375,12 +387,12 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Roles<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={rolesOptions}
+                                                <Select options={formData?.filter?.role_list}
                                                     className="basic-multi-select"
                                                     classNamePrefix="select"
                                                     isMulti
                                                     isClearable
-                                                    value={formData?.rolesSelectedOptions}
+                                                    value={formData?.form?.data?.rolesSelectedOptions}
                                                     onChange={(selected_options) => {
                                                         const roles = selected_options?.map((role) => {
                                                             return parseInt(role?.value)
