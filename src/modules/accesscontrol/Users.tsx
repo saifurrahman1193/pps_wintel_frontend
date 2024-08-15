@@ -37,6 +37,10 @@ function Users(props) {
         filter: {
             brand_list: [],
             role_list: [],
+            status_list: [
+                { label: 'Inactive', value: 0 },
+                { label: 'Active', value: 1 },
+            ]
         },
         form: {
             data: {
@@ -130,31 +134,32 @@ function Users(props) {
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
-            getTableData(null, paginator?.current_page, undefined, null)
+            getTableData(null, formData?.table?.paginator?.current_page, undefined, null)
             setFormData(formInitial)
             toast.success(response?.message?.[0])
             closeDialog()
-
         } else {
             toast.error(response?.message?.[0])
         }
     }
 
     const updateModalProcess = async (id) => {
-        const userData = usersData.filter((item) => {
-            return item.id == id
-        })[0]
-        setFormData((prev) => ({ ...prev, ...userData, id: id, password: '' }))
+        // const userData = usersData.filter((item) => {
+        //     return item.id == id
+        // })[0]
+        // setFormData((prev) => ({ ...prev, ...userData, id: id, password: '' }))
 
-        // get roles for single user
+        // // get roles for single user
         const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
-            const selected_options = (response?.data?.roles || []).map((role) => {
-                return { label: role?.role_name, value: parseInt(role?.role_id) }
-            })
+            // const selected_options = (response?.data?.roles || []).map((role) => {
+            //     return { label: role?.role_name, value: parseInt(role?.role_id) }
+            // })
 
-            setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => parseInt(item?.role_id)), rolesSelectedOptions: selected_options }))
+            // setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => parseInt(item?.role_id)), rolesSelectedOptions: selected_options }))
+            setFormData((prev) => ({ ...prev, form: {...prev?.form, data: response?.data} }))
         }
+
     }
 
 
@@ -191,10 +196,7 @@ function Users(props) {
         setProfiledetail_row_id(row_id)
     }
 
-    const statusOptions = [
-        { label: 'Inactive', value: 0 },
-        { label: 'Active', value: 1 },
-    ]
+    
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
@@ -374,9 +376,9 @@ function Users(props) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={statusOptions} value={formData?.form?.data?.statusSelectedOption}
+                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.statusSelectedOption}
                                                     onChange={(option) =>
-                                                        setFormData((prev) => ({ ...prev, active: option?.value, statusSelectedOption: option }))
+                                                        setFormData((prev) => ({ ...prev, data:{...prev?.data, status: option?.value, statusSelectedOption: option} }))
                                                     }
                                                     isClearable placeholder="Select Status" required />
                                             </div>
