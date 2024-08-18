@@ -10,3 +10,7 @@
     padding: 0.5rem 0.8rem !important; /* Reduce cell padding */
     vertical-align: middle !important;
 }
+
+.react-datepicker-wrapper {
+    width: 100% !important; /* Ensure the input takes full width */
+}

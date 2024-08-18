@@ -12,6 +12,9 @@ import { permissionsResets } from '../../components/Helpers/CommonHelpers.js'
 import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
 import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 function Users(props: any) {
 
@@ -46,6 +49,9 @@ function Users(props: any) {
             data: {
                 id: '',
                 name: '',
+                brand_name: '',
+                brandSelectedOption: null,
+                joining_date: null,
                 email: '',
                 password: '',
                 status: 1,
@@ -139,12 +145,12 @@ function Users(props: any) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { ...formData, id: formData?.form?.data?.id }
+        const request = { ...formData?.form?.data, id: formData?.form?.data?.id }
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
             getTableData(null, formData?.table?.paginator?.current_page, null, undefined)
-            setFormData(formInitial)
+            formClear()
             toast.success(response?.message?.[0])
             closeDialog()
         } else {
@@ -152,23 +158,19 @@ function Users(props: any) {
         }
     }
 
-    const updateModalProcess = async (id:number) => {
-        // const userData = usersData.filter((item) => {
-        //     return item.id == id
-        // })[0]
-        // setFormData((prev) => ({ ...prev, ...userData, id: id, password: '' }))
-
-        // // get roles for single user
+    const updateModalProcess = async (id: number) => {
+        // get roles for single user
         const response = await postCall(SINGLE_USER_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
-            // const selected_options = (response?.data?.roles || []).map((role) => {
-            //     return { label: role?.role_name, value: parseInt(role?.role_id) }
-            // })
+            const rolesSelectedOptions = (response?.data?.roles || []).map((item: any) => {
+                return { label: item?.role_name, value: parseInt(item?.role_id) }
+            })
 
-            // setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => parseInt(item?.role_id)), rolesSelectedOptions: selected_options }))
-            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: response?.data } }))
+            const brandSelectedOption = (formData?.filter?.brand_list || []).find((item:any) => item?.value==response?.data?.brand_name)
+            const statusSelectedOption = (formData?.filter?.status_list || []).find((item:any) => item?.value==response?.data?.status)
+
+            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: {...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item:any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_name: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption:statusSelectedOption} } }))
         }
-
     }
 
 
@@ -292,7 +294,7 @@ function Users(props: any) {
                                                                     key={'profile-details-modal-' + i}
                                                                 />
                                                             </td>
-                                                            <td>{row?.email }</td>
+                                                            <td>{row?.email}</td>
                                                             <td>
                                                                 {
                                                                     [...row?.roles]?.map((role, role_i) => {
@@ -377,6 +379,39 @@ function Users(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Brand Name</label>
+                                            <div className="col-sm-8">
+                                                <Select options={formData?.filter?.brand_list} value={formData?.form?.data?.brandSelectedOption}
+                                                    onChange={(option: any) =>
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_name: option?.value, brandSelectedOption: option } } }))
+                                                    }
+                                                    isClearable placeholder="Select Brand" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
+                                            <label className="col-sm-4 col-form-label control-label">Joining Date</label>
+                                            <div className="col-sm-8">
+                                                <DatePicker
+                                                    selected={formData?.form?.data?.joining_date}
+                                                    onChange={(date: any) => {
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, joining_date: date } } }))
+                                                    }}
+                                                    dateFormat="yyyy-MM-dd"
+                                                    showIcon
+                                                    icon="fa fa-calendar"
+                                                    toggleCalendarOnIconClick
+                                                    className="form-control w-100"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="col-md-12 my-2">
+                                        <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <Select options={formData?.filter?.status_list} value={formData?.form?.data?.statusSelectedOption}
@@ -432,7 +467,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    setPageBreadcrumb: (data: any) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data: any) => dispatch(SET_USER_DATA(data)),
 });
 
