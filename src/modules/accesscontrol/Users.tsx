@@ -14,6 +14,7 @@ import INIT from '../../route/utils/Init';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Sorting from '../../components/Datatable/Sorting.js';
 
 
 function Users(props: any) {
@@ -104,7 +105,7 @@ function Users(props: any) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { page: page, search: search }
+        const request = { page: page, sort, search }
         const response = await postCall(USERS, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
@@ -166,10 +167,10 @@ function Users(props: any) {
                 return { label: item?.role_name, value: parseInt(item?.role_id) }
             })
 
-            const brandSelectedOption = (formData?.filter?.brand_list || []).find((item:any) => item?.value==response?.data?.brand_name)
-            const statusSelectedOption = (formData?.filter?.status_list || []).find((item:any) => item?.value==response?.data?.status)
+            const brandSelectedOption = (formData?.filter?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_name)
+            const statusSelectedOption = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.status)
 
-            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: {...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item:any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_name: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption:statusSelectedOption} } }))
+            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_name: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
         }
     }
 
@@ -200,8 +201,6 @@ function Users(props: any) {
         setProfileDetailModalUserId(userId)
         setProfiledetail_row_id(row_id)
     }
-
-
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
@@ -270,10 +269,12 @@ function Users(props: any) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
+                                                <th>User Details <Sorting column="name" order={formData?.table?.sort?.column == 'name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>Email <Sorting column="email" order={formData?.table?.sort?.column == 'email' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Roles</th>
-                                                <th>Status</th>
+                                                <th>Status <Sorting column="status" order={formData?.table?.sort?.column == 'status' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>Brand <Sorting column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>Joining Date <Sorting column="joining_date" order={formData?.table?.sort?.column == 'joining_date' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -305,6 +306,8 @@ function Users(props: any) {
                                                             <td>
                                                                 <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
                                                             </td>
+                                                            <td>{row?.brand_name}</td>
+                                                            <td>{row?.joining_date}</td>
                                                             <td>
                                                                 {
                                                                     props.permissions.includes('user update') ?
