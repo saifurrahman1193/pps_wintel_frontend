@@ -93,7 +93,7 @@ function Users(props: any) {
     }
 
     const getTableData = async (e: any, page = 1, sort = null, search = '',) => {
-        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
+        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
             e.preventDefault();
@@ -174,9 +174,9 @@ function Users(props: any) {
 
     // search
     const [search, setSearch] = useState('')
-    const handleKeyPressForSearch = (event) => {
-        if (event.key === 'Enter') {
-            getTableData(null, null, null, search)
+    const handleKeyPressForSearch = (e: any) => {
+        if (e.key === 'Enter') {
+            getTableData(null, 1, null, search)
         }
     }
 
@@ -203,7 +203,7 @@ function Users(props: any) {
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
-        getTableData(null, null, { column, table, order }, null)
+        getTableData(null, 1, { column, table, order }, null)
     };
 
     return (
@@ -246,7 +246,7 @@ function Users(props: any) {
                             <div className="row col-12" style={{ marginTop: "50px" }}>
                                 {
                                     formData?.table?.loading ?
-                                        <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
+                                        <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} ></div>
                                         : null
                                 }
                                 {
@@ -277,7 +277,7 @@ function Users(props: any) {
                                         </thead>
                                         <tbody >
                                             {
-                                                formData?.table?.data?.map((row, i) => {
+                                                (formData?.table?.data || [])?.map((row: any, i) => {
                                                     return (
                                                         <tr key={'table-row-' + i}>
                                                             <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
@@ -292,7 +292,7 @@ function Users(props: any) {
                                                                     key={'profile-details-modal-' + i}
                                                                 />
                                                             </td>
-                                                            <td>{row.email}</td>
+                                                            <td>{row?.email }</td>
                                                             <td>
                                                                 {
                                                                     [...row?.roles]?.map((role, role_i) => {
@@ -329,7 +329,7 @@ function Users(props: any) {
                     }
                     {
                         formData?.table?.paginator?.total_pages > 1 ?
-                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page) => getTableData(null, page, formData?.table?.sort, null)} /> : null
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page: number) => getTableData(null, page, formData?.table?.sort, null)} /> : null
                     }
                 </div>
             </div>
