@@ -48,7 +48,7 @@ function Profile(props) {
     }
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -71,7 +71,7 @@ function Profile(props) {
         modalclosebtn ? modalclosebtn.click() : null;
     }
 
-    const getUser = async (e, reload = false) => {
+    const getUser = async (e:any, reload = false) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }

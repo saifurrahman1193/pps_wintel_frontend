@@ -20,7 +20,7 @@ function Header(props) {
 
     const navigate = useNavigate();
 
-    const userLogout = async (e) => {
+    const userLogout = async (e:any) => {
         e.preventDefault()
         const response = await postCall(LOGOUT, null, props.user?.access_token, { hitmap: 'logout submit', pageurl: window.location.href, page: 'logout' })
         if (response.code === 200) {

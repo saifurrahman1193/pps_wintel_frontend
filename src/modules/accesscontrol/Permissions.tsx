@@ -56,7 +56,7 @@ function Permissions(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getPermissionsData = async (e, page = 1, search = '') => {
+    const getPermissionsData = async (e:any, page = 1, search = '') => {
         setNoDataFound(false)
 
         setIsLoading(true)
@@ -100,7 +100,7 @@ function Permissions(props) {
         return CREATE_PERMISSION
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -316,7 +316,7 @@ function Permissions(props) {
                                                 <Select
                                                     options={moduleOptions}
                                                     value={formData?.module_idSelectedOption}
-                                                    onChange={(option) =>
+                                                    onChange={(option:any) =>
                                                         setFormData((prev) => ({ ...prev, module_id: option?.value, module_idSelectedOption: option }))
                                                     }
                                                     isClearable

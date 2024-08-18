@@ -65,7 +65,7 @@ function AuditLog(props) {
     const [noDataFound, setNoDataFound] = useState(false)
 
 
-    const getAllAuditLog_p = async (e, page = 1) => {
+    const getAllAuditLog_p = async (e:any, page = 1) => {
         setNoDataFound(false)
 
         setIsLoading(true)

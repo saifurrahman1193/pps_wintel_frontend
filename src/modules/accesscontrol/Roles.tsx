@@ -58,7 +58,7 @@ function Roles(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getRolesData = async (e, page = 1) => {
+    const getRolesData = async (e:any, page = 1) => {
         setNoDataFound(false)
 
         setIsLoading(true)
@@ -102,7 +102,7 @@ function Roles(props) {
         return CREATE_ROLE
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }

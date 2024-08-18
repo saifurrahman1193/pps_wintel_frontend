@@ -29,7 +29,7 @@ function ChangePassword(props) {
     }, [])
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         if (e && e.preventDefault) { 
             e.preventDefault();
         }

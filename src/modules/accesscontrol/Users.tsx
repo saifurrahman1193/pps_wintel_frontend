@@ -13,7 +13,7 @@ import ProfileDetailsModal from '../../components/Project/ProfileDetailsModal';
 import INIT from '../../route/utils/Init';
 import { Link } from 'react-router-dom';
 
-function Users(props) {
+function Users(props: any) {
 
     const breadcrumb = {
         pageTitle: 'Users',
@@ -57,7 +57,16 @@ function Users(props) {
         },
         table: {
             data: null,
-            paginator: null,
+            paginator: {
+                current_page: 1,
+                total_pages: 0,
+                previous_page_url: null,
+                next_page_url: null,
+                record_per_page: 20,
+                current_page_items_count: null,
+                total_count: null,
+                pagination_last_page: null
+            },
             loading: false,
             empty: true,
             sort: {
@@ -70,7 +79,7 @@ function Users(props) {
 
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         setFormData((prev) => ({
             ...prev,
             form: {
@@ -83,8 +92,8 @@ function Users(props) {
         }))
     }
 
-    const getTableData = async (e, page = 1, search = '', sort = null) => {
-        setFormData((prev) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
+    const getTableData = async (e: any, page = 1, sort = null, search = '',) => {
+        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
             e.preventDefault();
@@ -96,7 +105,7 @@ function Users(props) {
             setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
         } else {
             toast.error(response?.message?.[0])
-            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, loading: false, empty: false } }))
+            setFormData((prev: any) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, loading: false, empty: false } }))
         }
 
     }
@@ -106,7 +115,7 @@ function Users(props) {
         if (response?.code === 200) {
             setFormData((prev) => ({
                 ...prev,
-                filter: response?.data
+                filter: { ...prev.filter, ...response?.data }
             }))
         }
     }
@@ -116,25 +125,25 @@ function Users(props) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
         getFilterList()
-        getTableData(null, undefined, undefined, null)
+        getTableData(null, undefined, null, undefined)
     }, [])
 
     const getApi = () => {
-        if (formData?.id) {
+        if (formData?.form?.data?.id) {
             return UPDATE_USER
         }
         return CREATE_USER
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { ...formData, id: formData?.id }
+        const request = { ...formData, id: formData?.form?.data?.id }
         const api = getApi()
         const response = await postCall(api, request, props.user.access_token)
         if (response?.code === 200) {
-            getTableData(null, formData?.table?.paginator?.current_page, undefined, null)
+            getTableData(null, formData?.table?.paginator?.current_page, null, undefined)
             setFormData(formInitial)
             toast.success(response?.message?.[0])
             closeDialog()
@@ -143,7 +152,7 @@ function Users(props) {
         }
     }
 
-    const updateModalProcess = async (id) => {
+    const updateModalProcess = async (id:number) => {
         // const userData = usersData.filter((item) => {
         //     return item.id == id
         // })[0]
@@ -157,23 +166,17 @@ function Users(props) {
             // })
 
             // setFormData((prev) => ({ ...prev, role_ids: response?.data?.roles?.map(item => parseInt(item?.role_id)), rolesSelectedOptions: selected_options }))
-            setFormData((prev) => ({ ...prev, form: {...prev?.form, data: response?.data} }))
+            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: response?.data } }))
         }
 
     }
 
 
-    useEffect(() => {
-        if (formData?.roles?.length == 0 || (formData?.roles?.length == 1 && formData?.roles[0] == null)) {
-            setFormData((prev) => ({ ...prev, role_ids: '' }))
-        }
-    }, [formData?.roles])
-
     // search
     const [search, setSearch] = useState('')
     const handleKeyPressForSearch = (event) => {
         if (event.key === 'Enter') {
-            getTableData(null, null, search, null)
+            getTableData(null, null, null, search)
         }
     }
 
@@ -196,7 +199,7 @@ function Users(props) {
         setProfiledetail_row_id(row_id)
     }
 
-    
+
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
@@ -231,7 +234,7 @@ function Users(props) {
                                         style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
                                     />
                                     <div className="input-group-append">
-                                        <button className="btn btn-primary" onClick={() => getTableData(null, undefined, search, null)}><i className="bx bx-search-alt align-middle"></i></button>
+                                        <button className="btn btn-primary" onClick={() => getTableData(null, undefined, null, search)}><i className="bx bx-search-alt align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +260,7 @@ function Users(props) {
                     }
 
                     {
-                        formData?.table?.data?.length > 0 ?
+                        (formData?.table?.data || [])?.length > 0 ?
                             <Fragment>
 
                                 <div className='table-responsive'>
@@ -337,13 +340,13 @@ function Users(props) {
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
-                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.id ? 'Update' : 'Create New'} User</p>
+                            <p className="modal-title text-center text-dark fw-bolder d-block fs-3" id="saveConfirmationModal" style={{ flex: "auto" }}>{formData?.form?.data?.id ? 'Update' : 'Create New'} User</p>
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light px-2 py-1" aria-label="Close" onClick={formClear} data-bs-dismiss="modal"><i className="bx bx-x font-size-16 align-middle"></i></button>
                         </div>
                         <div className="modal-body pt-0 mt-0 pb-2" >
                             <form className="form-horizontal" onSubmit={handleSubmit} >
                                 <div>
-                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
+                                    <input type="number" className="form-control form-control-sm" id="id" name="id" value={formData?.form?.data?.id} onChange={handleChange} readOnly hidden style={{ height: "0", width: "0" }} />
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
@@ -377,8 +380,8 @@ function Users(props) {
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <Select options={formData?.filter?.status_list} value={formData?.form?.data?.statusSelectedOption}
-                                                    onChange={(option) =>
-                                                        setFormData((prev) => ({ ...prev, data:{...prev?.data, status: option?.value, statusSelectedOption: option} }))
+                                                    onChange={(option: any) =>
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, status: option?.value, statusSelectedOption: option } } }))
                                                     }
                                                     isClearable placeholder="Select Status" required />
                                             </div>
@@ -395,11 +398,11 @@ function Users(props) {
                                                     isMulti
                                                     isClearable
                                                     value={formData?.form?.data?.rolesSelectedOptions}
-                                                    onChange={(selected_options) => {
-                                                        const roles = selected_options?.map((role) => {
+                                                    onChange={(option: any) => {
+                                                        const roles = option?.map((role: any) => {
                                                             return parseInt(role?.value)
                                                         })
-                                                        setFormData((prev) => ({ ...prev, role_ids: roles, rolesSelectedOptions: selected_options }))
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, role_ids: roles, rolesSelectedOptions: option } } }))
                                                     }}
                                                     placeholder="Select Roles"
                                                 />
@@ -408,7 +411,7 @@ function Users(props) {
                                     </div>
 
                                     <div className="modal-footer pt-2 pb-0">
-                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={() => setFormData(formInitial)} id="modalclosebtn">Cancel</button>
+                                        <button type="button" className="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" data-bs-dismiss="modal" onClick={formClear} id="modalclosebtn">Cancel</button>
                                         <button type="submit" className="btn btn-sm btn-primary" id="formSubmit">Save</button>
                                     </div>
                                 </div>
@@ -422,15 +425,15 @@ function Users(props) {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
-    me: (data) => dispatch(SET_USER_DATA(data)),
+const mapDispatchToProps = (dispatch: any) => ({
+    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    me: (data: any) => dispatch(SET_USER_DATA(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Users));

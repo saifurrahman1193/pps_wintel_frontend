@@ -79,7 +79,7 @@ function MerchantManagement(props) {
         }))
     }
 
-    const getTableData = async (e, page = 1, sort = null) => {
+    const getTableData = async (e:any, page = 1, sort = null) => {
         setFormData((prev) => ({ ...prev, table: { ...prev?.table, sort, data: null, paginator: null, loading: true, empty: true } }))
         if (e && e.preventDefault) e.preventDefault();
         const request = { page, sort }
@@ -101,7 +101,7 @@ function MerchantManagement(props) {
         getTableData(null, undefined)
     }, [])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
