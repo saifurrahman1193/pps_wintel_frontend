@@ -1,5 +1,5 @@
 
-function Submitbutton(props) {
+function Submitbutton(props:any) {
     return (
         <>
             <button type="submit" className="btn btn-sm btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { permissionsResets } from '../components/Helpers/CommonHelpers'
 import { SET_USER_DATA } from '../redux/action'
 
-function ChangePassword(props) {
+function ChangePassword(props:any) {
 
     const formInitial = {
         currentPassword: '',
@@ -101,13 +101,13 @@ function ChangePassword(props) {
 
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     me: (data) => dispatch(SET_USER_DATA(data)),
 })
 

@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from 'formik'
 import TextErrorMessage from '../../Error/TextErrorMessage.js'
 import Validation  from '../Validation.js';
 
-function Select(props) {
+function Select(props:any) {
     const {label, name, options, ...rest} = props
 
 

@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 
-function TextErrorMessage2(props) {
+function TextErrorMessage2(props:any) {
     return (
         <Fragment>
             <span style={{ color: "white" }}>{props.children}</span>

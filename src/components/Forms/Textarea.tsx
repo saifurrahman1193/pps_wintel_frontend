@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from 'formik'
 import TextErrorMessage from '../Error/TextErrorMessage.js'
 import Validation  from './Validation.js';
 
-function Textarea(props) {
+function Textarea(props:any) {
     const {label, name, ...rest} = props
     return (
         <Fragment>

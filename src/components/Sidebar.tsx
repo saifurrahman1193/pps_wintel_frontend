@@ -2,10 +2,8 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { USER_LOGOUT } from '../redux/action'
-import INIT from '../route/utils/Init'
 
-
-function Sidebar(props) {
+function Sidebar(props:any) {
 
     const vCurPathA = (pathname = '') => {
         const path = props.breadcrumb.currentPath
@@ -65,7 +63,7 @@ function Sidebar(props) {
                         </li>
 
                         {
-                            ['user list', 'role list', 'permission list'].some(ai => props?.permissions?.includes(ai)) ?
+                            ['user list', 'role list', 'permission list', 'handset user list'].some(ai => props?.permissions?.includes(ai)) ?
                                 <li>
                                     <Link to="#!" className="has-arrow">
                                         <i data-feather="shield" />
@@ -92,73 +90,20 @@ function Sidebar(props) {
                                                 :
                                                 null
                                         }
+
+                                        {
+                                            props.permissions.includes('handset user list') ?
+                                                <li className={sidebarCurPathLi('/handset-users')}><Link to="/handset-users" data-key="t-permission" className={vCurPathA('/handset-users')}>Handset User</Link></li>
+                                                :
+                                                null
+                                        }
                                     </ul>
                                 </li>
                                 :
                                 null
                         }
 
-                        {
-                            props.permissions.includes('merchant list') ?
-                                <li className={sidebarCurPathLi('/merchant-management')}>
-                                    <Link to="/merchant-management" className={vCurPathA('/merchant-management')}>
-                                        <i data-feather="user" />
-                                        <span data-key="t-merchant-management">Merchant</span>
-                                    </Link>
-                                </li>
-                                :
-                                null
-                        }
-                        {/* <li>
-                            <Link to="#!" className="has-arrow">
-                                <i data-feather="dollar-sign" />
-                                <span data-key="t-authentication">Balance</span>
-                            </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="/operator-balance" data-key="t-operator-balance">Operator Balance</Link></li>
-                                <li><Link to="/masking-balance" data-key="t-masking-balance">Masking Balance</Link></li>
-                                <li><Link to="/non-masking-balance" data-key="t-non-masking-balance">Non-Masking Balance</Link></li>
-                            </ul>
-                        </li> */}
-
-
-                        {/* <li>
-                            <Link to="#!" className="has-arrow">
-                                <i data-feather="message-square" />
-                                <span data-key="t-authentication">SMS Inventory</span>
-                            </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="auth-logout.html" data-key="t-masking">Masking</Link></li>
-                                <li><Link to="auth-logout.html" data-key="t-non-masking">Non Masking</Link></li>
-                                <li><Link to="auth-logout.html" data-key="t-sms-stock">SMS Stock</Link></li>
-                                <li><Link to="auth-logout.html" data-key="t-info-balance">Info balance</Link></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <Link to="#!" className="has-arrow">
-                                <i data-feather="pie-chart" />
-                                <span data-key="t-authentication">Report</span>
-                            </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="auth-logout.html" data-key="t-today-merchant-wise-summary-report">Today Merchant wise summary report</Link></li>
-                                <li><Link to="auth-logout.html" data-key="t-sms-log">SMS Log</Link></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <Link to="#!" className="has-arrow">
-                                <i data-feather="rss" />
-                                <span data-key="t-authentication">Request</span>
-                            </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li><Link to="auth-logout.html" data-key="t-content-request">Content Request</Link></li>
-                                <li><Link to="auth-logout.html" data-key="t-masking-request">Masking Request</Link></li>
-                            </ul>
-                        </li> */}
-
                     </ul>
-
                 </div>
                 {/* Sidebar */}
             </div>
@@ -167,14 +112,14 @@ function Sidebar(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions,
     breadcrumb: state.breadcrumb,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
     logout: () => dispatch(USER_LOGOUT())
 })
 

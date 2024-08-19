@@ -6,7 +6,7 @@ import RadioButtons from '../RadioButtons';
 import CheckboxGroup from './CheckboxGroup';
 import ReactDatePicker from './ReactDatePicker';
 
-function FormikControl(props) {
+function FormikControl(props:any) {
     const {control, ...rest} = props
 
     switch (control) {

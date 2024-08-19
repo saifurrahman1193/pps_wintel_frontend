@@ -7,7 +7,6 @@ import Dashboard from '../modules/Dashboard';
 import Users from '../modules/accesscontrol/Users';
 import Roles from '../modules/accesscontrol/Roles';
 import Permissions from '../modules/accesscontrol/Permissions';
-import MerchantManagement from '../modules/merchant/MerchantManagement';
 
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -15,8 +14,9 @@ import Footer from '../components/Footer';
 import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
 import Breadcrumb from '../components/Breadcrumb';
+import HandsetUser from '../modules/configuration/HandsetUser';
 
-function Router(props) {
+function Router(props: any) {
 
     return (
         <Fragment>
@@ -39,7 +39,7 @@ function Router(props) {
                                         <AuthRoute exact path='/roles' element={<Roles />} />
                                         <AuthRoute exact path='/permissions' element={<Permissions />} />
 
-                                        <AuthRoute exact path='/merchant-management' element={<MerchantManagement />} />
+                                        <AuthRoute exact path='/handset-users' element={<HandsetUser />} />
                                     </div>
                                 </div>
                                 <Footer />
@@ -51,7 +51,7 @@ function Router(props) {
         </Fragment >
     )
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
     user: state.user,
     role: state.role,
     permissions: state.permissions

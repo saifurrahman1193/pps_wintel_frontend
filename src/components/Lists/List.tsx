@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import ReactHtmlParser from 'react-html-parser';
 
-function List(props) {
+function List(props:any) {
 
     return (
         <Fragment>

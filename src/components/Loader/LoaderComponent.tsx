@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LoaderComponent(props) {
+function LoaderComponent(props:any) {
     return (
         <>
             <div className='row'>

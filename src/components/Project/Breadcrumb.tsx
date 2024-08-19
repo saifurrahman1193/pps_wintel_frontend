@@ -3,7 +3,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 
-function Breadcrumb(props) {
+function Breadcrumb(props:any) {
 
     useEffect(() => {
         document.title = props?.breadcrumb?.pageTitle || "Virtual Recharge"

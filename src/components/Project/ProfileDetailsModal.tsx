@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import ProfileDetails from './ProfileDetails'
 import { Link } from 'react-router-dom';
 
-function ProfileDetailsModal(props) {
+function ProfileDetailsModal(props:any) {
 
     const data_update = (userId, profiledetail_row_id) => {
         props.profileDetailModalUpdate(userId, profiledetail_row_id)

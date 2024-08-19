@@ -56,8 +56,9 @@ export const LOG_TYPES = '/list/getLogTypes'
 
 
 
-// Merchant routes
-export const MERCHANT_P = '/merchant/merchant-list-paginate'
-export const CREATE_MERCHANT = '/merchant/merchant-create'
-export const SINGLE_MERCHANT_INFO = '/merchant/single-merchant-data'
-export const UPDATE_MERCHANT = '/merchant/merchant-update'
+// Handset User routes
+export const HANDSET_USER_FILTER_DATA = '/handset-user/filter-data'
+export const HANDSET_USER_P = '/handset-user/list-paginate'
+export const SINGLE_HANDSET_USER_INFO = '/handset-user/single-data'
+export const CREATE_HANDSET_USER = '/handset-user/create'
+export const UPDATE_HANDSET_USER = '/handset-user/update'

@@ -14,7 +14,7 @@ import INIT from '../../route/utils/Init.js';
 import './merchantstyle.css';
 import ValidationTextErrorMessage from '../../components/Error/ValidationTextErrorMessage.js';
 
-function MerchantManagement(props) {
+function MerchantManagement(props:any) {
 
     const breadcrumb = {
         pageTitle: 'Merchant Management',
@@ -438,13 +438,13 @@ function MerchantManagement(props) {
 
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data) => dispatch(SET_USER_DATA(data)),
 });

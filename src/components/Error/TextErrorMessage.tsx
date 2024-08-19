@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-function TextErrorMessage(props) {
+function TextErrorMessage(props:any) {
     return (
         <Fragment>
             <span style={{

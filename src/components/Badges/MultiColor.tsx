@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import ReactHtmlParser from 'react-html-parser';
 
-function MultiColor(props) {
+function MultiColor(props:any) {
 
     const badge_colors = ['primary', 'success', 'danger' , 'info']
     function getBadge(value){

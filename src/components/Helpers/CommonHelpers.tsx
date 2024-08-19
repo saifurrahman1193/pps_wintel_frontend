@@ -120,7 +120,7 @@ export const permission_routes = [
     { pathname: '/users', permission: 'user list' },
     { pathname: '/roles', permission: 'role list' },
     { pathname: '/permissions', permission: 'permission list' },
-    { pathname: '/merchant-management', permission: 'merchant list' },
+    { pathname: '/handset-users', permission: 'handset user list' },
 
 ]
 

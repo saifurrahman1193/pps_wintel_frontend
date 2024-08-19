@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { LOGIN } from '../../api/apiPath'
 import { toast } from 'react-toastify';
 
-function Login(props) {
+function Login(props:any) {
 
     const [initialValues, setInitialValues] = useState({
         email: '',
@@ -137,7 +137,7 @@ function Login(props) {
     )
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     login: (data) => dispatch(SET_USER_DATA(data)),
 })
 

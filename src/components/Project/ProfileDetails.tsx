@@ -4,7 +4,7 @@ import { MODULE_ALL, SINGLE_USER_INFO } from '../../api/apiPath'
 import { Link } from 'react-router-dom';
 import Svgsearchiconcomponent from '../Icons/Svgsearchiconcomponent'
 
-function ProfileDetails(props) {
+function ProfileDetails(props:any) {
 
     const formInitial = {
         search: ''

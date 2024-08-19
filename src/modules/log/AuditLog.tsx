@@ -22,7 +22,7 @@ import Table from '../../components/Table/Table'
 
 import moment from 'moment';
 
-function AuditLog(props) {
+function AuditLog(props:any) {
 
     const breadcrumb = {
         pageTitle: 'Audit Log',
@@ -176,7 +176,7 @@ function AuditLog(props) {
                             <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-5">
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DateTimePicker
-                                        renderInput={(props) => <TextField {...props} className="w-100" />}
+                                        renderInput={(props:any) => <TextField {...props} className="w-100" />}
                                         label="Start Date Time"
                                         value={formData?.filter?.start_date}
                                         onChange={(newValue) => {
@@ -190,7 +190,7 @@ function AuditLog(props) {
                             <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-5">
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DateTimePicker
-                                        renderInput={(props) => <TextField {...props} className="w-100" />}
+                                        renderInput={(props:any) => <TextField {...props} className="w-100" />}
                                         label="End Date Time"
                                         value={formData?.filter?.end_date}
                                         onChange={(newValue) => {
@@ -432,13 +432,13 @@ function AuditLog(props) {
 
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data) => dispatch(SET_USER_DATA(data)),
 });

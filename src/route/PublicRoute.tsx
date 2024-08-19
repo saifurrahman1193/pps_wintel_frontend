@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-function PublicRoute(props) {
+function PublicRoute(props:any) {
    
     const checkIfuser = () => {
         if (props?.user) {
@@ -24,7 +24,7 @@ function PublicRoute(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user
 })
 

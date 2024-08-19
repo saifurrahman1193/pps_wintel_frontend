@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-function AuthRoute(props) {
+function AuthRoute(props:any) {
 
     const checkAccessibility = () => {
         
@@ -54,7 +54,7 @@ function AuthRoute(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions

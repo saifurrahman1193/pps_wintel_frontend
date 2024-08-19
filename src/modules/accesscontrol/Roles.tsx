@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap'
 
 
-function Roles(props) {
+function Roles(props:any) {
 
     const breadcrumb = {
         pageTitle: 'Roles',
@@ -487,13 +487,13 @@ function Roles(props) {
 
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data) => dispatch(SET_USER_DATA(data)),
 });

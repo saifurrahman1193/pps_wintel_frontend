@@ -60,7 +60,10 @@ function Users(props: any) {
                 role_ids: [],
                 rolesSelectedOptions: null,
             },
-            errors: null
+            errors: null,
+            submit:{
+                loading: false
+            }
         },
         table: {
             data: null,
@@ -99,7 +102,7 @@ function Users(props: any) {
         }))
     }
 
-    const getTableData = async (e: any, page = 1, sort = null, search = '',) => {
+    const getTableData = async (e: any, page:number = 1, sort:any = null, search = '',) => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
@@ -269,7 +272,7 @@ function Users(props: any) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>User Details <Sorting column="name" order={formData?.table?.sort?.column == 'name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>Name <Sorting column="name" order={formData?.table?.sort?.column == 'name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Email <Sorting column="email" order={formData?.table?.sort?.column == 'email' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Roles</th>
                                                 <th>Status <Sorting column="status" order={formData?.table?.sort?.column == 'status' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>

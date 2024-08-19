@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { postCall } from '../api/apiService'
 import INIT from '../route/utils/Init';
 
-function Dashboard(props) {
+function Dashboard(props:any) {
 
     useEffect(() => {
         INIT()
@@ -40,13 +40,13 @@ function Dashboard(props) {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data) => dispatch(SET_USER_DATA(data)),
 });

@@ -10,7 +10,7 @@ import Svgmenuiconcomponent from './Icons/Svgmenuiconcomponent'
 import { kt_aside_mobile_toggle } from './Helpers/DesignHelpers'
 
 
-function Breadcrumb(props) {
+function Breadcrumb(props:any) {
 
     return (
         <>
@@ -57,14 +57,14 @@ function Breadcrumb(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions,
     breadcrumb: state.breadcrumb,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     logout: () => dispatch(USER_LOGOUT())
 })
 

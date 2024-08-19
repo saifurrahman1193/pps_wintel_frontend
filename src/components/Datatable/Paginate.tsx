@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom';
 
-function Paginate(props) {
+function Paginate(props:any) {
 
     const paginator = props.paginator || {}
     const total_pages = paginator.total_pages || 1

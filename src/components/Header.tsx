@@ -8,7 +8,7 @@ import { USER_LOGOUT } from '../redux/action'
 import Loader from './Loader'
 
 
-function Header(props) {
+function Header(props:any) {
  
     const vCurPathA = (pathname='') => {
         const path = props.breadcrumb.currentPath
@@ -255,14 +255,14 @@ function Header(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions,
     breadcrumb: state.breadcrumb,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     logout: () => dispatch(USER_LOGOUT())
 })
 

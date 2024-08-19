@@ -11,7 +11,7 @@ import ProfileDetails from '../../components/Project/ProfileDetails'
 import INIT from '../../route/utils/Init';
 import HorizontalSeparator from '../../components/Separator/HorizontalSeparator';
 
-function Profile(props) {
+function Profile(props:any) {
 
     const breadcrumb = {
         pageTitle: 'Profile',
@@ -297,13 +297,13 @@ function Profile(props) {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch:any) => ({
     setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
     me: (data) => dispatch(SET_USER_DATA(data)),
 });

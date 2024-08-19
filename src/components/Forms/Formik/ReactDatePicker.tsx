@@ -6,7 +6,7 @@ import DateView from "react-datepicker";
 
 
 
-function ReactDatePicker(props) {
+function ReactDatePicker(props:any) {
     const {label, name, ...rest} = props
 
     const getField = () => {

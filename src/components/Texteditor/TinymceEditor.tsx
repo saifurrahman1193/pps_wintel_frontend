@@ -1,7 +1,7 @@
 import React, { useRef, Fragment } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-function TinymceEditor(props) {
+function TinymceEditor(props:any) {
    const editorRef = useRef(null);
 
    const handleChange = (value) => {
