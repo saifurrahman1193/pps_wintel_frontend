@@ -155,13 +155,6 @@ function HandsetUser(props: any) {
         getTableData(null, undefined, null)
     }, [])
 
-    const getApi = () => {
-        if (formData?.form?.data?.id) {
-            return UPDATE_HANDSET_USER
-        }
-        return CREATE_HANDSET_USER
-    }
-
     const handleSubmit = async (e: any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
@@ -214,6 +207,9 @@ function HandsetUser(props: any) {
     const formClear = () => {
         setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
+    const filterClear = async () => {
+        setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data:{...prev?.filter?.data, ...formInitial?.filter?.data} } }))
+    }
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
@@ -237,6 +233,9 @@ function HandsetUser(props: any) {
                         <div className="col-md-3">
                             <button type="button" className="btn btn-soft-primary waves-effect waves-light page-submit-margin-top"
                                 onClick={getTableData}
+                            ><i className="bx bx-search-alt-2  font-size-16 align-middle"></i></button>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light page-submit-margin-top"
+                                onClick={filterClear}
                             ><i className="bx bx-search-alt-2  font-size-16 align-middle"></i></button>
                         </div>
                     </div>
