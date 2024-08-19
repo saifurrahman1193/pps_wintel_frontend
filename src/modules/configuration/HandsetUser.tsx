@@ -38,11 +38,17 @@ function HandsetUser(props: any) {
 
     const formInitial = {
         filter: {
-            brand_list: [],
-            status_list: [
-                { label: 'Inactive', value: 0 },
-                { label: 'Active', value: 1 },
-            ]
+            data: {
+                brand_name: '',
+                brand_name_selected_option: '',
+            },
+            list: {
+                brand_list: [],
+                status_list: [
+                    { label: 'Inactive', value: 0 },
+                    { label: 'Active', value: 1 },
+                ],
+            }
         },
         form: {
             data: {
@@ -120,7 +126,7 @@ function HandsetUser(props: any) {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { page: page, sort }
+        const request = { page: page, sort, ...formData?.filter?.data }
         const response = await getCall(HANDSET_USER_P, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
@@ -136,7 +142,7 @@ function HandsetUser(props: any) {
         if (response?.code === 200) {
             setFormData((prev) => ({
                 ...prev,
-                filter: { ...prev.filter, ...response?.data }
+                filter: { ...prev.filter, list: { ...prev.filter?.list, ...response?.data } }
             }))
         }
     }
@@ -186,14 +192,14 @@ function HandsetUser(props: any) {
     const updateModalProcess = async (id: number) => {
         const response = await getCall(`${SINGLE_HANDSET_USER_INFO}/${id}`, null, props.user.access_token)
         if (response?.code === 200) {
-            const k_cricket_update_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_cricket_update_status)
-            const k_hadith_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_hadith_status)
-            const k_jokes_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_jokes_status)
-            const k_beauty_tips_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_beauty_tips_status)
-            const k_media_gossip_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_media_gossip_status)
-            const k_love_tips_status_selected_option = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.k_love_tips_status)
+            const k_cricket_update_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_cricket_update_status)
+            const k_hadith_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_hadith_status)
+            const k_jokes_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_jokes_status)
+            const k_beauty_tips_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_beauty_tips_status)
+            const k_media_gossip_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_media_gossip_status)
+            const k_love_tips_status_selected_option = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.k_love_tips_status)
 
-            const statusSelectedOption = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.status)
+            const statusSelectedOption = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.status)
 
             setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, statusSelectedOption: statusSelectedOption, k_cricket_update_status_selected_option, k_hadith_status_selected_option, k_jokes_status_selected_option, k_beauty_tips_status_selected_option, k_media_gossip_status_selected_option, k_love_tips_status_selected_option } } }))
         }
@@ -217,6 +223,28 @@ function HandsetUser(props: any) {
     return (
         <Fragment>
             <div className="card col-12">
+                <div className="card-block py-2 px-2">
+                    <div className="row mb-2">
+                        <div className="col-md-3">
+                            Brand
+                            <Select options={formData?.filter?.list?.brand_list} value={formData?.filter?.data?.brand_name_selected_option}
+                                onChange={(option: any) =>
+                                    setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, brand_name: option?.value, brand_name_selected_option: option } } }))
+                                }
+                                isClearable placeholder="Select Brand" />
+                        </div>
+
+                        <div className="col-md-3">
+                            <button type="button" className="btn btn-soft-primary waves-effect waves-light page-submit-margin-top"
+                                onClick={getTableData}
+                            ><i className="bx bx-search-alt-2  font-size-16 align-middle"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="card col-12">
+
                 <div className="card-block py-2 px-2">
                     <div className="row mb-2">
                         <div className="d-flex align-items-end col col-12 col-xs-12 col-sm-4  col-md-6 col-lg-7 col-xl-8">
@@ -351,7 +379,7 @@ function HandsetUser(props: any) {
                                                 Password{formData?.form?.data?.id ? '' : <Validation.RequiredStar />}
                                             </label>
                                             <div className="col-sm-8">
-                                                <input type="password" className="form-control form-control-sm form-control-solid" name="password" placeholder="Password" value={formData?.form?.data?.password} onChange={handleChange}  />
+                                                <input type="password" className="form-control form-control-sm form-control-solid" name="password" placeholder="Password" value={formData?.form?.data?.password} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -369,7 +397,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Cricket Update</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_cricket_update" placeholder="Cricket Update" value={formData?.form?.data?.k_cricket_update} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_cricket_update" placeholder="Cricket Update" value={formData?.form?.data?.k_cricket_update} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -377,7 +405,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Cricket Update Status</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_cricket_update_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_cricket_update_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_cricket_update_status: option?.value, k_cricket_update_status_selected_option: option } } }))
                                                     }
@@ -390,7 +418,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Hadith </label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_hadith" placeholder="Hadith" value={formData?.form?.data?.k_hadith} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_hadith" placeholder="Hadith" value={formData?.form?.data?.k_hadith} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -398,7 +426,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Hadith Status</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_hadith_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_hadith_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_hadith_status: option?.value, k_hadith_status_selected_option: option } } }))
                                                     }
@@ -412,7 +440,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Jokes </label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_jokes" placeholder="Jokes" value={formData?.form?.data?.k_jokes} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_jokes" placeholder="Jokes" value={formData?.form?.data?.k_jokes} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -420,7 +448,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Jokes Status</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_jokes_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_jokes_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_jokes_status: option?.value, k_jokes_status_selected_option: option } } }))
                                                     }
@@ -433,7 +461,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Beauty Tips </label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_beauty_tips" placeholder="Beauty Tips" value={formData?.form?.data?.k_beauty_tips} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_beauty_tips" placeholder="Beauty Tips" value={formData?.form?.data?.k_beauty_tips} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -441,7 +469,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Beauty Tips Status</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_beauty_tips_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_beauty_tips_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_beauty_tips_status: option?.value, k_beauty_tips_status_selected_option: option } } }))
                                                     }
@@ -454,7 +482,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Media Gossip </label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_media_gossip" placeholder="Media Gossip" value={formData?.form?.data?.k_media_gossip} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_media_gossip" placeholder="Media Gossip" value={formData?.form?.data?.k_media_gossip} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +490,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Media Gossip Status</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_media_gossip_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_media_gossip_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_media_gossip_status: option?.value, k_media_gossip_status_selected_option: option } } }))
                                                     }
@@ -475,7 +503,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Love Tips <Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_love_tips" placeholder="Love Tips" value={formData?.form?.data?.k_love_tips} onChange={handleChange}  />
+                                                <input type="text" className="form-control form-control-sm form-control-solid" name="k_love_tips" placeholder="Love Tips" value={formData?.form?.data?.k_love_tips} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -483,7 +511,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Love Tips Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.k_love_tips_status_selected_option}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_love_tips_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_love_tips_status: option?.value, k_love_tips_status_selected_option: option } } }))
                                                     }
@@ -497,7 +525,7 @@ function HandsetUser(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Handset User Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.statusSelectedOption}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.statusSelectedOption}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, status: option?.value, statusSelectedOption: option } } }))
                                                     }

@@ -39,12 +39,17 @@ function Users(props: any) {
 
     const formInitial = {
         filter: {
-            brand_list: [],
-            role_list: [],
-            status_list: [
-                { label: 'Inactive', value: 0 },
-                { label: 'Active', value: 1 },
-            ]
+            list: {
+                brand_list: [],
+                role_list: [],
+                status_list: [
+                    { label: 'Inactive', value: 0 },
+                    { label: 'Active', value: 1 },
+                ]
+            },
+            data: {
+
+            }
         },
         form: {
             data: {
@@ -61,7 +66,7 @@ function Users(props: any) {
                 rolesSelectedOptions: null,
             },
             errors: null,
-            submit:{
+            submit: {
                 loading: false
             }
         },
@@ -102,7 +107,7 @@ function Users(props: any) {
         }))
     }
 
-    const getTableData = async (e: any, page:number = 1, sort:any = null, search = '',) => {
+    const getTableData = async (e: any, page: number = 1, sort: any = null, search = '',) => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
@@ -125,7 +130,7 @@ function Users(props: any) {
         if (response?.code === 200) {
             setFormData((prev) => ({
                 ...prev,
-                filter: { ...prev.filter, ...response?.data }
+                filter: { ...prev.filter, list: { ...prev.filter?.list, ...response?.data } }
             }))
         }
     }
@@ -170,8 +175,8 @@ function Users(props: any) {
                 return { label: item?.role_name, value: parseInt(item?.role_id) }
             })
 
-            const brandSelectedOption = (formData?.filter?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_name)
-            const statusSelectedOption = (formData?.filter?.status_list || []).find((item: any) => item?.value == response?.data?.status)
+            const brandSelectedOption = (formData?.filter?.list?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_name)
+            const statusSelectedOption = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.status)
 
             setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_name: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
         }
@@ -196,6 +201,9 @@ function Users(props: any) {
         setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
+    const filterClear = async () => {
+        setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data:{...prev?.filter?.data, ...formInitial?.filter?.data} } }))
+    }
 
     // profile detail modal component related
     const [profileDetailModalUserId, setProfileDetailModalUserId] = useState('')
@@ -343,7 +351,6 @@ function Users(props: any) {
             </div>
 
 
-
             <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
@@ -387,7 +394,7 @@ function Users(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Brand Name</label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.brand_list} value={formData?.form?.data?.brandSelectedOption}
+                                                <Select options={formData?.filter?.list?.brand_list} value={formData?.form?.data?.brandSelectedOption}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_name: option?.value, brandSelectedOption: option } } }))
                                                     }
@@ -415,12 +422,11 @@ function Users(props: any) {
                                         </div>
                                     </div>
 
-
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Status<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.status_list} value={formData?.form?.data?.statusSelectedOption}
+                                                <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.statusSelectedOption}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, status: option?.value, statusSelectedOption: option } } }))
                                                     }
@@ -433,7 +439,7 @@ function Users(props: any) {
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label control-label">Roles<Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
-                                                <Select options={formData?.filter?.role_list}
+                                                <Select options={formData?.filter?.list?.role_list}
                                                     className="basic-multi-select"
                                                     classNamePrefix="select"
                                                     isMulti
