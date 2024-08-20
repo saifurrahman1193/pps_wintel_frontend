@@ -36,7 +36,73 @@ function HandsetUser(props: any) {
         ]
     }
 
-    const formInitial = {
+    interface FormInitial {
+        filter: {
+            data: {
+                brand_name: string;
+                brand_name_selected_option: string;
+            };
+            list: {
+                brand_list: string[];
+                status_list: Array<{ label: string; value: number }>;
+            };
+        };
+        form: {
+            data: {
+                id: string;
+    
+                username: string;
+                password: string;
+                brand_name: string;
+                k_cricket_update: string;
+                k_cricket_update_status: number;
+                k_cricket_update_status_selected_option: { label: string; value: number };
+                k_hadith: string;
+                k_hadith_status: number;
+                k_hadith_status_selected_option: { label: string; value: number };
+                k_jokes: string;
+                k_jokes_status: number;
+                k_jokes_status_selected_option: { label: string; value: number };
+                k_beauty_tips: string;
+                k_beauty_tips_status: number;
+                k_beauty_tips_status_selected_option: { label: string; value: number };
+                k_media_gossip: string;
+                k_media_gossip_status: number;
+                k_media_gossip_status_selected_option: { label: string; value: number };
+                k_love_tips: string;
+                k_love_tips_status: number;
+                k_love_tips_status_selected_option: { label: string; value: number };
+                status: number;
+                statusSelectedOption: { label: string; value: number };
+            };
+            errors: null | Record<string, string>;
+            submit: {
+                loading: boolean;
+            };
+        };
+        table: {
+            data: any[] | null;
+            paginator: {
+                current_page: number;
+                total_pages: number;
+                previous_page_url: string | null;
+                next_page_url: string | null;
+                record_per_page: number;
+                current_page_items_count: number | null;
+                total_count: number | null;
+                pagination_last_page: number | null;
+            };
+            loading: boolean;
+            empty: boolean;
+            sort: {
+                column: string | null;
+                table: string | null;
+                order: 'asc' | 'desc' | null;
+            };
+        };
+    }
+    
+    const formInitial: FormInitial = {
         filter: {
             data: {
                 brand_name: '',
@@ -48,12 +114,11 @@ function HandsetUser(props: any) {
                     { label: 'Inactive', value: 0 },
                     { label: 'Active', value: 1 },
                 ],
-            }
+            },
         },
         form: {
             data: {
                 id: '',
-
                 username: '',
                 password: '',
                 brand_name: '',
@@ -80,8 +145,8 @@ function HandsetUser(props: any) {
             },
             errors: null,
             submit: {
-                loading: false
-            }
+                loading: false,
+            },
         },
         table: {
             data: null,
@@ -93,7 +158,7 @@ function HandsetUser(props: any) {
                 record_per_page: 20,
                 current_page_items_count: null,
                 total_count: null,
-                pagination_last_page: null
+                pagination_last_page: null,
             },
             loading: false,
             empty: true,
@@ -101,9 +166,11 @@ function HandsetUser(props: any) {
                 column: null,
                 table: null,
                 order: null,
-            }
+            },
         },
-    }
+    };
+    
+
 
     const [formData, setFormData] = useState(formInitial)
 
@@ -119,14 +186,13 @@ function HandsetUser(props: any) {
             }
         }))
     }
-
-    const getTableData = async (e: any, page: number = 1, sort: any = null) => {
-        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: sort, data: null, paginator: null, loading: true, empty: true } }))
+    const getTableData = async (e: any, filteredData = { ...formData?.filter?.data, page: 1, sort: null }) => {
+        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
             e.preventDefault();
         }
-        const request = { page: page, sort, ...formData?.filter?.data }
+        const request = { ...formData?.filter?.data, ...filteredData }
         const response = await getCall(HANDSET_USER_P, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
@@ -152,7 +218,7 @@ function HandsetUser(props: any) {
         permissionsResets(props)
         props.setPageBreadcrumb(breadcrumb)
         getFilterList()
-        getTableData(null, undefined, null)
+        getTableData(null, undefined)
     }, [])
 
     const handleSubmit = async (e: any) => {
@@ -171,7 +237,7 @@ function HandsetUser(props: any) {
             response = await postCall(CREATE_HANDSET_USER, request, props.user.access_token)
         }
         if (response?.code === 200) {
-            getTableData(null, formData?.table?.paginator?.current_page, null)
+            getTableData(null, { ...formData?.filter?.data, page: formData?.table?.paginator?.current_page, sort:formData?.table?.sort  })
             formClear()
             toast.success(response?.message?.[0])
             closeDialog()
@@ -205,15 +271,16 @@ function HandsetUser(props: any) {
     }
 
     const formClear = () => {
-        setFormData((prev) => ({ ...prev, form: formInitial?.form }))
+        setFormData((prev) => ({ ...prev, form: {...formInitial?.form} }))
     }
     const filterClear = async () => {
-        setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data:{...prev?.filter?.data, ...formInitial?.filter?.data} } }))
+        setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, ...formInitial?.filter?.data } } }))
+        getTableData(null, { ...formInitial?.filter?.data, page:1 })
     }
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
-        getTableData(null, 1, { column, table, order })
+        getTableData(null, { ...formData?.filter?.data, page: 1, sort: { column, table, order } })
     };
 
     return (
@@ -233,10 +300,10 @@ function HandsetUser(props: any) {
                         <div className="col-md-3">
                             <button type="button" className="btn btn-soft-primary waves-effect waves-light page-submit-margin-top"
                                 onClick={getTableData}
-                            ><i className="bx bx-search-alt-2  font-size-16 align-middle"></i></button>
-                            <button type="button" className="btn btn-soft-danger waves-effect waves-light page-submit-margin-top"
+                            ><i className="mdi mdi-filter font-size-16 align-middle"></i></button>
+                            <button type="button" className="btn btn-soft-danger waves-effect waves-light page-submit-margin-top mx-1"
                                 onClick={filterClear}
-                            ><i className="bx bx-search-alt-2  font-size-16 align-middle"></i></button>
+                            ><i className="mdi mdi-filter-remove  font-size-16 align-middle"></i></button>
                         </div>
                     </div>
                 </div>
@@ -345,7 +412,7 @@ function HandsetUser(props: any) {
                     }
                     {
                         formData?.table?.paginator?.total_pages > 1 ?
-                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page: number) => getTableData(null, page, formData?.table?.sort)} /> : null
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page: number) => getTableData(null, { ...formData?.filter?.data, page: page })} /> : null
                     }
                 </div>
             </div>
