@@ -3,7 +3,7 @@ import { ME, CREATE_ACTIVITY_LOG } from '../../api/apiPath'
 
 import moment from 'moment';
 
-export const jsDateToYMD = (datetime) => {
+export const jsDateToYMD = (datetime: any) => {
     if (!datetime) return null;
     const date = datetime.getDate();
     const month = datetime.getMonth() + 1; //Be careful! January is 0 not 1
@@ -25,7 +25,7 @@ export const getCurrentTime = () => {
 
 
 
-export const timeCalculator = (time) => {
+export const timeCalculator = (time:any) => {
     let [hour, min, seconds] = time.split(":")
 
     let ampm = 'am'
@@ -92,7 +92,7 @@ export const arrToLowerCase = (arr = []) => {
     return arr.map(str => str.toLowerCase());
 }
 
-export const downloadFileWithLink = (href) => {
+export const downloadFileWithLink = (href:any) => {
     let link = document.createElement("a");
     let name = (href?.split("/") || [])
     name = name[name?.length - 1]
@@ -124,7 +124,7 @@ export const permission_routes = [
 
 ]
 
-export const checkPermissionsWiseRouteChecker = (props) => {
+export const checkPermissionsWiseRouteChecker = (props:any) => {
     const current_pathname = window.location.pathname || ''
 
     const permission_route = permission_routes?.find((item) => {
@@ -207,7 +207,7 @@ export const getTodayEndTime = () => {
     return moment().endOf('day').format('yy-MM-DD HH:mm:ss')
 }
 
-export const getSpecificDateTimeAMPM = (datetime) => {
+export const getSpecificDateTimeAMPM = (datetime:any) => {
     return moment(datetime).format('yy-MM-DD hh:mm A')
 }
 

@@ -461,7 +461,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Cricket Update</label>
+                                            <label className="col-sm-4 col-form-label control-label">Cricket Update Keyword</label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_cricket_update" placeholder="Cricket Update" value={formData?.form?.data?.k_cricket_update} onChange={handleChange} />
                                             </div>
@@ -482,7 +482,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Hadith </label>
+                                            <label className="col-sm-4 col-form-label control-label">Hadith Keyword </label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_hadith" placeholder="Hadith" value={formData?.form?.data?.k_hadith} onChange={handleChange} />
                                             </div>
@@ -504,7 +504,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Jokes </label>
+                                            <label className="col-sm-4 col-form-label control-label">Jokes Keyword </label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_jokes" placeholder="Jokes" value={formData?.form?.data?.k_jokes} onChange={handleChange} />
                                             </div>
@@ -525,7 +525,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Beauty Tips </label>
+                                            <label className="col-sm-4 col-form-label control-label">Beauty Tips Keyword </label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_beauty_tips" placeholder="Beauty Tips" value={formData?.form?.data?.k_beauty_tips} onChange={handleChange} />
                                             </div>
@@ -546,7 +546,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Media Gossip </label>
+                                            <label className="col-sm-4 col-form-label control-label">Media Gossip Keyword </label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_media_gossip" placeholder="Media Gossip" value={formData?.form?.data?.k_media_gossip} onChange={handleChange} />
                                             </div>
@@ -567,7 +567,7 @@ function HandsetUser(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Love Tips <Validation.RequiredStar /></label>
+                                            <label className="col-sm-4 col-form-label control-label">Love Tips Keyword <Validation.RequiredStar /></label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_love_tips" placeholder="Love Tips" value={formData?.form?.data?.k_love_tips} onChange={handleChange} />
                                             </div>

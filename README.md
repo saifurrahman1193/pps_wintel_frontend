@@ -1,8 +1,8 @@
-# Wintext new portal Frontend
+# PPS Wintel portal Frontend
 ---------------
 
 ## Contents
-- [Wintext new portal Frontend](#wintext-new-portal-frontend)
+- [PPS Wintel portal Frontend](#pps-wintel-portal-frontend)
   - [Contents](#contents)
   - [Introduction](#introduction)
     - [Purposes](#purposes)
@@ -63,9 +63,9 @@ npm create vite@latest
 
 y
 
-wintext_new_portal_frontend
+pps_wintel_portal_frontend
 
-✔ Project name: … wintext_new_portal_frontend
+✔ Project name: … pps_wintel_portal_frontend
 ✔ Select a framework: › React
 ✔ Select a variant: › TypeScript
 
