@@ -39,8 +39,8 @@ function HandsetUser(props: any) {
     interface FormInitial {
         filter: {
             data: {
-                brand_name: string;
-                brand_name_selected_option: string;
+                brand_id: string;
+                brand_selected_option: string;
             };
             list: {
                 brand_list: string[];
@@ -105,8 +105,8 @@ function HandsetUser(props: any) {
     const formInitial: FormInitial = {
         filter: {
             data: {
-                brand_name: '',
-                brand_name_selected_option: '',
+                brand_id: '',
+                brand_selected_option: '',
             },
             list: {
                 brand_list: [],
@@ -290,9 +290,9 @@ function HandsetUser(props: any) {
                     <div className="row mb-2">
                         <div className="col-md-3">
                             Brand
-                            <Select options={formData?.filter?.list?.brand_list} value={formData?.filter?.data?.brand_name_selected_option}
+                            <Select options={formData?.filter?.list?.brand_list} value={formData?.filter?.data?.brand_selected_option}
                                 onChange={(option: any) =>
-                                    setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, brand_name: option?.value, brand_name_selected_option: option } } }))
+                                    setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, brand_id: option?.value, brand_selected_option: option } } }))
                                 }
                                 isClearable placeholder="Select Brand" />
                         </div>
@@ -419,7 +419,7 @@ function HandsetUser(props: any) {
 
 
 
-            <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div className="modal fade" id="saveConfirmationModal" tabIndex={-1} aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">

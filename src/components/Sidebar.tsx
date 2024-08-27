@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { USER_LOGOUT } from '../redux/action'
 
-function Sidebar(props:any) {
+function Sidebar(props: any) {
 
     const vCurPathA = (pathname = '') => {
         const path = props.breadcrumb.currentPath
@@ -94,6 +94,27 @@ function Sidebar(props:any) {
                                         {
                                             props.permissions.includes('handset user list') ?
                                                 <li className={sidebarCurPathLi('/handset-users')}><Link to="/handset-users" data-key="t-permission" className={vCurPathA('/handset-users')}>Handset User</Link></li>
+                                                :
+                                                null
+                                        }
+                                    </ul>
+                                </li>
+                                :
+                                null
+                        }
+
+
+                        {
+                            [ 'details report'].some(ai => props?.permissions?.includes(ai)) ?
+                                <li>
+                                    <Link to="#!" className="has-arrow">
+                                        <i data-feather="pie-chart" />
+                                        <span data-key="t-authentication">Report</span>
+                                    </Link>
+                                    <ul className="sub-menu" aria-expanded="false">
+                                        {
+                                            props.permissions.includes('details report') ?
+                                                <li className={sidebarCurPathLi('/details-report')}><Link to="/details-report" data-key="t-permission" className={vCurPathA('/details-report')}>Details Report</Link></li>
                                                 :
                                                 null
                                         }

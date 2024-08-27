@@ -15,6 +15,7 @@ import AuthRoute from './AuthRoute';
 import PublicRoute from './PublicRoute';
 import Breadcrumb from '../components/Breadcrumb';
 import HandsetUser from '../modules/configuration/HandsetUser';
+import DetailsReport from '../modules/report/DetailsReport';
 
 function Router(props: any) {
 
@@ -40,6 +41,7 @@ function Router(props: any) {
                                         <AuthRoute exact path='/permissions' element={<Permissions />} />
 
                                         <AuthRoute exact path='/handset-users' element={<HandsetUser />} />
+                                        <AuthRoute exact path='/details-report' element={<DetailsReport />} />
                                     </div>
                                 </div>
                                 <Footer />

@@ -50,7 +50,6 @@ export const UPDATE_SPECIFIC_NOTIFICATION_AS_VIEWED = '/notifications/updateSpec
 
 //LIST 
 export const USER_LIST = '/list/getAllUserList'
-export const CLIENT_LIST_B_O_OPERATOR_CONN_TYPE = '/list/getClientBOOperatorConnType'
 export const LOG_TYPES = '/list/getLogTypes'
 
 
@@ -62,3 +61,8 @@ export const HANDSET_USER_P = '/handset-user/list-paginate'
 export const SINGLE_HANDSET_USER_INFO = '/handset-user/single-data'
 export const CREATE_HANDSET_USER = '/handset-user/create'
 export const UPDATE_HANDSET_USER = '/handset-user/update'
+
+
+// Handset User routes
+export const DETAILS_REPORT_FILTER_DATA = '/details-report/filter-data'
+export const DETAILS_REPORT_P = '/details-report/list-paginate'
