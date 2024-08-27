@@ -55,7 +55,7 @@ function Users(props: any) {
             data: {
                 id: '',
                 name: '',
-                brand_name: '',
+                brand_id: '',
                 brandSelectedOption: null,
                 joining_date: null,
                 email: '',
@@ -175,10 +175,10 @@ function Users(props: any) {
                 return { label: item?.role_name, value: parseInt(item?.role_id) }
             })
 
-            const brandSelectedOption = (formData?.filter?.list?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_name)
+            const brandSelectedOption = (formData?.filter?.list?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_id)
             const statusSelectedOption = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.status)
 
-            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_name: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
+            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_id: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
         }
     }
 
@@ -284,7 +284,7 @@ function Users(props: any) {
                                                 <th>Email <Sorting column="email" order={formData?.table?.sort?.column == 'email' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Roles</th>
                                                 <th>Status <Sorting column="status" order={formData?.table?.sort?.column == 'status' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
-                                                <th>Brand <Sorting column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Joining Date <Sorting column="joining_date" order={formData?.table?.sort?.column == 'joining_date' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Action</th>
                                             </tr>
@@ -317,7 +317,7 @@ function Users(props: any) {
                                                             <td>
                                                                 <span className={'badge rounded-pill font-size-12 fw-medium ' + (row?.status == 1 ? ' bg-soft-success text-success' : 'bg-soft-danger text-danger')}>{row?.status == 1 ? 'Active' : 'Inactive'}</span>
                                                             </td>
-                                                            <td>{row?.brand_name}</td>
+                                                            <td>{row?.brand?.brand_name}</td>
                                                             <td>{row?.joining_date}</td>
                                                             <td>
                                                                 {
@@ -396,7 +396,7 @@ function Users(props: any) {
                                             <div className="col-sm-8">
                                                 <Select options={formData?.filter?.list?.brand_list} value={formData?.form?.data?.brandSelectedOption}
                                                     onChange={(option: any) =>
-                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_name: option?.value, brandSelectedOption: option } } }))
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_id: option?.value, brandSelectedOption: option } } }))
                                                     }
                                                     isClearable placeholder="Select Brand" />
                                             </div>
