@@ -317,7 +317,7 @@ function HandsetUser(props: any) {
                             {props.permissions.includes('handset user create') && (
                                 <Link className="btn btn-sm btn-primary waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#saveConfirmationModal" to="#0" onClick={formClear}>
                                     <i className="bx bx-plus label-icon"></i>
-                                    Create New User
+                                    Create New Handset User
                                 </Link>
                             )}
                         </div>
@@ -475,7 +475,7 @@ function HandsetUser(props: any) {
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_cricket_update_status: option?.value, k_cricket_update_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Cricket Update Status" required />
+                                                    isClearable placeholder="Select Cricket Update Status" />
                                             </div>
                                         </div>
                                     </div>
@@ -496,7 +496,7 @@ function HandsetUser(props: any) {
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_hadith_status: option?.value, k_hadith_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Hadith Status" required />
+                                                    isClearable placeholder="Select Hadith Status" />
                                             </div>
                                         </div>
                                     </div>
@@ -518,7 +518,7 @@ function HandsetUser(props: any) {
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_jokes_status: option?.value, k_jokes_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Jokes Status" required />
+                                                    isClearable placeholder="Select Jokes Status" />
                                             </div>
                                         </div>
                                     </div>
@@ -539,7 +539,7 @@ function HandsetUser(props: any) {
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_beauty_tips_status: option?.value, k_beauty_tips_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Beauty Tips Status" required />
+                                                    isClearable placeholder="Select Beauty Tips Status" />
                                             </div>
                                         </div>
                                     </div>
@@ -560,14 +560,14 @@ function HandsetUser(props: any) {
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_media_gossip_status: option?.value, k_media_gossip_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Media Gossip Status" required />
+                                                    isClearable placeholder="Select Media Gossip Status" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Love Tips Keyword <Validation.RequiredStar /></label>
+                                            <label className="col-sm-4 col-form-label control-label">Love Tips Keyword </label>
                                             <div className="col-sm-8">
                                                 <input type="text" className="form-control form-control-sm form-control-solid" name="k_love_tips" placeholder="Love Tips" value={formData?.form?.data?.k_love_tips} onChange={handleChange} />
                                             </div>
@@ -575,13 +575,13 @@ function HandsetUser(props: any) {
                                     </div>
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Love Tips Status<Validation.RequiredStar /></label>
+                                            <label className="col-sm-4 col-form-label control-label">Love Tips Status</label>
                                             <div className="col-sm-8">
                                                 <Select options={formData?.filter?.list?.status_list} value={formData?.form?.data?.k_love_tips_status_selected_option}
                                                     onChange={(option: any) =>
                                                         setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, k_love_tips_status: option?.value, k_love_tips_status_selected_option: option } } }))
                                                     }
-                                                    isClearable placeholder="Select Love Tips Status" required />
+                                                    isClearable placeholder="Select Love Tips Status" />
                                             </div>
                                         </div>
                                     </div>
