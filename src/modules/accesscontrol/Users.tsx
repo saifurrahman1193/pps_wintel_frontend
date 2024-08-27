@@ -175,10 +175,10 @@ function Users(props: any) {
                 return { label: item?.role_name, value: parseInt(item?.role_id) }
             })
 
-            const brandSelectedOption = (formData?.filter?.list?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_id)
-            const statusSelectedOption = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.status)
+            const brandSelectedOption = (formData?.filter?.list?.brand_list || []).find((item: any) => item?.value == response?.data?.brand_id) || null
+            const statusSelectedOption = (formData?.filter?.list?.status_list || []).find((item: any) => item?.value == response?.data?.status) || null
 
-            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_id: brandSelectedOption?.value, brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
+            setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, ...response?.data, role_ids: response?.data?.roles?.map((item: any) => parseInt(item?.role_id)), rolesSelectedOptions: rolesSelectedOptions, brand_id: brandSelectedOption?.value || '', brandSelectedOption: brandSelectedOption, statusSelectedOption: statusSelectedOption } } }))
         }
     }
 
@@ -351,7 +351,7 @@ function Users(props: any) {
             </div>
 
 
-            <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div className="modal fade" id="saveConfirmationModal" tabIndex={-1} aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
@@ -392,11 +392,11 @@ function Users(props: any) {
 
                                     <div className="col-md-12 my-2">
                                         <div className="form-group row">
-                                            <label className="col-sm-4 col-form-label control-label">Brand Name</label>
+                                            <label className="col-sm-4 col-form-label control-label">Brand</label>
                                             <div className="col-sm-8">
                                                 <Select options={formData?.filter?.list?.brand_list} value={formData?.form?.data?.brandSelectedOption}
                                                     onChange={(option: any) =>
-                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_id: option?.value, brandSelectedOption: option } } }))
+                                                        setFormData((prev) => ({ ...prev, form: { ...prev?.form, data: { ...prev?.form?.data, brand_id: option?.value || '', brandSelectedOption: option } } }))
                                                     }
                                                     isClearable placeholder="Select Brand" />
                                             </div>
