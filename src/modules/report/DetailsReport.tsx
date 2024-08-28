@@ -12,6 +12,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Sorting from '../../components/Datatable/Sorting.js';
 
 
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+
 function DetailsReport(props: any) {
 
     const breadcrumb = {
@@ -42,7 +47,9 @@ function DetailsReport(props: any) {
                 service_selected_option: string;
                 operator_id: string;
                 operator_selected_option: string;
+                start_time_init: string;
                 start_time: string;
+                end_time_init: string;
                 end_time: string;
             };
             list: {
@@ -73,6 +80,16 @@ function DetailsReport(props: any) {
                 total_count: number | null;
                 pagination_last_page: number | null;
             };
+            summary: {
+                sub_total: {
+                    total_hit_count: number;
+                    total_revenue_summary: number;
+                };
+                grand_total: {
+                    total_hit_count: number;
+                    total_revenue_summary: number;
+                };
+            };
             loading: boolean;
             empty: boolean;
             sort: {
@@ -93,7 +110,9 @@ function DetailsReport(props: any) {
                 service_selected_option: '',
                 operator_id: '',
                 operator_selected_option: '',
+                start_time_init: '',
                 start_time: '',
+                end_time_init: '',
                 end_time: '',
             },
             list: {
@@ -123,6 +142,16 @@ function DetailsReport(props: any) {
                 total_count: null,
                 pagination_last_page: null,
             },
+            summary: {
+                sub_total: {
+                    total_hit_count: 0,
+                    total_revenue_summary: 0,
+                },
+                grand_total: {
+                    total_hit_count: 0,
+                    total_revenue_summary: 0,
+                }
+            },
             loading: false,
             empty: true,
             sort: {
@@ -138,7 +167,7 @@ function DetailsReport(props: any) {
 
 
     const getTableData = async (e: any, filteredData = { ...formData?.filter?.data, page: 1, sort: null }) => {
-        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, loading: true, empty: true } }))
+        setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, summary: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
             e.preventDefault();
@@ -147,10 +176,10 @@ function DetailsReport(props: any) {
         const response = await getCall(DETAILS_REPORT_P, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
-            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, loading: false, empty } }))
+            setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, summary: response?.data?.summary, loading: false, empty } }))
         } else {
             toast.error(response?.message?.[0])
-            setFormData((prev: any) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, loading: false, empty: false } }))
+            setFormData((prev: any) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, summary: null, loading: false, empty: false } }))
         }
     }
 
@@ -218,6 +247,51 @@ function DetailsReport(props: any) {
                         </div>
 
                         <div className="col-md-3">
+                            Start Time
+                            <DatePicker
+                                selected={formData?.filter?.data?.start_time_init}
+                                onChange={(date) => setFormData((prev) => ({
+                                    ...prev,
+                                    filter: {
+                                        ...prev.filter,
+                                        data: {
+                                            ...prev.filter?.data,
+                                            start_time_init: date,
+                                            start_time: moment(date).format('yy-MM-DD HH:mm:ss')
+                                        }
+                                    }
+                                }))}
+                                dateFormat="yyyy-MM-dd HH:mm:ss"
+                                className="form-control"
+                                placeholderText="Start Time"
+                                showTimeSelect
+                            />
+                        </div>
+
+                        <div className="col-md-3">
+                            End Time
+                            <DatePicker
+                                selected={formData?.filter?.data?.end_time_init}
+                                onChange={(date) => setFormData((prev) => ({
+                                    ...prev,
+                                    filter: {
+                                        ...prev.filter,
+                                        data: {
+                                            ...prev.filter?.data,
+                                            end_time_init: date,
+                                            end_time: moment(date).format('yy-MM-DD HH:mm:ss')
+                                        }
+                                    }
+                                }))}
+                                dateFormat="yyyy-MM-dd HH:mm:ss"
+                                className="form-control"
+                                placeholderText="End Time"
+                                showTimeSelect
+                            />
+                        </div>
+
+
+                        <div className="col-md-3">
                             <button type="button" className="btn btn-soft-primary waves-effect waves-light page-submit-margin-top"
                                 onClick={getTableData}
                             ><i className="mdi mdi-filter font-size-16 align-middle"></i></button>
@@ -261,11 +335,24 @@ function DetailsReport(props: any) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
+                                                <th>Logtime <Sorting column="logtime" order={formData?.table?.sort?.column == 'logtime' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Service <Sorting table="service" column="service" order={formData?.table?.sort?.column == 'service' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
-                                                <th>Operator <Sorting table="operator" column="name" order={formData?.table?.sort?.column == 'operator' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>MSISDN <Sorting column="msisdn" order={formData?.table?.sort?.column == 'msisdn' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
-                                                <th>Logtime <Sorting column="logtime" order={formData?.table?.sort?.column == 'logtime' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
+                                                <th>HIT</th>
+                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue <Sorting column="revenue" order={formData?.table?.sort?.column == 'revenue' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th> : null}
+
+                                            </tr>
+                                        </thead>
+                                        <thead>
+                                            <tr className="text-start text-muted fw-bolder text-uppercase">
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Grand Total</th>
+                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_hit_count}</th>
+                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -274,16 +361,28 @@ function DetailsReport(props: any) {
                                                     return (
                                                         <tr key={'table-row-' + i}>
                                                             <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
+                                                            <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
                                                             <td>{row?.service?.service}</td>
                                                             <td>{row?.brand?.brand_name}</td>
-                                                            <td>{row?.operator?.name}</td>
                                                             <td>{row?.msisdn}</td>
-                                                            <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
+                                                            <td>1</td>
+                                                            {(props?.user?.brand_id || 0) > 0 ? <td>{row?.revenue}</td> : null}
                                                         </tr>
                                                     )
                                                 })
                                             }
                                         </tbody>
+                                        <tfoot>
+                                            <tr className="text-start text-muted fw-bolder text-uppercase">
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Sub Total</th>
+                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_hit_count}</th>
+                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </Fragment>
