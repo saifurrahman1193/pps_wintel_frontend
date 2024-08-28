@@ -194,7 +194,7 @@ function DetailsReport(props: any) {
         setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: true } } }));
 
         try {
-            const response = await axios.post(import.meta.env.VITE_API_BASE_URL+DETAILS_REPORT_DOWNLOAD, { }, {
+            const response = await axios.post(import.meta.env.VITE_API_BASE_URL + DETAILS_REPORT_DOWNLOAD, {}, {
                 responseType: 'blob',
                 headers: {
                     Authorization: props.user.access_token ? `Bearer ${props.user.access_token}` : "",
