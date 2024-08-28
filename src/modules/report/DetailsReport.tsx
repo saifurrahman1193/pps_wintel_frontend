@@ -201,10 +201,15 @@ function DetailsReport(props: any) {
                 }
             });
 
-            if (!(response instanceof Blob) || !response.size || !response.type) {
-                // Handle error notification
-                alert("Cannot download the Excel file.");
-            } else {
+            console.log(response instanceof Blob);
+            console.log(response.size);
+            console.log(response.type);
+            
+
+            // if (!(response instanceof Blob) || !response.size || !response.type) {
+            //     // Handle error notification
+            //     alert("Cannot download the Excel file.");
+            // } else {
                 const blob = new Blob([response]);
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -213,7 +218,7 @@ function DetailsReport(props: any) {
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
-            }
+            // }
         } catch (error) {
             console.error("Error downloading the report:", error);
             // Optionally handle any error notifications here
