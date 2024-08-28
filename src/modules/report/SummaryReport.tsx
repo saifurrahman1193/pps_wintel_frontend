@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import { postCall, getCall, putCall } from '../../api/apiService.js'
-import { DETAILS_REPORT_P, DETAILS_REPORT_FILTER_DATA } from '../../api/apiPath.js'
+import { SUMMARY_REPORT_P, SUMMARY_REPORT_FILTER_DATA } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
@@ -17,11 +17,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-function DetailsReport(props: any) {
+function SummaryReport(props: any) {
 
     const breadcrumb = {
-        pageTitle: 'Details Report',
-        currentPath: '/details-report',
+        pageTitle: 'Summary Report',
+        currentPath: '/summary-report',
         layers: [
             {
                 title: 'Dashboard',
@@ -31,7 +31,7 @@ function DetailsReport(props: any) {
                 title: 'Report'
             },
             {
-                title: 'Details Report',
+                title: 'Summary Report',
                 default: 1
             }
         ]
@@ -173,7 +173,7 @@ function DetailsReport(props: any) {
             e.preventDefault();
         }
         const request = { ...formData?.filter?.data, ...filteredData }
-        const response = await getCall(DETAILS_REPORT_P, request, props.user.access_token)
+        const response = await getCall(SUMMARY_REPORT_P, request, props.user.access_token)
         if (response?.code === 200) {
             let empty = (response?.data?.data?.length == 0) ? true : false
             setFormData((prev) => ({ ...prev, table: { ...prev.table, data: response?.data?.data, paginator: response?.data?.paginator, summary: response?.data?.summary, loading: false, empty } }))
@@ -184,7 +184,7 @@ function DetailsReport(props: any) {
     }
 
     const getFilterList = async () => {
-        const response = await getCall(DETAILS_REPORT_FILTER_DATA, null, props?.user?.access_token)
+        const response = await getCall(SUMMARY_REPORT_FILTER_DATA, null, props?.user?.access_token)
         if (response?.code === 200) {
             setFormData((prev) => ({
                 ...prev,
@@ -411,5 +411,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     me: (data: any) => dispatch(SET_USER_DATA(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(DetailsReport));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(SummaryReport));
 

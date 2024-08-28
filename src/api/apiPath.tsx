@@ -63,6 +63,10 @@ export const CREATE_HANDSET_USER = '/handset-user/create'
 export const UPDATE_HANDSET_USER = '/handset-user/update'
 
 
-// Handset User routes
+// Details report routes
 export const DETAILS_REPORT_FILTER_DATA = '/details-report/filter-data'
 export const DETAILS_REPORT_P = '/details-report/list-paginate'
+
+// Summary report routes
+export const SUMMARY_REPORT_FILTER_DATA = '/summary-report/filter-data'
+export const SUMMARY_REPORT_P = '/summary-report/list-paginate'

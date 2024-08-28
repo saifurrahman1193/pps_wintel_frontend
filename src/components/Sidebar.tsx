@@ -105,7 +105,7 @@ function Sidebar(props: any) {
 
 
                         {
-                            [ 'details report'].some(ai => props?.permissions?.includes(ai)) ?
+                            ['details report', 'summary report'].some(ai => props?.permissions?.includes(ai)) ?
                                 <li>
                                     <Link to="#!" className="has-arrow">
                                         <i data-feather="pie-chart" />
@@ -115,6 +115,13 @@ function Sidebar(props: any) {
                                         {
                                             props.permissions.includes('details report') ?
                                                 <li className={sidebarCurPathLi('/details-report')}><Link to="/details-report" data-key="t-permission" className={vCurPathA('/details-report')}>Details Report</Link></li>
+                                                :
+                                                null
+                                        }
+
+                                        {
+                                            props.permissions.includes('summary report') ?
+                                                <li className={sidebarCurPathLi('/summary-report')}><Link to="/summary-report" data-key="t-permission" className={vCurPathA('/summary-report')}>Summary Report</Link></li>
                                                 :
                                                 null
                                         }
