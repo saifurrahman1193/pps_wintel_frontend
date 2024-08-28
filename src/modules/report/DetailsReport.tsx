@@ -340,7 +340,7 @@ function DetailsReport(props: any) {
                                                 <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>MSISDN <Sorting column="msisdn" order={formData?.table?.sort?.column == 'msisdn' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>HIT</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue <Sorting column="revenue" order={formData?.table?.sort?.column == 'revenue' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th> : null}
+                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue</th> : null}
 
                                             </tr>
                                         </thead>

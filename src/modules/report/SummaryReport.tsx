@@ -335,19 +335,15 @@ function SummaryReport(props: any) {
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
-                                                <th>Logtime <Sorting column="logtime" order={formData?.table?.sort?.column == 'logtime' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Service <Sorting table="service" column="service" order={formData?.table?.sort?.column == 'service' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
-                                                <th>MSISDN <Sorting column="msisdn" order={formData?.table?.sort?.column == 'msisdn' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>HIT</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue <Sorting column="revenue" order={formData?.table?.sort?.column == 'revenue' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th> : null}
+                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue </th> : null}
 
                                             </tr>
                                         </thead>
                                         <thead>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
-                                                <th></th>
-                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Grand Total</th>
@@ -361,11 +357,9 @@ function SummaryReport(props: any) {
                                                     return (
                                                         <tr key={'table-row-' + i}>
                                                             <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
-                                                            <td>{getSpecificDateTimeAMPM(row?.logtime)}</td>
                                                             <td>{row?.service?.service}</td>
                                                             <td>{row?.brand?.brand_name}</td>
-                                                            <td>{row?.msisdn}</td>
-                                                            <td>1</td>
+                                                            <td>{row?.hit}</td>
                                                             {(props?.user?.brand_id || 0) > 0 ? <td>{row?.revenue}</td> : null}
                                                         </tr>
                                                     )
@@ -374,8 +368,6 @@ function SummaryReport(props: any) {
                                         </tbody>
                                         <tfoot>
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
-                                                <th></th>
-                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Sub Total</th>
