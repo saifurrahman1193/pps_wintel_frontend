@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import { postCall, getCall, putCall } from '../../api/apiService.js'
-import { DETAILS_REPORT_P, DETAILS_REPORT_FILTER_DATA } from '../../api/apiPath.js'
+import { DETAILS_REPORT_P, DETAILS_REPORT_FILTER_DATA, DETAILS_REPORT_DOWNLOAD } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
@@ -15,7 +15,7 @@ import Sorting from '../../components/Datatable/Sorting.js';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import axios from 'axios';
 
 function DetailsReport(props: any) {
 
@@ -97,6 +97,9 @@ function DetailsReport(props: any) {
                 table: string | null;
                 order: 'asc' | 'desc' | null;
             };
+            downloading: {
+                excel: boolean;
+            }
         };
     }
 
@@ -159,6 +162,9 @@ function DetailsReport(props: any) {
                 table: null,
                 order: null,
             },
+            downloading: {
+                excel: false
+            }
         },
     };
 
@@ -182,6 +188,39 @@ function DetailsReport(props: any) {
             setFormData((prev: any) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, summary: null, loading: false, empty: false } }))
         }
     }
+
+    const downloadReport = async () => {
+        // Set the downloading state to true
+        setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: true } } }));
+
+        try {
+            const response = await axios.post(import.meta.env.VITE_API_BASE_URL+DETAILS_REPORT_DOWNLOAD, { }, {
+                responseType: 'blob',
+                headers: {
+                    Authorization: props.user.access_token ? `Bearer ${props.user.access_token}` : "",
+                }
+            });
+
+            if (!(response instanceof Blob) || !response.size || !response.type) {
+                // Handle error notification
+                alert("Cannot download the Excel file.");
+            } else {
+                const blob = new Blob([response]);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'active_merchants.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading the report:", error);
+            // Optionally handle any error notifications here
+        } finally {
+            setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: false } } }));
+        }
+    };
 
     const getFilterList = async () => {
         const response = await getCall(DETAILS_REPORT_FILTER_DATA, null, props?.user?.access_token)
@@ -298,6 +337,9 @@ function DetailsReport(props: any) {
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light page-submit-margin-top mx-1"
                                 onClick={filterClear}
                             ><i className="mdi mdi-filter-remove  font-size-16 align-middle"></i></button>
+                            <button type="button" className="btn btn-soft-success waves-effect waves-light page-submit-margin-top"
+                                onClick={downloadReport}
+                            ><i className="mdi mdi-download font-size-16 align-middle"></i></button>
                         </div>
                     </div>
                 </div>
