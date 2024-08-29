@@ -194,34 +194,29 @@ function DetailsReport(props: any) {
         setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: true } } }));
 
         try {
-            const response = await axios.post(import.meta.env.VITE_API_BASE_URL + DETAILS_REPORT_DOWNLOAD, {}, {
+            const response = await axios.post(import.meta.env.VITE_API_BASE_URL + DETAILS_REPORT_DOWNLOAD, { ...formData?.filter?.data }, {
                 responseType: 'blob',
                 headers: {
                     Authorization: props.user.access_token ? `Bearer ${props.user.access_token}` : "",
                 }
             });
 
-            console.log(response instanceof Blob);
-            console.log(response.size);
-            console.log(response.type);
-            
-
-            // if (!(response instanceof Blob) || !response.size || !response.type) {
-            //     // Handle error notification
-            //     alert("Cannot download the Excel file.");
-            // } else {
-                const blob = new Blob([response]);
+            if (!(response.data instanceof Blob) || !response.data.size || !response.data.type) {
+                // Handle error notification
+                toast.error('Cannot download the Excel file.')
+            } else {
+                const blob = new Blob([response.data]);
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'active_merchants.xlsx';
+                a.download = 'details-report.xlsx';
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
-            // }
+            }
         } catch (error) {
             console.error("Error downloading the report:", error);
-            // Optionally handle any error notifications here
+            toast.error('Cannot download the Excel file.')
         } finally {
             setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: false } } }));
         }
@@ -344,7 +339,14 @@ function DetailsReport(props: any) {
                             ><i className="mdi mdi-filter-remove  font-size-16 align-middle"></i></button>
                             <button type="button" className="btn btn-soft-success waves-effect waves-light page-submit-margin-top"
                                 onClick={downloadReport}
-                            ><i className="mdi mdi-download font-size-16 align-middle"></i></button>
+                                disabled={formData?.table?.downloading?.excel}
+                            >
+                                {
+                                    formData?.table?.downloading?.excel ?  
+                                    <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                    : <i className="mdi mdi-download font-size-16 align-middle"></i>
+                                }
+                            </button>
                         </div>
                     </div>
                 </div>
