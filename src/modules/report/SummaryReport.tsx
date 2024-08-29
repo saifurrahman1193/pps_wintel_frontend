@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import { postCall, getCall, putCall } from '../../api/apiService.js'
-import { SUMMARY_REPORT_P, SUMMARY_REPORT_FILTER_DATA } from '../../api/apiPath.js'
+import { SUMMARY_REPORT_P, SUMMARY_REPORT_FILTER_DATA, SUMMARY_REPORT_DOWNLOAD } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
 import { SET_BREADCRUMB_DATA, SET_USER_DATA } from '../../redux/action.js'
@@ -15,6 +15,7 @@ import Sorting from '../../components/Datatable/Sorting.js';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 
 function SummaryReport(props: any) {
@@ -97,6 +98,9 @@ function SummaryReport(props: any) {
                 table: string | null;
                 order: 'asc' | 'desc' | null;
             };
+            downloading: {
+                excel: boolean;
+            }
         };
     }
 
@@ -159,6 +163,9 @@ function SummaryReport(props: any) {
                 table: null,
                 order: null,
             },
+            downloading: {
+                excel: false
+            }
         },
     };
 
@@ -182,6 +189,39 @@ function SummaryReport(props: any) {
             setFormData((prev: any) => ({ ...prev, table: { ...prev.table, data: null, paginator: null, summary: null, loading: false, empty: false } }))
         }
     }
+
+    const downloadReport = async () => {
+        // Set the downloading state to true
+        setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: true } } }));
+
+        try {
+            const response = await axios.post(import.meta.env.VITE_API_BASE_URL + SUMMARY_REPORT_DOWNLOAD, { ...formData?.filter?.data }, {
+                responseType: 'blob',
+                headers: {
+                    Authorization: props.user.access_token ? `Bearer ${props.user.access_token}` : "",
+                }
+            });
+
+            if (!(response.data instanceof Blob) || !response.data.size || !response.data.type) {
+                // Handle error notification
+                toast.error('Cannot download the Excel file.')
+            } else {
+                const blob = new Blob([response.data]);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'summary-report.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading the report:", error);
+            toast.error('Cannot download the Excel file.')
+        } finally {
+            setFormData(prev => ({ ...prev, table: { ...prev.table, downloading: { ...prev.table.downloading, excel: false } } }));
+        }
+    };
 
     const getFilterList = async () => {
         const response = await getCall(SUMMARY_REPORT_FILTER_DATA, null, props?.user?.access_token)
@@ -298,6 +338,17 @@ function SummaryReport(props: any) {
                             <button type="button" className="btn btn-soft-danger waves-effect waves-light page-submit-margin-top mx-1"
                                 onClick={filterClear}
                             ><i className="mdi mdi-filter-remove  font-size-16 align-middle"></i></button>
+
+                            <button type="button" className="btn btn-soft-success waves-effect waves-light page-submit-margin-top"
+                                onClick={downloadReport}
+                                disabled={formData?.table?.downloading?.excel}
+                            >
+                                {
+                                    formData?.table?.downloading?.excel ?
+                                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                        : <i className="mdi mdi-download font-size-16 align-middle"></i>
+                                }
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -338,7 +389,7 @@ function SummaryReport(props: any) {
                                                 <th>Service <Sorting table="service" column="service" order={formData?.table?.sort?.column == 'service' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>HIT</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue </th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th>Revenue </th> : null}
 
                                             </tr>
                                         </thead>
@@ -346,9 +397,9 @@ function SummaryReport(props: any) {
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Grand Total</th>
+                                                <th style={{  textAlign: 'end' }}>Grand Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_hit_count}</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -360,7 +411,7 @@ function SummaryReport(props: any) {
                                                             <td>{row?.service?.service}</td>
                                                             <td>{row?.brand?.brand_name}</td>
                                                             <td>{row?.hit}</td>
-                                                            {(props?.user?.brand_id || 0) > 0 ? <td>{row?.revenue}</td> : null}
+                                                            {(props?.user?.brand_id || 0) == 0 ? <td>{row?.revenue}</td> : null}
                                                         </tr>
                                                     )
                                                 })
@@ -370,9 +421,9 @@ function SummaryReport(props: any) {
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Sub Total</th>
+                                                <th style={{  textAlign: 'end' }}>Sub Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_hit_count}</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
                                             </tr>
                                         </tfoot>
                                     </table>

@@ -286,6 +286,21 @@ function DetailsReport(props: any) {
                         </div>
 
                         <div className="col-md-3">
+                            Operator
+                            <input
+                                type="text"
+                                name="msisdn"
+                                onChange={(e) => setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, msisdn:e.target.value } } }))}
+                                value={formData?.filter?.data?.msisdn}
+                                placeholder="EX: 88016"
+                                className="form-control"
+                            />
+                        </div>
+
+
+
+
+                        <div className="col-md-3">
                             Start Time
                             <DatePicker
                                 selected={formData?.filter?.data?.start_time_init}
@@ -342,9 +357,9 @@ function DetailsReport(props: any) {
                                 disabled={formData?.table?.downloading?.excel}
                             >
                                 {
-                                    formData?.table?.downloading?.excel ?  
-                                    <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                    : <i className="mdi mdi-download font-size-16 align-middle"></i>
+                                    formData?.table?.downloading?.excel ?
+                                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                        : <i className="mdi mdi-download font-size-16 align-middle"></i>
                                 }
                             </button>
                         </div>
@@ -389,7 +404,7 @@ function DetailsReport(props: any) {
                                                 <th>Brand <Sorting table="handset_users" column="brand_name" order={formData?.table?.sort?.column == 'brand_name' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>MSISDN <Sorting column="msisdn" order={formData?.table?.sort?.column == 'msisdn' ? formData?.table?.sort?.order : null} onSortChange={handleSortChange} /></th>
                                                 <th>HIT</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th>Revenue</th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th>Revenue</th> : null}
 
                                             </tr>
                                         </thead>
@@ -399,9 +414,9 @@ function DetailsReport(props: any) {
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Grand Total</th>
+                                                <th style={{  textAlign: 'end' }}>Grand Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_hit_count}</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -415,7 +430,7 @@ function DetailsReport(props: any) {
                                                             <td>{row?.brand?.brand_name}</td>
                                                             <td>{row?.msisdn}</td>
                                                             <td>1</td>
-                                                            {(props?.user?.brand_id || 0) > 0 ? <td>{row?.revenue}</td> : null}
+                                                            {(props?.user?.brand_id || 0) == 0 ? <td>{row?.revenue}</td> : null}
                                                         </tr>
                                                     )
                                                 })
@@ -427,9 +442,9 @@ function DetailsReport(props: any) {
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>Sub Total</th>
+                                                <th style={{  textAlign: 'end' }}>Sub Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_hit_count}</th>
-                                                {(props?.user?.brand_id || 0) > 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
+                                                {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
                                             </tr>
                                         </tfoot>
                                     </table>
