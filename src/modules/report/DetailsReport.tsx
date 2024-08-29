@@ -286,7 +286,7 @@ function DetailsReport(props: any) {
                         </div>
 
                         <div className="col-md-3">
-                            Operator
+                            MSISDN
                             <input
                                 type="text"
                                 name="msisdn"
