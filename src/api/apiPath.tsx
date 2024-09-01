@@ -72,3 +72,7 @@ export const DETAILS_REPORT_DOWNLOAD = '/details-report/report-download'
 export const SUMMARY_REPORT_FILTER_DATA = '/summary-report/filter-data'
 export const SUMMARY_REPORT_P = '/summary-report/list-paginate'
 export const SUMMARY_REPORT_DOWNLOAD = '/summary-report/report-download'
+
+
+// Dashboard routes
+export const DASHBOARD_DATA = '/dashboard/dashboard-data'

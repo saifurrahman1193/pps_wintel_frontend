@@ -150,7 +150,7 @@ function Users(props: any) {
         return CREATE_USER
     }
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e?: React.FormEvent<HTMLFormElement> | null) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
