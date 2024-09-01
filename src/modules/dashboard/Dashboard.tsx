@@ -86,7 +86,7 @@ function Dashboard(props: any) {
         <>
             <Summary data={formData?.summary} user={props?.user} />
             <div className="row">
-                <div className="col-6">
+                <div className="col-xl-6 col-md-6 col-sm-12">
                     <BarChart data={formData?.today_total_hit_barchart} />
                 </div>
             </div>

@@ -21,6 +21,21 @@ const TodayTotalHitBarchart = ({ data }) => {
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.title.text = "Hit";
 
+        // Rotate X-axis labels
+        categoryAxis.renderer.labels.template.rotation = 270;
+        categoryAxis.renderer.minGridDistance = 30; // Adjust this value as needed
+
+        // Define a color set with 6 colors
+        let colorSet = new am4core.ColorSet();
+        colorSet.list = [
+            am4core.color("#6002ee"), // Color 3
+            am4core.color("#41c300"), // Color 2
+            am4core.color("#d602ee"), // Color 1
+            am4core.color("#ee0290"), // Color 5
+            am4core.color("#ee6002"), // Color 4
+            am4core.color("#FFEB3B")  // Color 6
+        ];
+
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = "hit";
@@ -28,6 +43,12 @@ const TodayTotalHitBarchart = ({ data }) => {
         series.name = "Hit";
         series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
         series.columns.template.fillOpacity = 0.8;
+
+        // Assign colors to columns
+        series.columns.template.adapter.add("fill", (fill, target) => {
+            // Cycle through colors in the color set
+            return colorSet.getIndex(target.dataItem.index % colorSet.list.length);
+        });
 
         let columnTemplate = series.columns.template;
         columnTemplate.strokeWidth = 2;
@@ -44,7 +65,7 @@ const TodayTotalHitBarchart = ({ data }) => {
         };
     }, [data]);
 
-    return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
+    return <div id="chartdiv" style={{ width: "100%", height: "450px" }}></div>;
 };
 
 export default TodayTotalHitBarchart;
