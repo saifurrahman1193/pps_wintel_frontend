@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Login from '../modules/accesscontrol/Login';
 import Profile from '../modules/accesscontrol/Profile';
-import Dashboard from '../modules/Dashboard';
+import Dashboard from '../modules/dashboard/Dashboard';
 import Users from '../modules/accesscontrol/Users';
 import Roles from '../modules/accesscontrol/Roles';
 import Permissions from '../modules/accesscontrol/Permissions';
