@@ -5,8 +5,11 @@ import { toast } from 'react-toastify'
 import { getCall } from '../../api/apiService.js'
 import INIT from '../../route/utils/Init.js';
 import { DASHBOARD_DATA } from '../../api/apiPath.js'
-import BarChart from './TodayTotalHitBarchart.js';
 import Summary from './Summary.js';
+import TodayTotalHitBarchart from './TodayTotalHitBarchart.js';
+import TodayTotalRevenuePiechart from './TodayTotalRevenuePiechart.js';
+import Last6MonthTotalHitMonthWiseBarChart from './Last6MonthTotalHitMonthWiseBarChart.js';
+import LastWeekTotalHitDateWiseBarChart from './LastWeekTotalHitDateWiseBarChart.js';
 
 function Dashboard(props: any) {
 
@@ -39,7 +42,9 @@ function Dashboard(props: any) {
             prev_month_hit: number;
             prev_month_revenue: number;
         };
-        today_total_hit_barchart: any
+        today_total_hit_rev: any,
+        last_6_month_total_hit_month_wise: any,
+        last_week_total_hit_day_wise: any,
     }
 
     const formInitial: FormInitial = {
@@ -54,7 +59,9 @@ function Dashboard(props: any) {
             prev_month_hit: 0,
             prev_month_revenue: 0,
         },
-        today_total_hit_barchart: null
+        today_total_hit_rev: null,
+        last_6_month_total_hit_month_wise: null,
+        last_week_total_hit_day_wise: null,
     };
     const [formData, setFormData] = useState(formInitial)
 
@@ -80,18 +87,30 @@ function Dashboard(props: any) {
         }
     }
 
-
-
     return (
         <>
             <Summary data={formData?.summary} user={props?.user} />
             <div className="row">
                 <div className="col-xl-6 col-md-6 col-sm-12">
-                    <BarChart data={formData?.today_total_hit_barchart} />
+                    <TodayTotalHitBarchart data={formData?.today_total_hit_rev} />
+                </div>
+                {
+                    (props?.user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
+                        <div className="col-xl-6 col-md-6 col-sm-12">
+                            <TodayTotalRevenuePiechart data={formData?.today_total_hit_rev} />
+                        </div>
+                        : null
+                }
+
+                <div className="col-xl-6 col-md-6 col-sm-12">
+                    <Last6MonthTotalHitMonthWiseBarChart data={formData?.last_6_month_total_hit_month_wise} />
+                </div>
+
+                <div className="col-xl-6 col-md-6 col-sm-12">
+                    <LastWeekTotalHitDateWiseBarChart data={formData?.last_week_total_hit_day_wise} />
                 </div>
             </div>
         </>
-
     )
 }
 

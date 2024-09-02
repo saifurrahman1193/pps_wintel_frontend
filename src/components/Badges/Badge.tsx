@@ -1,12 +1,11 @@
-import React, {Fragment} from 'react'
-import ReactHtmlParser from 'react-html-parser';
+import  { Fragment } from 'react'
 
-function Badge(props:any) {
+function Badge(props: any) {
     return (
         <Fragment>
-            {
-                ReactHtmlParser(`<span class="badge ${props?.badgeClass||'badge-soft-primary'} m-1">${props?.badgeValue}</span>`)
-            }
+            <span className={`badge ${props?.badgeClass || 'badge-soft-primary'} m-1`}>
+                {props?.badgeValue}
+            </span>
         </Fragment>
     )
 }
