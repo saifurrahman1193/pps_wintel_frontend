@@ -10,6 +10,8 @@ import TodayTotalHitBarchart from './TodayTotalHitBarchart.js';
 import TodayTotalRevenuePiechart from './TodayTotalRevenuePiechart.js';
 import Last6MonthTotalHitMonthWiseBarChart from './Last6MonthTotalHitMonthWiseBarChart.js';
 import LastWeekTotalHitDateWiseBarChart from './LastWeekTotalHitDateWiseBarChart.js';
+import CurrentMonthTotalHitRevDayWiseLineChart from './CurrentMonthTotalHitRevDayWiseLineChart.js';
+import CurrentMonthTotalHitDayWiseLineChart from './CurrentMonthTotalHitDayWiseLineChart.js';
 
 function Dashboard(props: any) {
 
@@ -45,6 +47,8 @@ function Dashboard(props: any) {
         today_total_hit_rev: any,
         last_6_month_total_hit_month_wise: any,
         last_week_total_hit_day_wise: any,
+        current_month_total_hit_rev_day_wise: any,
+
     }
 
     const formInitial: FormInitial = {
@@ -62,6 +66,7 @@ function Dashboard(props: any) {
         today_total_hit_rev: null,
         last_6_month_total_hit_month_wise: null,
         last_week_total_hit_day_wise: null,
+        current_month_total_hit_rev_day_wise: null,
     };
     const [formData, setFormData] = useState(formInitial)
 
@@ -108,6 +113,14 @@ function Dashboard(props: any) {
 
                 <div className="col-xl-6 col-md-6 col-sm-12">
                     <LastWeekTotalHitDateWiseBarChart data={formData?.last_week_total_hit_day_wise} />
+                </div>
+                <div className="col-xl-6 col-md-6 col-sm-12">
+                    {
+                        (props?.user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
+                            <CurrentMonthTotalHitRevDayWiseLineChart data={formData?.current_month_total_hit_rev_day_wise} />
+                            :
+                            <CurrentMonthTotalHitDayWiseLineChart data={formData?.current_month_total_hit_rev_day_wise} />
+                    }
                 </div>
             </div>
         </>

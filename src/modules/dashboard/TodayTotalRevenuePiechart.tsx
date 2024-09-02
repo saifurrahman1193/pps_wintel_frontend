@@ -38,7 +38,7 @@ const TodayTotalRevenuePiechart = ({ data }) => {
 
         // Add chart title
         let title = chart.titles.create();
-        title.text = "Today's Total Revenue";
+        title.text = "Today's Total Revenue (BDT)";
         title.fontSize = 25;
         title.marginBottom = 20;
 
