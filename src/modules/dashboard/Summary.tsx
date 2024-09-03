@@ -6,7 +6,7 @@ const Summary = ({ user, data }) => {
     return <>
         <div className="row">
 
-            <div className="col-xl-3 col-md-4">
+            <div className="col-xs-12 col-sm-6 col-md-3 col-xl-3">
                 <div className="card card-h-100 bg-primary border-primary text-white bg-gradient">
                     <div className="card-body">
                         <div className="row align-items-center">
@@ -27,7 +27,7 @@ const Summary = ({ user, data }) => {
 
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
-                    <div className="col-xl-3 col-md-4">
+                    <div className="col-sm-6 col-md-3 col-xl-3">
                         <div className="card card-h-100 bg-primary border-primary text-white bg-gradient">
                             <div className="card-body">
                                 <div className="row align-items-center">
@@ -48,7 +48,7 @@ const Summary = ({ user, data }) => {
                     : null
             }
 
-            <div className="col-xl-3 col-md-4">
+            <div className="col-sm-6 col-md-3 col-xl-3">
                 <div className="card card-h-100 bg-info border-info text-white bg-gradient">
                     <div className="card-body">
                         <div className="row align-items-center">
@@ -69,7 +69,7 @@ const Summary = ({ user, data }) => {
 
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
-                    <div className="col-xl-3 col-md-4">
+                    <div className="col-sm-6 col-md-3 col-xl-3">
                         <div className="card card-h-100 bg-info border-info text-white bg-gradient">
                             <div className="card-body">
                                 <div className="row align-items-center">
@@ -90,7 +90,7 @@ const Summary = ({ user, data }) => {
                     : null
             }
 
-            <div className="col-xl-3 col-md-4">
+            <div className="col-sm-6 col-md-3 col-xl-3">
                 <div className="card card-h-100 bg-success border-success text-white bg-gradient">
                     <div className="card-body">
                         <div className="row align-items-center">
@@ -111,7 +111,7 @@ const Summary = ({ user, data }) => {
 
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
-                    <div className="col-xl-3 col-md-4">
+                    <div className="col-sm-6 col-md-3 col-xl-3">
                         <div className="card card-h-100 bg-success border-success text-white bg-gradient">
                             <div className="card-body">
                                 <div className="row align-items-center">
@@ -132,7 +132,7 @@ const Summary = ({ user, data }) => {
                     : null
             }
 
-            <div className="col-xl-3 col-md-4">
+            <div className="col-sm-6 col-md-3 col-xl-3">
                 <div className="card card-h-100 bg-danger border-danger text-white bg-gradient">
                     <div className="card-body">
                         <div className="row align-items-center">
@@ -153,7 +153,7 @@ const Summary = ({ user, data }) => {
 
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
-                    <div className="col-xl-3 col-md-4">
+                    <div className="col-sm-6 col-md-3 col-xl-3">
                         <div className="card card-h-100 bg-danger border-danger text-white bg-gradient">
                             <div className="card-body">
                                 <div className="row align-items-center">
