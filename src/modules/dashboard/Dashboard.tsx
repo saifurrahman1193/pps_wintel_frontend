@@ -12,6 +12,8 @@ import Last6MonthTotalHitMonthWiseBarChart from './Last6MonthTotalHitMonthWiseBa
 import LastWeekTotalHitDateWiseBarChart from './LastWeekTotalHitDateWiseBarChart.js';
 import CurrentMonthTotalHitRevDayWiseLineChart from './CurrentMonthTotalHitRevDayWiseLineChart.js';
 import CurrentMonthTotalHitDayWiseLineChart from './CurrentMonthTotalHitDayWiseLineChart.js';
+import PreviousMonthTotalHitRevDayWiseLineChart from './PreviousMonthTotalHitRevDayWiseLineChart.js';
+import PreviousMonthTotalHitDayWiseLineChart from './PreviousMonthTotalHitDayWiseLineChart.js';
 
 function Dashboard(props: any) {
 
@@ -48,7 +50,8 @@ function Dashboard(props: any) {
         last_6_month_total_hit_month_wise: any,
         last_week_total_hit_day_wise: any,
         current_month_total_hit_rev_day_wise: any,
-
+        previous_month_total_hit_rev_day_wise: any,
+        
     }
 
     const formInitial: FormInitial = {
@@ -67,6 +70,8 @@ function Dashboard(props: any) {
         last_6_month_total_hit_month_wise: null,
         last_week_total_hit_day_wise: null,
         current_month_total_hit_rev_day_wise: null,
+        previous_month_total_hit_rev_day_wise: null,
+        
     };
     const [formData, setFormData] = useState(formInitial)
 
@@ -114,12 +119,21 @@ function Dashboard(props: any) {
                 <div className="col-xl-6 col-md-6 col-sm-12">
                     <LastWeekTotalHitDateWiseBarChart data={formData?.last_week_total_hit_day_wise} />
                 </div>
-                <div className="col-xl-6 col-md-6 col-sm-12">
+                <div className="col-12">
                     {
                         (props?.user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
                             <CurrentMonthTotalHitRevDayWiseLineChart data={formData?.current_month_total_hit_rev_day_wise} />
                             :
                             <CurrentMonthTotalHitDayWiseLineChart data={formData?.current_month_total_hit_rev_day_wise} />
+                    }
+                </div>
+
+                <div className="col-12">
+                    {
+                        (props?.user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
+                            <PreviousMonthTotalHitRevDayWiseLineChart data={formData?.previous_month_total_hit_rev_day_wise} />
+                            :
+                            <PreviousMonthTotalHitDayWiseLineChart data={formData?.previous_month_total_hit_rev_day_wise} />
                     }
                 </div>
             </div>

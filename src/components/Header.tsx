@@ -58,18 +58,18 @@ function Header(props:any) {
                         <div className="navbar-brand-box">
                             <Link to="/dashboard" className="logo logo-dark">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo.png" alt="image" height={16} />
+                                    <img src="assets/images/logo/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
+                                    <img src="assets/images/logo/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
                             </Link>
                             <Link to="/dashboard" className="logo logo-light">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo.png" alt="image" height={16} />
+                                    <img src="assets/images/logo/logo.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
+                                    <img src="assets/images/logo/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
                                 </span>
                             </Link>
                         </div>
@@ -96,7 +96,7 @@ function Header(props:any) {
                             </div>
                         </div>
 
-                        <div className="dropdown d-none d-lg-inline-block ms-1">
+                        {/* <div className="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" className="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i data-feather="grid" className="icon-lg" />
                             </button>
@@ -144,8 +144,8 @@ function Header(props:any) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="dropdown d-inline-block">
+                        </div> */}
+                        {/* <div className="dropdown d-inline-block">
                             <button type="button" className="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i data-feather="bell" className="icon-lg" />
                                 <span className="badge bg-danger rounded-pill">5</span>
@@ -229,7 +229,7 @@ function Header(props:any) {
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="dropdown d-inline-block">
                             <button type="button" className="btn header-item bg-soft-light" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img className="rounded-circle header-profile-user" src="assets/images/users/avatar-2.png" alt="Header Avatar" />
