@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store'
@@ -7,11 +6,6 @@ import Router from './route/route'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    useEffect(() => {
-        if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-            window.location.href = window.location.href.replace('http:', 'https:');
-        }
-    }, []);
 
     return (
 
