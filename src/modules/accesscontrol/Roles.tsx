@@ -160,6 +160,9 @@ function Roles(props:any) {
     }
 
     const handle_module_select = (e:any, item:any) => {
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
         let permissions_n_c_s:any = []
         let permissions_n_c_s_f:any = []
 
@@ -192,6 +195,11 @@ function Roles(props:any) {
     }
 
     const handle_module_permissions_select = (e:any, permission_names:any = []) => {
+        
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
+        
         let modules:any = []
         let module_f = {}
         let permissions = []
