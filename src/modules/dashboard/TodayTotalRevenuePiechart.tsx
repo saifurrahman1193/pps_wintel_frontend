@@ -32,8 +32,12 @@ const TodayTotalRevenuePiechart = ({ data }:any) => {
 
         // Assign colors to slices
         pieSeries.slices.template.adapter.add("fill", (fill, target) => {
-            // Cycle through colors in the color set
-            return colorSet.getIndex(target.dataItem.index % colorSet.list.length);
+            if (target.dataItem) {
+                return colorSet.getIndex(target.dataItem.index % colorSet.list.length);
+            } else {
+                // Handle the case where target.dataItem is undefined
+                return fill;
+            }
         });
 
         // Add chart title

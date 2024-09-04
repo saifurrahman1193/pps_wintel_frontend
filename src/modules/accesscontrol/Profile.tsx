@@ -37,7 +37,7 @@ function Profile(props: any) {
     }
 
 
-    const [userData, setUserData] = useState()
+    const [userData, setUserData] = useState(null as any)
     const [formData, setFormData] = useState(formInitial)
 
     const handleChange = (e:any) => {

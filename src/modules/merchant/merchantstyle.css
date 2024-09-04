@@ -1,7 +1,0 @@
-.square-switch.merchant-status input[switch]:checked+label::after {
-    left: 52px;
-}
-
-.square-switch.merchant-is_real_client input[switch]:checked+label::after {
-    left: 34px;
-}

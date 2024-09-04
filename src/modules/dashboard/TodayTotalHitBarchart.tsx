@@ -46,9 +46,15 @@ const TodayTotalHitBarchart = ({ data }:any) => {
 
         // Assign colors to columns
         series.columns.template.adapter.add("fill", (fill, target) => {
-            // Cycle through colors in the color set
-            return colorSet.getIndex(target.dataItem.index % colorSet.list.length);
+            if (target.dataItem) {
+                return colorSet.getIndex(target.dataItem.index % colorSet.list.length);
+            } else {
+                // Handle the case where target.dataItem is undefined
+                return fill;
+            }
         });
+       
+
 
         let columnTemplate = series.columns.template;
         columnTemplate.strokeWidth = 2;

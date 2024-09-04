@@ -51,12 +51,12 @@ function Permissions(props:any) {
     }
 
 
-    const [permissionsData, setPermissionsData] = useState({})
-    const [paginator, setPaginator] = useState({})
+    const [permissionsData, setPermissionsData] = useState([] as any)
+    const [paginator, setPaginator] = useState({} as any)
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
-    const getPermissionsData = async (e:any, page = 1, search = '') => {
+    const getPermissionsData = async (e:any, page:number = 1, search:string = '') => {
         setNoDataFound(false)
 
         setIsLoading(true)
@@ -117,12 +117,12 @@ function Permissions(props:any) {
         }
     }
 
-    const updateModalProcess = async (id) => {
-        const permissionData = permissionsData.find((item) => {
+    const updateModalProcess = async (id:number) => {
+        const permissionData = permissionsData.find((item:any) => {
             return item.id == id
         })
 
-        const moduleData = moduleOptions?.find((item) => {
+        const moduleData = moduleOptions?.find((item:any) => {
             return item?.value == permissionData?.module_id
         })
 
@@ -131,11 +131,6 @@ function Permissions(props:any) {
 
     // search
     const [search, setSearch] = useState('')
-    const handleKeyPressForSearch = (event) => {
-        if (event.key === 'Enter') {
-            getPermissionsData(null, null, search)
-        }
-    }
 
     const closeDialog = () => {
         const modalclosebtn = document.getElementById('modalclosebtn')
@@ -150,7 +145,7 @@ function Permissions(props:any) {
     const getAllModules = async () => {
         const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
-            const list = (response?.data?.modulelist || []).map((item) => {
+            const list = (response?.data?.modulelist || []).map((item: any) => {
                 return { label: item?.name, value: item?.id }
             })
 
@@ -159,7 +154,7 @@ function Permissions(props:any) {
     }
 
     // modules select process
-    const [moduleOptions, setModuleOptions] = useState([])
+    const [moduleOptions, setModuleOptions] = useState([] as any)
 
     return (
         <Fragment>
@@ -190,14 +185,13 @@ function Permissions(props:any) {
                                         id="search"
                                         name="search"
                                         onChange={(e) => setSearch(e.target.value)}
-                                        onKeyPress={handleKeyPressForSearch}
                                         value={search}
                                         placeholder="Search..."
                                         className="form-control"
                                         style={{ backgroundColor: '#f3f3f9', border: 'none', padding: '0 10px' }}
                                     />
                                     <div className="input-group-append">
-                                        <button className="btn btn-primary" type="submit" onClick={() => getPermissionsData(null, null, search)}><i className="bx bx-search-alt align-middle"></i></button>
+                                        <button className="btn btn-primary" type="submit" onClick={() => getPermissionsData(null, 1, search)}><i className="bx bx-search-alt align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +204,7 @@ function Permissions(props:any) {
                             <div className="row col-12" style={{ marginTop: "50px" }}>
                                 {
                                     isLoading ?
-                                        <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
+                                        <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }}  ></div>
                                         : null
                                 }
                                 {
@@ -239,7 +233,7 @@ function Permissions(props:any) {
                                         </thead>
                                         <tbody>
                                             {
-                                                permissionsData.map((row, i) => {
+                                                permissionsData.map((row:any, i:number) => {
                                                     return (
                                                         <tr key={'row-permission-' + i}>
                                                             <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
@@ -353,8 +347,8 @@ const mapStateToProps = (state:any) => ({
 });
 
 const mapDispatchToProps = (dispatch:any) => ({
-    setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
-    me: (data) => dispatch(SET_USER_DATA(data)),
+    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    me: (data:any) => dispatch(SET_USER_DATA(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Permissions));

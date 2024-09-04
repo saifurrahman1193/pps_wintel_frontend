@@ -39,8 +39,9 @@ function Roles(props:any) {
         id: '',
         name: '',
         guard_name: 'web',
-        permissions: [],
-        modules: [],
+        permissions:  [] as any,
+        modules:  [] as any,
+        modules_list: [] as any
     }
 
     const [formData, setFormData] = useState({ ...formInitial })
@@ -53,8 +54,8 @@ function Roles(props:any) {
     }
 
 
-    const [rolesData, setRolesData] = useState({})
-    const [paginator, setPaginator] = useState({})
+    const [rolesData, setRolesData] = useState([] as any)
+    const [paginator, setPaginator] = useState({} as any)
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFound, setNoDataFound] = useState(false)
 
@@ -119,13 +120,13 @@ function Roles(props:any) {
         }
     }
 
-    const updateModalProcess = async (id) => {
+    const updateModalProcess = async (id:any) => {
         const roleData = rolesData?.find((item:any) => {
             return item.id == id
         })
 
         // get permissions for single role
-        let permissions = []
+        let permissions:any = []
         const response = await postCall(SINGLE_ROLE_INFO, { id: id }, props.user.access_token)
         if (response?.code === 200) {
             permissions = response?.data?.permissions
@@ -147,22 +148,22 @@ function Roles(props:any) {
     }
 
     // modules checkboxes select process
-    const [modulesData, setModulesData] = useState([])
+    // const [modulesData, setModulesData] = useState([])
     const getAllModules = async () => {
         const response = await postCall(MODULE_ALL, null, props?.user?.access_token)
         if (response?.code === 200) {
-            setModulesData(response?.data?.modulelist)
+            // setModulesData(response?.data?.modulelist)
             setFormData({ ...formInitial, modules: response?.data?.modulelist })
         } else {
             setFormData({ ...formInitial, modules: [] })
         }
     }
 
-    const handle_module_select = (e, item) => {
-        let permissions_n_c_s = []
-        let permissions_n_c_s_f = []
+    const handle_module_select = (e:any, item:any) => {
+        let permissions_n_c_s:any = []
+        let permissions_n_c_s_f:any = []
 
-        let modules = [...formData?.modules]?.map(module => {
+        let modules = [...formData?.modules]?.map((module:any) => {
             permissions_n_c_s = []
 
             if (item?.id == module?.id) {
@@ -190,14 +191,14 @@ function Roles(props:any) {
         setFormData((prev) => ({ ...prev, modules: modules, permissions: permissions_n_c_s_f }))
     }
 
-    const handle_module_permissions_select = (e, permission_names = []) => {
-        let modules = []
+    const handle_module_permissions_select = (e:any, permission_names:any = []) => {
+        let modules:any = []
         let module_f = {}
         let permissions = []
         let permissions_n_c_s = []
-        let permissions_n_c_s_f = []
+        let permissions_n_c_s_f:any = []
 
-        formData?.modules?.forEach(module => {
+        formData?.modules?.forEach((module:any) => {
             module_f = { ...module }
             permissions = []
             permissions_n_c_s = []
@@ -224,7 +225,7 @@ function Roles(props:any) {
     }
 
 
-    const getSingleRoleInfo = async (id) => {
+    const getSingleRoleInfo = async (id:number) => {
 
         const roleData = rolesData.find((item:any) => {
             return item.id == id
@@ -266,7 +267,7 @@ function Roles(props:any) {
                     <div className="row">
                         {
                             isLoading ?
-                                <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }} alt="Loading..." ></div>
+                                <div className="spinner-border text-primary mx-auto " style={{ width: "70px", height: "70px" }}></div>
                                 : null
                         }
                         {
@@ -366,7 +367,7 @@ function Roles(props:any) {
                                             <label>Select Permissions<Validation.RequiredStar /></label>
                                         </div>
                                         {
-                                            [...formData?.modules]?.map((module, i) => {
+                                            [...formData?.modules]?.map((module:any, i:number) => {
                                                 return (
                                                     <div className="col-lg-4 my-2" key={`module-` + i}>
                                                         <div className="card card-stretch card-bordered mb-0">
@@ -376,19 +377,19 @@ function Roles(props:any) {
                                                                         key={'module-' + i + '-cbox'}
                                                                         label={module?.name}
                                                                         value={module?.selected}
-                                                                        onChange={(e) => handle_module_select(e, module)}
+                                                                        onChange={(e:any) => handle_module_select(e, module)}
                                                                     />
                                                                 </h3>
                                                             </div>
                                                             <div className="card-body py-2">
                                                                 {
-                                                                    [...formData?.modules]?.find(m => m?.name == module?.name)?.permissions?.map((permission, i) => {
+                                                                    [...formData?.modules]?.find((m:any) => m?.name == module?.name)?.permissions?.map((permission:any, i:number) => {
                                                                         return (
                                                                             <Checkbox
                                                                                 key={'module-permission-' + i + '-cbox'}
                                                                                 label={permission?.name}
                                                                                 value={permission?.selected}
-                                                                                onChange={(e) => handle_module_permissions_select(e, [permission?.name])}
+                                                                                onChange={(e:any) => handle_module_permissions_select(e, [permission?.name])}
                                                                                 className="my-1"
                                                                             />
                                                                         )
