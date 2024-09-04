@@ -48,9 +48,9 @@ function SummaryReport(props: any) {
                 service_selected_option: string;
                 operator_id: string;
                 operator_selected_option: string;
-                start_time_init: string;
+                start_time_init: Date | null;
                 start_time: string;
-                end_time_init: string;
+                end_time_init: Date | null;
                 end_time: string;
             };
             list: {
@@ -114,9 +114,9 @@ function SummaryReport(props: any) {
                 service_selected_option: '',
                 operator_id: '',
                 operator_selected_option: '',
-                start_time_init: '',
+                start_time_init: null,
                 start_time: '',
-                end_time_init: '',
+                end_time_init: null,
                 end_time: '',
             },
             list: {
@@ -173,7 +173,7 @@ function SummaryReport(props: any) {
     const [formData, setFormData] = useState(formInitial)
 
 
-    const getTableData = async (e: any, filteredData = { ...formData?.filter?.data, page: 1, sort: null }) => {
+    const getTableData = async (e: any, filteredData:any = { ...formData?.filter?.data, page: 1, sort: null }) => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, summary: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {

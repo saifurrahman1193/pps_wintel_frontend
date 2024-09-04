@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select'
-import {  getCall } from '../../api/apiService.js'
+import { getCall } from '../../api/apiService.js'
 import { DETAILS_REPORT_P, DETAILS_REPORT_FILTER_DATA, DETAILS_REPORT_DOWNLOAD } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'
@@ -47,9 +47,9 @@ function DetailsReport(props: any) {
                 service_selected_option: string;
                 operator_id: string;
                 operator_selected_option: string;
-                start_time_init: string;
+                start_time_init: Date | null;
                 start_time: string;
-                end_time_init: string;
+                end_time_init: Date | null;
                 end_time: string;
             };
             list: {
@@ -113,9 +113,9 @@ function DetailsReport(props: any) {
                 service_selected_option: '',
                 operator_id: '',
                 operator_selected_option: '',
-                start_time_init: '',
+                start_time_init: null,
                 start_time: '',
-                end_time_init: '',
+                end_time_init: null,
                 end_time: '',
             },
             list: {
@@ -172,7 +172,7 @@ function DetailsReport(props: any) {
     const [formData, setFormData] = useState(formInitial)
 
 
-    const getTableData = async (e: any, filteredData:any = { ...formData?.filter?.data, page: 1, sort: null }) => {
+    const getTableData = async (e: any, filteredData: any = { ...formData?.filter?.data, page: 1, sort: null }) => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, summary: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
@@ -290,7 +290,7 @@ function DetailsReport(props: any) {
                             <input
                                 type="text"
                                 name="msisdn"
-                                onChange={(e) => setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, msisdn:e.target.value } } }))}
+                                onChange={(e) => setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data: { ...prev?.filter?.data, msisdn: e.target.value } } }))}
                                 value={formData?.filter?.data?.msisdn}
                                 placeholder="EX: 88016"
                                 className="form-control"
@@ -305,8 +305,7 @@ function DetailsReport(props: any) {
                             <DatePicker
                                 selected={formData?.filter?.data?.start_time_init}
                                 onChange={(date) => setFormData((prev) => ({
-                                    ...prev,
-                                    filter: {
+                                    ...prev, filter: {
                                         ...prev.filter,
                                         data: {
                                             ...prev.filter?.data,
@@ -414,7 +413,7 @@ function DetailsReport(props: any) {
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{  textAlign: 'end' }}>Grand Total</th>
+                                                <th style={{ textAlign: 'end' }}>Grand Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_hit_count}</th>
                                                 {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.grand_total?.total_revenue_summary}</th> : null}
                                             </tr>
@@ -442,7 +441,7 @@ function DetailsReport(props: any) {
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th style={{  textAlign: 'end' }}>Sub Total</th>
+                                                <th style={{ textAlign: 'end' }}>Sub Total</th>
                                                 <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_hit_count}</th>
                                                 {(props?.user?.brand_id || 0) == 0 ? <th style={{ background: "rgba(233, 233, 239, 0.64)" }}>{formData?.table?.summary?.sub_total?.total_revenue_summary}</th> : null}
                                             </tr>
