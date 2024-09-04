@@ -17,6 +17,7 @@ export default defineConfig({
     build: {
         rollupOptions: {
             external: [
+                'assets/css/app.min.css',
                 'assets/css/preloader.min.css',
                 'assets/css/bootstrap.min.css',
                 'assets/css/icons.min.css',
