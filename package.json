@@ -7,6 +7,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "start:local": "NODE_ENV=development npx vite --port 5173 --host 0.0.0.0",
+        "build:local": "NODE_ENV=local npx vite build",
         "build:prod": "NODE_ENV=production npx vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
