@@ -17,31 +17,6 @@ export const getCurrentYear = () => {
     return (moment().format('yy'));
 }
 
-export const getCurrentTime = () => {
-    const today = moment();
-    return today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-}
-
-
-
-
-export const timeCalculator = (time:any) => {
-    let [hour, min, seconds] = time.split(":")
-
-    let ampm = 'am'
-    let finalResult = ''
-
-    if (time == '00:00:00') finalResult = ['12:00 am'] // midnight
-    else if (time == '12:00:00') finalResult = ['12:00 pm'] // midnight
-    else {
-        if (parseInt(hour) > 12) { hour = (parseInt(hour) % 12).toString(); ampm = 'pm' }
-        else if (parseInt(hour) > 0) { hour = hour.toString(); ampm = 'am' }
-        finalResult = hour.padStart(2, '0') + ':' + min.padStart(2, '0') + ' ' + ampm
-    }
-
-    return finalResult;
-}
-
 
 
 
@@ -58,39 +33,11 @@ export const getWeekFullDays = () => {
     return finalResult;
 }
 
-export const timeGenerator = (hour = 0, min = 0, ampm = 'am') => {
-    let finalResult = ''
-    if (parseInt(hour) == 12 && parseInt(min) == 0 && ampm == 'am') finalResult = '00:00:00' // midnight
-    else if (parseInt(hour) == 12 && parseInt(min) == 0 && ampm == 'pm') finalResult = '12:00:00' // midday
-    else {
-        if (parseInt(hour) == 12 && parseInt(min) >= 0 && ampm == 'am') hour = '00' // midnight
-        else if (parseInt(hour) == 12 && parseInt(min) >= 0 && ampm == 'pm') hour = '12'  // noon
-        else if (ampm == 'pm') hour = (12 + parseInt(hour)).toString()  // after 12 pm
-        finalResult = hour + ':' + min + ':00'
-    }
-    return finalResult;
-}
 
-export const timeSplit = (time = '00:00:00') => {
-    let [hour, min, seconds] = time.split(":")
-
-    let ampm = 'am'
-    let finalResult = ''
-
-    if (time == '00:00:00') finalResult = ['12', '00', 'am'] // midnight
-    else if (time == '12:00:00') finalResult = ['12', '00', 'pm'] // midday
-    else {
-        if (parseInt(hour) > 12) { hour = (parseInt(hour) % 12).toString(); ampm = 'pm' }
-        else if (parseInt(hour) > 0) { hour = hour.toString(); ampm = 'am' }
-        finalResult = [hour.padStart(2, '0'), min.padStart(2, '0'), ampm]
-    }
-
-    return finalResult;
-}
-
-export const arrToLowerCase = (arr = []) => {
+export const arrToLowerCase = (arr: string[] = []): string[] => {
     return arr.map(str => str.toLowerCase());
 }
+
 
 export const downloadFileWithLink = (href:any) => {
     let link = document.createElement("a");
@@ -140,7 +87,7 @@ export const checkPermissionsWiseRouteChecker = (props:any) => {
 }
 
 // every 1 minutes it hit api to check if the user is really authenticated
-export const permissionsResets = async (props, options = { checkPermissionsWiseRouteChecker: true }) => {
+export const permissionsResets = async (props:any, options = { checkPermissionsWiseRouteChecker: true }) => {
     const response = await postCall(ME, {}, props?.user?.access_token)
     if (response?.code === 200) {
         props.me(response?.data)
@@ -162,7 +109,7 @@ export const permissionsResets = async (props, options = { checkPermissionsWiseR
 // api_request longtext 
 // api_response longtext 
 // user_agent varchar(200) 
-export const createActivityLog = async (props, formData) => {
+export const createActivityLog = async (props:any, formData:any) => {
     const response = await postCall(CREATE_ACTIVITY_LOG, { ...formData, user_id: props?.user?.userId }, props?.user?.access_token)
     if (response?.code === 200) {
         console.log('Log generated!');
@@ -233,16 +180,28 @@ export const convertEngToBangla = (str = '') => {
     return str
 }
 
-export const convertEngToBanglaNumber = (str = '') => {
+export const convertEngToBanglaNumber = (str: string = ''): string => {
 
-    const finalEnlishToBanglaNumber = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
+    const finalEnglishToBanglaNumber: { [key: string]: string } = { 
+        '0': '০', 
+        '1': '১', 
+        '2': '২', 
+        '3': '৩', 
+        '4': '৪', 
+        '5': '৫', 
+        '6': '৬', 
+        '7': '৭', 
+        '8': '৮', 
+        '9': '৯' 
+    };
 
     let retStr = str;
-    for (const x in finalEnlishToBanglaNumber) {
-        retStr = retStr.replace(new RegExp(x, 'g'), finalEnlishToBanglaNumber[x]);
+    for (const x in finalEnglishToBanglaNumber) {
+        retStr = retStr.replace(new RegExp(x, 'g'), finalEnglishToBanglaNumber[x]);
     }
     return retStr;
 }
+
 
 
 export const badge_colors = ['badge-soft-primary', 'badge-soft-info', 'badge-soft-success', 'badge-soft-danger']

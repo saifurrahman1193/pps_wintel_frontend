@@ -1,18 +1,9 @@
-import { useState } from 'react';
-
-const Checkbox = ({ label, labelClass, value, onChange, disabled }) => {
-    const [checked, setChecked] = useState(false);
-
-    const handleChange = () => {
-        setChecked(!checked);
-    };
-
+const Checkbox = ({ label, labelClass, value, onChange, disabled }:any) => {
     const cb_element = 'cb_' + getRandomArbitrary(100, 1000)
 
-    function getRandomArbitrary(min, max) {
+    function getRandomArbitrary(min:number=0, max:number=0) {
         return Math.random() * (max - min) + min;
     }
-
 
     return (
         <>

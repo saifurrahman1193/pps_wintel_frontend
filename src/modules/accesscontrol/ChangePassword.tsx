@@ -1,11 +1,10 @@
 import React, { useEffect, useState, Fragment} from 'react';
 import { connect } from 'react-redux'
-import Validation  from '../components/Forms/Validation.js';
-import { postCall, getCall } from '../api/apiService'
-import { CONTACT_US, CHANGE_PASSWORD } from '../api/apiPath'
+import { postCall } from '../../api/apiService'
+import {  CHANGE_PASSWORD } from '../../api/apiPath'
 import { toast } from 'react-toastify'
-import { permissionsResets } from '../components/Helpers/CommonHelpers'
-import { SET_USER_DATA } from '../redux/action'
+import { permissionsResets } from '../../components/Helpers/CommonHelpers'
+import { SET_USER_DATA } from '../../redux/action'
 
 function ChangePassword(props:any) {
 
@@ -16,7 +15,7 @@ function ChangePassword(props:any) {
     
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -108,7 +107,7 @@ const mapStateToProps = (state:any) => ({
 });
 
 const mapDispatchToProps = (dispatch:any) => ({
-    me: (data) => dispatch(SET_USER_DATA(data)),
+    me: (data: any) => dispatch(SET_USER_DATA(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ChangePassword));

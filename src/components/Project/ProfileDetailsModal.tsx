@@ -1,10 +1,10 @@
-import React, { useEffect, Fragment } from 'react';
+import  {  Fragment } from 'react';
 import ProfileDetails from './ProfileDetails'
 import { Link } from 'react-router-dom';
 
 function ProfileDetailsModal(props:any) {
 
-    const data_update = (userId, profiledetail_row_id) => {
+    const data_update = (userId:number, profiledetail_row_id:number) => {
         props.profileDetailModalUpdate(userId, profiledetail_row_id)
     }
 
@@ -14,7 +14,7 @@ function ProfileDetailsModal(props:any) {
                 {props?.text}
             </Link>
 
-            <div className="modal fade" id={"profileDetailModal-"+props?.profiledetail_row_id} tabIndex="-1"  aria-labelledby={"profileDetailModal-"+props?.profiledetail_row_id} aria-hidden="true" >
+            <div className="modal fade" id={"profileDetailModal-"+props?.profiledetail_row_id} tabIndex={-1}  aria-labelledby={"profileDetailModal-"+props?.profiledetail_row_id} aria-hidden="true" >
                 <div className="modal-dialog modal-fullscreen" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">

@@ -149,8 +149,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
-    me: (data) => dispatch(SET_USER_DATA(data)),
+    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    me: (data:any) => dispatch(SET_USER_DATA(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

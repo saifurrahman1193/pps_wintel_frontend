@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import * as Yup from 'yup';
-import { Formik, useFormik, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import Animate1 from '../../components/Animate/Animate1/Animate1'
 import Loader from '../../components/Loader'
 import FormikControl from '../../components/Forms/Formik/FormikControl'
@@ -12,12 +12,12 @@ import { toast } from 'react-toastify';
 
 function Login(props:any) {
 
-    const [initialValues, setInitialValues] = useState({
+    const initialValues = {
         email: '',
         password: ''
-    })
+    }
 
-    const onSubmit = async (request, onSubmitProps) => {
+    const onSubmit = async (request:any, onSubmitProps:any) => {
         // console.log('Form request =', request);
         const response = await postCall(LOGIN, request, null, { hitmap: 'login submit', pageurl: window.location.href, page: 'Login' })
         if (response.code === 200) {
@@ -39,12 +39,6 @@ function Login(props:any) {
         password: Yup.string().required('Password is required!').min(8, 'Password must be at least 8 characters'),
     })
 
-    // formik use
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validationSchema
-    })
 
     useEffect(() => {
         document.body.style.background = `url("assets/images/modules/accesscontrol/login/bg.jpg")`;
@@ -138,7 +132,7 @@ function Login(props:any) {
 }
 
 const mapDispatchToProps = (dispatch:any) => ({
-    login: (data) => dispatch(SET_USER_DATA(data)),
+    login: (data:any) => dispatch(SET_USER_DATA(data)),
 })
 
 export default connect(null, mapDispatchToProps)(Login);

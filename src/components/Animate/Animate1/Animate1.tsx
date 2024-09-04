@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react'
+import  {Fragment} from 'react'
 import './style.css'
 
-function Animate1({ }: Props) {
+function Animate1() {
 
     return (
         <Fragment>

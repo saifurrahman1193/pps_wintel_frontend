@@ -43,7 +43,7 @@ function Permissions(props:any) {
 
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value

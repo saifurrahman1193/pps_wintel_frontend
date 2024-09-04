@@ -45,7 +45,7 @@ function Roles(props:any) {
 
     const [formData, setFormData] = useState({ ...formInitial })
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -120,7 +120,7 @@ function Roles(props:any) {
     }
 
     const updateModalProcess = async (id) => {
-        const roleData = rolesData.find((item) => {
+        const roleData = rolesData?.find((item:any) => {
             return item.id == id
         })
 
@@ -226,7 +226,7 @@ function Roles(props:any) {
 
     const getSingleRoleInfo = async (id) => {
 
-        const roleData = rolesData.find((item) => {
+        const roleData = rolesData.find((item:any) => {
             return item.id == id
         })
 
@@ -293,7 +293,7 @@ function Roles(props:any) {
                                     </thead>
                                     <tbody>
                                         {
-                                            rolesData.map((row, i) => {
+                                            rolesData.map((row:any, i:number) => {
                                                 return (
                                                     <tr key={'row-' + i}>
                                                         <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>
@@ -419,7 +419,7 @@ function Roles(props:any) {
             </div>
 
 
-            <div className="modal fade" data-backdrop="static" id="permissions_list_modal" tabIndex="-1" role="dialog" aria-labelledby="permissions_list_modal" aria-hidden="true" >
+            <div className="modal fade" data-backdrop="static" id="permissions_list_modal" tabIndex={-1} role="dialog" aria-labelledby="permissions_list_modal" aria-hidden="true" >
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -442,14 +442,14 @@ function Roles(props:any) {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    (formData?.modules_list)?.map((item, i) => {
+                                                    (formData?.modules_list)?.map((item:any, i:number) => {
                                                         return (
                                                             <tr key={'row-module-permission-' + i}>
                                                                 <td>{i + 1}</td>
                                                                 <td>{item?.name}</td>
                                                                 <td>
                                                                     {
-                                                                        item?.permissions?.map((perm, perm_i) => {
+                                                                        item?.permissions?.map((perm:any, perm_i:number) => {
                                                                             return (
                                                                                 <Fragment key={'row-module-permission-list-' + perm_i}>
                                                                                     <span className="badge rounded-pill font-size-12 fw-medium bg-light mx-1 mb-0">{perm?.name}</span>
@@ -494,8 +494,8 @@ const mapStateToProps = (state:any) => ({
 });
 
 const mapDispatchToProps = (dispatch:any) => ({
-    setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
-    me: (data) => dispatch(SET_USER_DATA(data)),
+    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    me: (data:any) => dispatch(SET_USER_DATA(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roles);

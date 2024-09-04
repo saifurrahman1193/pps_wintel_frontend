@@ -3,7 +3,7 @@
 
 // export default {required_star}
 
-import React, {Fragment} from 'react'
+import  {Fragment} from 'react'
 
 const  RequiredStar = () => {
     return (

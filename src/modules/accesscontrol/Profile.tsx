@@ -11,7 +11,7 @@ import ProfileDetails from '../../components/Project/ProfileDetails'
 import INIT from '../../route/utils/Init';
 import HorizontalSeparator from '../../components/Separator/HorizontalSeparator';
 
-function Profile(props:any) {
+function Profile(props: any) {
 
     const breadcrumb = {
         pageTitle: 'Profile',
@@ -40,7 +40,7 @@ function Profile(props:any) {
     const [userData, setUserData] = useState()
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -48,7 +48,7 @@ function Profile(props:any) {
     }
 
 
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = async (e: any) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -71,7 +71,7 @@ function Profile(props:any) {
         modalclosebtn ? modalclosebtn.click() : null;
     }
 
-    const getUser = async (e:any, reload = false) => {
+    const getUser = async (e: any, reload = false) => {
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -98,16 +98,12 @@ function Profile(props:any) {
         getUser(null, undefined)
     }, [])
 
-
     const updateModalProcess = async () => {
         setFormData({ ...formInitial, name: userData?.name, id: userData?.id, phone: userData?.phone })
     }
 
-
     return (
         <Fragment>
-
-
             {
                 props?.user?.force_password != 0
                     ?
@@ -222,7 +218,7 @@ function Profile(props:any) {
             </div>
 
 
-            <div className="modal fade " id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div className="modal fade " id="saveConfirmationModal" tabIndex={-1} aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
@@ -297,15 +293,15 @@ function Profile(props:any) {
 }
 
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
     user: state.user,
     roles: state.roles,
     permissions: state.permissions
 });
 
-const mapDispatchToProps = (dispatch:any) => ({
-    setPageBreadcrumb: (data) => dispatch(SET_BREADCRUMB_DATA(data)),
-    me: (data) => dispatch(SET_USER_DATA(data)),
+const mapDispatchToProps = (dispatch: any) => ({
+    setPageBreadcrumb: (data:any) => dispatch(SET_BREADCRUMB_DATA(data)),
+    me: (data:any) => dispatch(SET_USER_DATA(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Profile));

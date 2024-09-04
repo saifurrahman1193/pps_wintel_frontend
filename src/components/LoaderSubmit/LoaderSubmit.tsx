@@ -1,4 +1,4 @@
-function LoaderSubmit(props) {
+function LoaderSubmit(props:any) {
     const loaderShow = props?.loaderShow || false
     return (
         <>

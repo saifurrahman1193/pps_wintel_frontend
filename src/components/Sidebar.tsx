@@ -32,7 +32,7 @@ function Sidebar(props: any) {
         const menu_button = document?.getElementById('vertical-menu-btn');
         if (menu_button) {
             menu_button.addEventListener('click', () => {
-                const body = document.querySelector('body');
+                const body = document.body;
                 if (body && body.classList.contains('sidebar-enable') && body.getAttribute('data-sidebar-size') === 'lg') {
                     setTimeout(() => {
                         body.setAttribute('data-sidebar-size', 'sm');

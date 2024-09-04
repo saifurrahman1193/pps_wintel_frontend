@@ -1,14 +1,11 @@
-import { useState } from "react";
 
-const Sorting = ({ column, table, order, onSortChange }) => {
+const Sorting = ({ column, table, order, onSortChange }:any) => {
     const handleClick = () => {
         // Toggle sorting order when clicked
         const newOrder = order == 'asc' ? 'desc' : 'asc';
         // Trigger sorting change
         onSortChange(column, table, newOrder);
     };
-
-    const [iconClass, setIconClass] = useState('');
 
     return (
         <>

@@ -1,5 +1,4 @@
-import { connect } from 'react-redux'
-import React, { useEffect, useState, Fragment } from 'react';
+import  { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 
@@ -19,7 +18,7 @@ function Breadcrumb(props:any) {
                             <div className="page-title-right">
                                 <ol className="breadcrumb m-0">
                                     {
-                                        props?.breadcrumb?.layers?.map((layer, i) => {
+                                        props?.breadcrumb?.layers?.map((layer:any, i:number) => {
                                             return (
                                                 <Fragment key={'layer-' + i}>
                                                     <li className={"breadcrumb-item "+(layer?.link ? '':'active')}>

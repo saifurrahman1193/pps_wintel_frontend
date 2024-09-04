@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import  {Fragment} from 'react'
 import { Field, ErrorMessage } from 'formik'
 import TextErrorMessage from '../../Error/TextErrorMessage.js'
 import Validation  from '../Validation.js';
@@ -12,7 +12,7 @@ function Select(props:any) {
             <Fragment>
                 <Field as="select" id={name} name={name} {...rest} >
                     { 
-                        options?.map(option => {
+                        options?.map((option:any) => {
                             return (
                                 <option key={option?.key+'-'+option?.value} value={option?.value}>
                                     {option?.key}

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import  { useLayoutEffect } from 'react';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -6,7 +6,7 @@ import { currentMonthName } from '../../components/Helpers/CommonHelpers';
 
 am4core.useTheme(am4themes_animated);
 
-const CurrentMonthTotalHitRevDayWiseLineChart = ({ data }) => {
+const CurrentMonthTotalHitRevDayWiseLineChart = ({ data }:any) => {
     useLayoutEffect(() => {
         // Create chart instance
         let chart = am4core.create("CurrentMonthTotalHitRevDayWiseLineChart", am4charts.XYChart);

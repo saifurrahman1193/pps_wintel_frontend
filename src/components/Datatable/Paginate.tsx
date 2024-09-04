@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Link } from 'react-router-dom';
 
 function Paginate(props:any) {
@@ -15,7 +15,7 @@ function Paginate(props:any) {
         paginationPages.push(i)
     }
 
-    function onClickPage(e, page) {
+    function onClickPage(e:any, page:any) {
         e.preventDefault();
 
         props.pagechanged(page)

@@ -1,15 +1,8 @@
-import React, { useState, Fragment } from 'react';
-
-const RadioButtons = ({ label, value, onChange }) => {
-    const [checked, setChecked] = useState(false);
-  
-    const handleChange = () => {
-      setChecked(!checked);
-    };
+const RadioButtons = ({ label, value, onChange }:any) => {
 
     const cb_element = 'cb_'+getRandomArbitrary(100,1000)
 
-    function getRandomArbitrary(min, max) {
+    function getRandomArbitrary(min:number, max:number) {
       return Math.random() * (max - min) + min;
     }
     

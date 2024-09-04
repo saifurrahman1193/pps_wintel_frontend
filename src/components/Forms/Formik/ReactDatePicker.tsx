@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import  {Fragment} from 'react'
 import { Field, ErrorMessage } from 'formik'
 import TextErrorMessage from '../../Error/TextErrorMessage.js'
 import Validation  from '../Validation.js';
@@ -14,7 +14,7 @@ function ReactDatePicker(props:any) {
             <Fragment>
                 <Field name={name}>
                     {
-                        ({form, field}) => {
+                        ({form, field}:any) => {
                             const {setFieldValue} = form
                             const {value} = field
                             return (

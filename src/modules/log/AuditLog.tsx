@@ -52,13 +52,6 @@ function AuditLog(props:any) {
 
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
-        setFormData((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
-    }
-
     const [reportData, setReportData] = useState({})
     var [paginator, setPaginator] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -105,7 +98,7 @@ function AuditLog(props:any) {
     const getAllUserList = async () => {
         let response = await postCall(USER_LIST, {}, props.user.access_token)
         if (response?.code === 200) {
-            let userListsData = (response?.data?.data).map((item) => {
+            let userListsData = (response?.data?.data).map((item:any) => {
                 return { label: item.name, value: item.id }
             })
 
@@ -117,7 +110,7 @@ function AuditLog(props:any) {
 
     // userList f select process
     const [userListFSelectedOption, setUserListFSelectedOption] = useState('')
-    const userListFHandle = (value) => {
+    const userListFHandle = (value:any) => {
         setUserListFSelectedOption(value)
         console.log(value, value?.value);
         setFormData((prev) => ({ ...prev, filter: { ...formData.filter, user_id: value?.value } }))
@@ -125,12 +118,12 @@ function AuditLog(props:any) {
 
 
     // start_date process
-    const start_date_handle = (value) => {
+    const start_date_handle = (value:any) => {
         setFormData((prev) => ({ ...prev, filter: { ...formData.filter, start_date: moment(value).format('yy-MM-DD HH:mm:ss') } }))
     }
 
     // end_date process
-    const end_date_handle = (value) => {
+    const end_date_handle = (value:any) => {
         setFormData((prev) => ({ ...prev, filter: { ...formData.filter, end_date: moment(value).format('yy-MM-DD HH:mm:ss') } }))
     }
 
@@ -140,7 +133,7 @@ function AuditLog(props:any) {
     }
 
     const [modalData, setModalData] = useState({})
-    const updateDetailModalData = (data) => {
+    const updateDetailModalData = (data:any) => {
         setModalData(data)
     }
 
@@ -179,7 +172,7 @@ function AuditLog(props:any) {
                                         renderInput={(props:any) => <TextField {...props} className="w-100" />}
                                         label="Start Date Time"
                                         value={formData?.filter?.start_date}
-                                        onChange={(newValue) => {
+                                        onChange={(newValue:any) => {
                                             start_date_handle(newValue);
                                         }}
                                         inputFormat="yyyy-MM-dd HH:mm:ss"
@@ -193,7 +186,7 @@ function AuditLog(props:any) {
                                         renderInput={(props:any) => <TextField {...props} className="w-100" />}
                                         label="End Date Time"
                                         value={formData?.filter?.end_date}
-                                        onChange={(newValue) => {
+                                        onChange={(newValue:any) => {
                                             end_date_handle(newValue);
                                         }}
                                         inputFormat="yyyy-MM-dd HH:mm:ss"
@@ -255,7 +248,7 @@ function AuditLog(props:any) {
 
                                         <tbody>
                                             {
-                                                reportData.map((row, i) => {
+                                                reportData?.map((row:any, i:number) => {
                                                     return (
                                                         <tr key={'row-' + i}>
                                                             <td>{paginator?.current_page > 1 ? ((paginator?.current_page - 1) * paginator?.record_per_page) + i + 1 : i + 1}</td>

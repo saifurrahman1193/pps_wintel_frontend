@@ -66,7 +66,7 @@ function MerchantManagement(props:any) {
 
     const [formData, setFormData] = useState(formInitial)
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setFormData((prev) => ({
             ...prev,
             form: {

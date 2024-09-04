@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store'

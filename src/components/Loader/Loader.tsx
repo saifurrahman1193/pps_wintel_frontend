@@ -1,7 +1,6 @@
-import React from 'react'
 import './Loader.css'
 
-function Loader(Props) {
+function Loader(Props:any) {
     const isShow =  Props?.isShow || false
     return (
         <>

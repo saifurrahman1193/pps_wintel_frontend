@@ -1,7 +1,7 @@
 import { currentMonthName, previousMonthName } from '../../components/Helpers/CommonHelpers.js'
 
 
-const Summary = ({ user, data }) => {
+const Summary = ({ user, data }:any) => {
 
     return <>
         <div className="row">

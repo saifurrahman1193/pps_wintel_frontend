@@ -1,24 +1,27 @@
-import React, {Fragment} from 'react'
-import ReactHtmlParser from 'react-html-parser';
+import { Fragment } from 'react';
 
-function List(props:any) {
+interface ListProps {
+    dataList?: string[];
+    padding?: number;
+}
 
+function List({ dataList = [], padding = 1 }: ListProps) {
     return (
         <Fragment>
             <div className="list-group">
-                {
-                    props?.dataList ?
-                        props?.dataList?.map((value, i) => {
-                            return ReactHtmlParser(`<li class="list-group-item list-group-item-action py-${props.padding||1}" key="${value+'-'+i}">${value}</li>`)
-                        })
-                    : null
-                }
+                {dataList.length > 0 ? (
+                    dataList.map((value, i) => (
+                        <li
+                            className={`list-group-item list-group-item-action py-${padding}`}
+                            key={`${value}-${i}`}
+                        >
+                            {value}
+                        </li>
+                    ))
+                ) : null}
             </div>
         </Fragment>
-    )
+    );
 }
 
-export default List
-
-
-{/* <List title={`Permission list of role ${row.name}`} realData={row.permissions}  dataList={row.permissions.split(', ')} showCharecters={60}/> */}
+export default List;

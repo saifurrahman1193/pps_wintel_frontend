@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import {Fragment} from 'react'
 import { Field, ErrorMessage } from 'formik'
 import TextErrorMessage from '../../Error/TextErrorMessage.js'
 import Validation  from '../Validation.js';
@@ -10,8 +10,8 @@ function CheckboxGroup(props:any) {
             <Fragment>
                 <Field name={name}>
                     {
-                        ({field}) => {
-                            return options.map(option => {
+                        ({field}: any) => {
+                            return options.map((option:any) => {
                                 return (
                                     <Fragment key={option?.key}>
                                         <div className="form-check form-check-inline">

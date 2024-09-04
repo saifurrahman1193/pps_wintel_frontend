@@ -1,11 +1,11 @@
-import React, { useLayoutEffect } from 'react';
+import  { useLayoutEffect } from 'react';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 am4core.useTheme(am4themes_animated);
 
-const Last6MonthTotalHitMonthWiseBarChart = ({ data }) => {
+const Last6MonthTotalHitMonthWiseBarChart = ({ data }:any) => {
     useLayoutEffect(() => {
         // Create chart instance
         let chart = am4core.create("Last6MonthTotalHitMonthWiseBarChart", am4charts.XYChart);

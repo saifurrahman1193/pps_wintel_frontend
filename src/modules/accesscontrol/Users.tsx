@@ -37,7 +37,59 @@ function Users(props: any) {
         ]
     }
 
-    const formInitial = {
+    type OptionType = { label: string; value: number } | null;
+
+    interface UnifiedState {
+        filter: {
+            list: {
+                brand_list: any[]; // Adjust type as needed
+                role_list: any[]; // Adjust type as needed
+                status_list: OptionType[];
+            };
+            data: Record<string, any>; // Adjust type as needed
+        };
+        form: {
+            data: {
+                id: string;
+                name: string;
+                brand_id: string;
+                brandSelectedOption: OptionType;
+                joining_date: Date | null;
+                email: string;
+                password: string;
+                status: number;
+                statusSelectedOption: OptionType;
+                role_ids: number[];
+                rolesSelectedOptions: OptionType[] | null;
+            };
+            errors: Record<string, any> | null; // Adjust type as needed
+            submit: {
+                loading: boolean;
+            };
+        };
+        table: {
+            data: any | null; // Adjust type as needed
+            paginator: {
+                current_page: number;
+                total_pages: number;
+                previous_page_url: string | null;
+                next_page_url: string | null;
+                record_per_page: number;
+                current_page_items_count: number | null;
+                total_count: number | null;
+                pagination_last_page: number | null;
+            };
+            loading: boolean;
+            empty: boolean;
+            sort: {
+                column: string | null;
+                table: string | null;
+                order: string | null;
+            };
+        };
+    }
+
+    const formInitial: UnifiedState = {
         filter: {
             list: {
                 brand_list: [],
@@ -47,9 +99,7 @@ function Users(props: any) {
                     { label: 'Active', value: 1 },
                 ]
             },
-            data: {
-
-            }
+            data: {}
         },
         form: {
             data: {
@@ -90,7 +140,7 @@ function Users(props: any) {
                 order: null,
             }
         },
-    }
+    };
 
     const [formData, setFormData] = useState(formInitial)
 
@@ -107,7 +157,7 @@ function Users(props: any) {
         }))
     }
 
-    const getTableData = async (e: any, page: number = 1, sort: any = null, search = '',) => {
+    const getTableData = async (e: any, page: number = 1, sort: any = null, search = '') => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {
@@ -201,9 +251,6 @@ function Users(props: any) {
         setFormData((prev) => ({ ...prev, form: formInitial?.form }))
     }
 
-    const filterClear = async () => {
-        setFormData((prev) => ({ ...prev, filter: { ...prev?.filter, data:{...prev?.filter?.data, ...formInitial?.filter?.data} } }))
-    }
 
     // profile detail modal component related
     const [profileDetailModalUserId, setProfileDetailModalUserId] = useState('')
@@ -215,7 +262,7 @@ function Users(props: any) {
 
     const handleSortChange = (column: any, table: any, order: any) => {
         setFormData((prev) => ({ ...prev, table: { ...prev.table, sort: { column, table, order } } }))
-        getTableData(null, 1, { column, table, order }, null)
+        getTableData(null, 1, { column, table, order })
     };
 
     return (
@@ -291,7 +338,7 @@ function Users(props: any) {
                                         </thead>
                                         <tbody >
                                             {
-                                                (formData?.table?.data || [])?.map((row: any, i) => {
+                                                (formData?.table?.data || [])?.map((row: any, i: number) => {
                                                     return (
                                                         <tr key={'table-row-' + i}>
                                                             <td>{formData?.table?.paginator?.current_page > 1 ? ((formData?.table?.paginator?.current_page - 1) * formData?.table?.paginator?.record_per_page) + i + 1 : i + 1}</td>
@@ -301,7 +348,7 @@ function Users(props: any) {
                                                                     text={row.name}
                                                                     profiledetail_row_id={i}
                                                                     userId_row={row?.id}
-                                                                    userId={(i == profiledetail_row_id) ? profileDetailModalUserId : ''}
+                                                                    userId={(i == parseInt(profiledetail_row_id)) ? profileDetailModalUserId : ''}
                                                                     profileDetailModalUpdate={profileDetailModalUpdate}
                                                                     key={'profile-details-modal-' + i}
                                                                 />
@@ -345,7 +392,7 @@ function Users(props: any) {
                     }
                     {
                         formData?.table?.paginator?.total_pages > 1 ?
-                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page: number) => getTableData(null, page, formData?.table?.sort, null)} /> : null
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page: number) => getTableData(null, page, formData?.table?.sort)} /> : null
                     }
                 </div>
             </div>

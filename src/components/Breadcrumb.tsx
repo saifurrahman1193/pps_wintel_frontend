@@ -1,13 +1,7 @@
-import React, { Fragment } from 'react';
+import  { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { useState, useEffect } from 'react';
-import { LOGOUT } from '../api/apiPath'
-import { toast } from 'react-toastify'
-import { getCall, postCall } from '../api/apiService'
 import { USER_LOGOUT } from '../redux/action'
-import Svgmenuiconcomponent from './Icons/Svgmenuiconcomponent'
-import { kt_aside_mobile_toggle } from './Helpers/DesignHelpers'
 
 
 function Breadcrumb(props:any) {
@@ -25,7 +19,7 @@ function Breadcrumb(props:any) {
 
 
                                 {
-                                    props?.breadcrumb?.layers?.map((layer, i) => {
+                                    props?.breadcrumb?.layers?.map((layer:any, i:any) => {
                                         return (
                                             <Fragment key={'layer-' + i}>
                                                 {/* {

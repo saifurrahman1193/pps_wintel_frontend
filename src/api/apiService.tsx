@@ -1,14 +1,6 @@
 import axios from "axios";
 import { store } from '../redux/store'
 import { USER_LOGOUT } from '../redux/action'
-// navigator.geolocation.getCurrentPosition(async function (position) {
-//     var lat, lon
-//     lat = position.coords.latitude;
-//     lon = position.coords.longitude;
-//     axios.defaults.headers.common['lat'] = lat ? lat : '23.6536';
-//     axios.defaults.headers.common['lon'] = lon ? lon : '92.3658';
-// });
-
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const NODE_API_BASE_URL = import.meta.env.VITE_NODE_API_BASE_URL;
@@ -17,7 +9,7 @@ const NODE_API_BASE_URL = import.meta.env.VITE_NODE_API_BASE_URL;
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-export const getCall = async (path, data, token = null, headers = {}) => {
+export const getCall = async (path: any, data: any, token = null, headers = {}) => {
     try {
         const res = await axios.get(API_BASE_URL + path, {
             headers: {
@@ -47,7 +39,7 @@ export const getCall = async (path, data, token = null, headers = {}) => {
     }
 };
 
-export const putCall = async (path, data, token = null, headers = {}) => {
+export const putCall = async (path: any, data: any, token = null, headers = {}) => {
     try {
         const res = await axios.put(API_BASE_URL + path, data, {
             headers: {
@@ -74,7 +66,7 @@ export const putCall = async (path, data, token = null, headers = {}) => {
 };
 
 
-export const postCall = async (path, data, token = null, headers = {}) => {
+export const postCall = async (path: any, data: any, token = null, headers = {}) => {
     try {
         // alert(path+' '+token)
         const res = await axios.post(API_BASE_URL + path, data, {
@@ -104,7 +96,7 @@ export const postCall = async (path, data, token = null, headers = {}) => {
 };
 
 
-export const postCallDynamicDB = async (path, data, token = null, lan = "en") => {
+export const postCallDynamicDB = async (path: any, data: any, token = null, lan = "en") => {
     try {
         let res = await axios.post(NODE_API_BASE_URL + path, data, {
             headers: {
