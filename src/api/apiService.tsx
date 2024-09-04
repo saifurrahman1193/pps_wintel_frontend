@@ -66,7 +66,7 @@ export const putCall = async (path: any, data: any, token = null, headers = {}) 
 };
 
 
-export const postCall = async (path: any, data: any, token = null, headers = {}) => {
+export const postCall = async (path: any, data: any, token:any = null, headers:any = {}) => {
     try {
         // alert(path+' '+token)
         const res = await axios.post(API_BASE_URL + path, data, {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select'
-import { postCall, getCall, putCall } from '../../api/apiService.js'
+import {  getCall } from '../../api/apiService.js'
 import { DETAILS_REPORT_P, DETAILS_REPORT_FILTER_DATA, DETAILS_REPORT_DOWNLOAD } from '../../api/apiPath.js'
 import Paginate from '../../components/Datatable/Paginate.js'
 import { toast } from 'react-toastify'

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function ProfileDetailsModal(props:any) {
 
-    const data_update = (userId:number, profiledetail_row_id:number) => {
+    const data_update = (userId:any, profiledetail_row_id:any) => {
         props.profileDetailModalUpdate(userId, profiledetail_row_id)
     }
 

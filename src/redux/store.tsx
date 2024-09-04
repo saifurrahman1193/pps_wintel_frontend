@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore } from 'redux'
 import mainReducer from './reducer' 
 // import thunk from 'redux-thunk'
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import { persistStore } from 'redux-persist'
 
 export const store = createStore(mainReducer)

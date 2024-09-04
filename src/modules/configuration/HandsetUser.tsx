@@ -186,7 +186,7 @@ function HandsetUser(props: any) {
             }
         }))
     }
-    const getTableData = async (e: any, filteredData = { ...formData?.filter?.data, page: 1, sort: null }) => {
+    const getTableData = async (e: any, filteredData:any = { ...formData?.filter?.data, page: 1, sort: null }) => {
         setFormData((prev: any) => ({ ...prev, table: { ...prev?.table, sort: filteredData?.sort, data: null, paginator: null, loading: true, empty: true } }))
 
         if (e && e.preventDefault) {

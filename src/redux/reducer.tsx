@@ -13,7 +13,7 @@ const initialState = {
     breadcrumb: ''
 }
 
-const mainReducer = (state = initialState, action) => {
+const mainReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {

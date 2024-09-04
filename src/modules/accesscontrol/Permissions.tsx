@@ -279,7 +279,7 @@ function Permissions(props:any) {
 
                     {
                         paginator?.total_pages > 1 ?
-                            <Paginate paginator={paginator} pagechanged={(page) => getPermissionsData(null, page)} /> : null
+                            <Paginate paginator={paginator} pagechanged={(page:any) => getPermissionsData(null, page)} /> : null
                     }
 
 
@@ -288,7 +288,7 @@ function Permissions(props:any) {
 
 
 
-            <div className="modal fade modal-backdrop-static" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+            <div className="modal fade modal-backdrop-static" id="saveConfirmationModal" tabIndex={-1} aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">

@@ -1,7 +1,7 @@
 /**
 * @param {object} data
 */
-export const SET_USER_DATA = (data) => ({
+export const SET_USER_DATA = (data:any) => ({
     type: 'SET_USER_DATA',
     payload: data
 });
@@ -11,7 +11,7 @@ export const SET_USER_DATA = (data) => ({
 /**
   * @param {object} data
   */
-export const SET_ROLE_PERMISSIONS = (data) => ({
+export const SET_ROLE_PERMISSIONS = (data:any) => ({
     type: 'SET_ROLE_PERMISSIONS',
     payload: data
 });
@@ -22,7 +22,7 @@ export const USER_LOGOUT = () => ({
 })
 
 
-export const SET_BREADCRUMB_DATA = (data) => ({
+export const SET_BREADCRUMB_DATA = (data:any) => ({
   type: 'SET_BREADCRUMB_DATA',
   payload: data
 });

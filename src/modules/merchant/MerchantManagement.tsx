@@ -248,12 +248,12 @@ function MerchantManagement(props:any) {
                     }
                     {
                         formData?.table?.paginator?.total_pages > 1 ?
-                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page) => getTableData(null, page, formData?.table?.sort)} /> : null
+                            <Paginate paginator={formData?.table?.paginator} pagechanged={(page:any) => getTableData(null, page, formData?.table?.sort)} /> : null
                     }
                 </div>
             </div>
 
-            <div className="modal fade modal-backdrop-static" id="saveModal" tabIndex="-1" aria-labelledby="saveModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+            <div className="modal fade modal-backdrop-static" id="saveModal" tabIndex={-1} aria-labelledby="saveModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">
@@ -369,7 +369,7 @@ function MerchantManagement(props:any) {
             </div>
 
 
-            <div className="modal fade modal-backdrop-static" id="viewModal" tabIndex="-1" aria-labelledby="viewModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+            <div className="modal fade modal-backdrop-static" id="viewModal" tabIndex={-1} aria-labelledby="viewModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header py-2">

@@ -329,7 +329,7 @@ function Roles(props:any) {
 
                     {
                         paginator?.total_pages > 1 ?
-                            <Paginate paginator={paginator} pagechanged={(page) => getRolesData(null, page)} /> : null
+                            <Paginate paginator={paginator} pagechanged={(page:any) => getRolesData(null, page)} /> : null
                     }
 
 
@@ -338,7 +338,7 @@ function Roles(props:any) {
 
 
 
-            <div className="modal fade" id="saveConfirmationModal" tabIndex="-1" aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div className="modal fade" id="saveConfirmationModal" tabIndex={-1} aria-labelledby="saveConfirmationModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div className="modal-dialog modal-fullscreen" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

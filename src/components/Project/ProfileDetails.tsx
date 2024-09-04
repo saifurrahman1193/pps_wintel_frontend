@@ -120,7 +120,6 @@ function ProfileDetails({ userId, token }: ProfileDetailsProps) {
                                     id="search"
                                     name="search"
                                     onChange={handleChange}
-                                    onKeyUp={handleChange}
                                     value={formData.search}
                                     placeholder="Search Permission"
                                     className="form-control form-control-sm form-control-solid h-40px bg-body fs-7"
