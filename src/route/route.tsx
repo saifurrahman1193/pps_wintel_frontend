@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import  { Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Login from '../modules/accesscontrol/Login';
@@ -11,8 +11,6 @@ import Permissions from '../modules/accesscontrol/Permissions';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
-import AuthRoute from './AuthRoute';
-import PublicRoute from './PublicRoute';
 import Breadcrumb from '../components/Breadcrumb';
 import HandsetUser from '../modules/configuration/HandsetUser';
 import DetailsReport from '../modules/report/DetailsReport';
