@@ -31,7 +31,7 @@ function AuthRoute(props:any) {
             }
         } else {
             if (location.pathname === '/' && props.user) {
-                window.location.href = '/dashboard'
+                window.location.href = import.meta.env.BASE_URL+'dashboard'
             }
             else if (props.user) {
                 return true
