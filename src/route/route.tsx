@@ -22,7 +22,7 @@ function Router(props: any) {
 
     return (
         <Fragment>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
                 {
                     props?.user ?
                         < div id="layout-wrapper">
