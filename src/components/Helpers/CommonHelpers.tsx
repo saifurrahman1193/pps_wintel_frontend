@@ -75,15 +75,17 @@ export const permission_routes = [
 ]
 
 export const checkPermissionsWiseRouteChecker = (props:any) => {
-    const current_pathname = window.location.pathname || ''
+    console.log(props);
+    
+    // const current_pathname = window.location.pathname || ''
 
-    const permission_route = permission_routes?.find((item) => {
-        return item?.pathname == current_pathname
-    })
+    // const permission_route = permission_routes?.find((item) => {
+    //     return item?.pathname == current_pathname
+    // })
 
-    if (!(props?.permissions?.includes(permission_route?.permission))) {
-        window.location.href = '/dashboard'
-    }
+    // if (!(props?.permissions?.includes(permission_route?.permission))) {
+    //     window.location.href = '/dashboard'
+    // }
 }
 
 // every 1 minutes it hit api to check if the user is really authenticated

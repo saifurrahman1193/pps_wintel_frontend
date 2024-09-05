@@ -14,7 +14,7 @@ dotenv.config({ path: envFiles[process.env.NODE_ENV] });
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
-    base: '/winpps/'
+    base: '/winpps/' // for production only
     // build: {
     //     rollupOptions: {
     //         external: [
