@@ -16,7 +16,7 @@ function PublicRoute(props:any) {
         <React.Fragment>
             {
                 !checkIfuser() ?
-                    <Routes><Route {...props} /></Routes>
+                    <Route {...props} />
                     :
                     <Navigate to="/" replace={true} />
             }

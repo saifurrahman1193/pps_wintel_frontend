@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Login from '../modules/accesscontrol/Login';
 import Profile from '../modules/accesscontrol/Profile';
 import Dashboard from '../modules/dashboard/Dashboard';
@@ -17,48 +17,50 @@ import Breadcrumb from '../components/Breadcrumb';
 import HandsetUser from '../modules/configuration/HandsetUser';
 import DetailsReport from '../modules/report/DetailsReport';
 import SummaryReport from '../modules/report/SummaryReport';
+import NotFound from '../modules/others/NotFound';
 
 function Router(props: any) {
-
     return (
         <Fragment>
             <BrowserRouter basename={import.meta.env.BASE_URL}>
-                {
-                    props?.user ?
-                        < div id="layout-wrapper">
-                            <Header />
-                            <Sidebar />
-                            <div className="main-content">
-
-                                <div className="page-content">
-                                    <div className="container-fluid">
-                                        <Breadcrumb />
-                                        <AuthRoute exact path='/dashboard' element={<Dashboard />} />
-
-                                        <AuthRoute exact path='/profile' element={<Profile />} />
-
-                                        <AuthRoute exact path='/users' element={<Users />} />
-                                        <AuthRoute exact path='/roles' element={<Roles />} />
-                                        <AuthRoute exact path='/permissions' element={<Permissions />} />
-
-                                        <AuthRoute exact path='/handset-users' element={<HandsetUser />} />
-                                        <AuthRoute exact path='/details-report' element={<DetailsReport />} />
-                                        <AuthRoute exact path='/summary-report' element={<SummaryReport />} />
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/*" element={
+                        props?.user ? (
+                            <div id="layout-wrapper">
+                                <Header />
+                                <Sidebar />
+                                <div className="main-content">
+                                    <div className="page-content">
+                                        <div className="container-fluid">
+                                            <Breadcrumb />
+                                            <Routes>
+                                                <Route path="/dashboard" element={<Dashboard />} />
+                                                <Route path="/profile" element={<Profile />} />
+                                                <Route path="/users" element={<Users />} />
+                                                <Route path="/roles" element={<Roles />} />
+                                                <Route path="/permissions" element={<Permissions />} />
+                                                <Route path="/handset-users" element={<HandsetUser />} />
+                                                <Route path="/details-report" element={<DetailsReport />} />
+                                                <Route path="/summary-report" element={<SummaryReport />} />
+                                            </Routes>
+                                        </div>
                                     </div>
+                                    <Footer />
                                 </div>
-                                <Footer />
                             </div>
-                        </div>
-                        : <PublicRoute path='/' element={<Login />} />
-                }
+                        ) : <NotFound />
+                    } />
+                </Routes>
             </BrowserRouter>
-        </Fragment >
-    )
+        </Fragment>
+    );
 }
+
 const mapStateToProps = (state: any) => ({
     user: state.user,
     role: state.role,
     permissions: state.permissions
-})
+});
 
 export default connect(mapStateToProps)(Router);

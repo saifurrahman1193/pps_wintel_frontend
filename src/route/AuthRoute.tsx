@@ -46,7 +46,7 @@ function AuthRoute(props:any) {
         <React.Fragment>
             {
                 checkAccessibility() ?
-                    <Routes><Route {...props} /></Routes>
+                <Route {...props} />
                     :
                     <Navigate to="/" />
             }
