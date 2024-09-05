@@ -23,7 +23,7 @@ function Login(props:any) {
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)
-            window.location.href = '/dashboard';
+            window.location.href = import.meta.env.BASE_URL+'dashboard'
             onSubmitProps.setSubmitting(false)
             document.body.style.background = ''
 
