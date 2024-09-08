@@ -23,7 +23,7 @@ function Router(props: any) {
             <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/*" element={
+                    <Route path="/winpps/*" element={
                         props?.user ? (
                             <div id="layout-wrapper">
                                 <Header />
