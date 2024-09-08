@@ -15,6 +15,7 @@ dotenv.config({ path: envFiles[process.env.NODE_ENV] });
 export default defineConfig({
     plugins: [react()],
     // base: '/winpps/', // for production only
+    base: 'https://www.mobile-masala.com/winpps/', // for production only
     // build: {
     //     rollupOptions: {
     //         external: [
