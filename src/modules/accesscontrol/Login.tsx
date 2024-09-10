@@ -41,7 +41,7 @@ function Login(props:any) {
 
 
     useEffect(() => {
-        document.body.style.background = `url("assets/images/modules/accesscontrol/login/bg.jpg")`;
+        document.body.style.background = `url("/assets/images/modules/accesscontrol/login/bg.jpg")`;
         document.body.style.backgroundSize = 'cover'
     }, [])
 

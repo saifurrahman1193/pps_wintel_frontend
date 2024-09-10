@@ -15,7 +15,7 @@ dotenv.config({ path: envFiles[process.env.NODE_ENV] });
 export default defineConfig({
     plugins: [react()],
     // base: '/winpps/', // for production only
-    base: process.env.VITE_BASE_URL
+    // base: process.env.VITE_BASE_URL
     // build: {
     //     rollupOptions: {
     //         external: [

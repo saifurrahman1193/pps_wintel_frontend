@@ -17,43 +17,43 @@ import DetailsReport from '../modules/report/DetailsReport';
 import SummaryReport from '../modules/report/SummaryReport';
 import NotFound from '../modules/others/NotFound';
 
-function Router(props: any) {
+function Router() {
     return (
         <Fragment>
             <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/*" element={
-                        props?.user ? (
-                            <div id="layout-wrapper">
-                                <Header />
-                                <Sidebar />
-                                <div className="main-content">
-                                    <div className="page-content">
-                                        <div className="container-fluid">
-                                            <Breadcrumb />
-                                            <Routes>
-                                                <Route path="/dashboard" element={<Dashboard />} />
-                                                <Route path="/profile" element={<Profile />} />
-                                                <Route path="/users" element={<Users />} />
-                                                <Route path="/roles" element={<Roles />} />
-                                                <Route path="/permissions" element={<Permissions />} />
-                                                <Route path="/handset-users" element={<HandsetUser />} />
-                                                <Route path="/details-report" element={<DetailsReport />} />
-                                                <Route path="/summary-report" element={<SummaryReport />} />
-                                            </Routes>
-                                        </div>
+                        <div id="layout-wrapper">
+                            <Header />
+                            <Sidebar />
+                            <div className="main-content">
+                                <div className="page-content">
+                                    <div className="container-fluid">
+                                        <Breadcrumb />
+                                        <Routes>
+                                            <Route path="/dashboard" element={<Dashboard />} />
+                                            <Route path="/profile" element={<Profile />} />
+                                            <Route path="/users" element={<Users />} />
+                                            <Route path="/roles" element={<Roles />} />
+                                            <Route path="/permissions" element={<Permissions />} />
+                                            <Route path="/handset-users" element={<HandsetUser />} />
+                                            <Route path="/details-report" element={<DetailsReport />} />
+                                            <Route path="/summary-report" element={<SummaryReport />} />
+                                            <Route path="*" element={<NotFound />} />
+                                        </Routes>
                                     </div>
-                                    <Footer />
                                 </div>
+                                <Footer />
                             </div>
-                        ) : <NotFound />
+                        </div>
                     } />
                 </Routes>
             </BrowserRouter>
         </Fragment>
     );
 }
+
 
 const mapStateToProps = (state: any) => ({
     user: state.user,
