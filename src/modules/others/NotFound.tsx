@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NotFound: React.FC = () => {
     return (
-        <div >
+        <div style={styles.container}>
             <h1 style={styles.header}>404</h1>
             <p style={styles.message}>Page Not Found</p>
             <Link to="/" style={styles.link}>
@@ -16,7 +16,7 @@ const NotFound: React.FC = () => {
 const styles = {
     container: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column' as 'column',
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
