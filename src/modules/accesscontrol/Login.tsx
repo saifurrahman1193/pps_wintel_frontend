@@ -23,7 +23,7 @@ function Login(props:any) {
         if (response.code === 200) {
             toast.success(response?.message?.[0])
             props.login(response.data)
-            window.location.href = import.meta.env.BASE_URL+'dashboard'
+            window.location.href = '/dashboard'
             onSubmitProps.setSubmitting(false)
             document.body.style.background = ''
 
@@ -71,7 +71,7 @@ function Login(props:any) {
 
                             <div className="card-body p-4">
                                 <div className="text-center w-75 m-auto">
-                                    <h3 className="text-muted mb-4">Login</h3>
+                                    <h3 className="text-muted mb-4">Login-2</h3>
                                 </div>
 
                                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema} enableReinitialize >
