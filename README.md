@@ -15,6 +15,7 @@
       - [Docker: Resources](#docker-resources)
   - [GIT commit types](#git-commit-types)
   - [Resources](#resources)
+  - [Deply](#deply)
 
 
 ## Introduction
@@ -118,3 +119,11 @@ chore: Routine tasks, maintenance, or housekeeping.
 - depreciated
   - types/redux-persist
   - types/redux-thunk
+
+
+
+## Deply
+```
+npm run build:prod
+copy .htaccess to dist folder
+```
