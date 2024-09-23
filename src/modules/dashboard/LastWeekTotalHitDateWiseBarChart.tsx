@@ -26,13 +26,13 @@ const LastWeekTotalHitDateWiseBarChart = ({ data }:any) => {
         // Define a color set with 6 colors
         let colorSet = new am4core.ColorSet();
         colorSet.list = [
-            am4core.color("#5156be"), // Color 1
-            am4core.color("#2ab57d"), // Color 2
-            am4core.color("#d602ee"), // Color 3
-            am4core.color("#ee0290"), // Color 4
-            am4core.color("#ee6002"), // Color 5
-            am4core.color("#ffbf53"),  // Color 6
-            am4core.color("#4ba6ef"),  // Color 7
+            am4core.color("#264653"), // Color 1
+            am4core.color("#287271"), // Color 2
+            am4core.color("#2a9d8f"), // Color 3
+            am4core.color("#8ab17d"), // Color 4
+            am4core.color("#e9c46a"), // Color 5
+            am4core.color("#f4a261"),  // Color 6
+            am4core.color("#e76f51"),  // Color 7
         ];
 
         // Create series

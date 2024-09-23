@@ -28,12 +28,13 @@ const TodayTotalHitBarchart = ({ data }:any) => {
         // Define a color set with 6 colors
         let colorSet = new am4core.ColorSet();
         colorSet.list = [
-            am4core.color("#5156be"), // Color 3
-            am4core.color("#2ab57d"), // Color 2
-            am4core.color("#d602ee"), // Color 1
-            am4core.color("#ee0290"), // Color 5
-            am4core.color("#ee6002"), // Color 4
-            am4core.color("#ffbf53")  // Color 6
+            am4core.color("#ffd373"), // Color 3
+            am4core.color("#fd8021"), // Color 2
+            am4core.color("#e05400"), // Color 1
+            am4core.color("#0073cc"), // Color 5
+            am4core.color("#003488"), // Color 4
+            am4core.color("#001d59"),  // Color 6
+            am4core.color("#001524")  // Color 7
         ];
 
         // Create series

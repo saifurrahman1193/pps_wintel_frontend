@@ -16,6 +16,7 @@
   - [GIT commit types](#git-commit-types)
   - [Resources](#resources)
   - [Deply](#deply)
+    - [COLOR](#color)
 
 
 ## Introduction
@@ -126,4 +127,51 @@ chore: Routine tasks, maintenance, or housekeeping.
 ```
 npm run build:prod
 copy .htaccess to dist folder
+```
+
+
+
+### COLOR
+
+```
+60
+=====
+#ffd373
+#fd8021
+#e05400
+#0073cc
+#003488
+#001d59
+#001524
+
+
+104 (last week bar chadt)
+======
+264653
+287271
+2a9d8f
+8ab17d
+e9c46a
+f4a261
+e76f51
+
+160 (last 6 month bar chadt)
+=====
+f26b21
+f78e31
+fbb040
+fcec52
+cbdb47
+99ca3c
+208b3a
+
+pie
+===
+f94144
+f3722c
+f8961e
+f9c74f
+90be6d
+43aa8b
+577590
 ```

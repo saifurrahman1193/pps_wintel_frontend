@@ -58,18 +58,18 @@ function Header(props:any) {
                         <div className="navbar-brand-box">
                             <Link to="/dashboard" className="logo logo-dark">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo/logo.png" alt="image" height={16} />
+                                    <img src="/assets/images/logo/favicon.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
+                                    <img src="/assets/images/logo/favicon.png" alt="image" height={24} /> <span className="logo-txt">Win PPS</span>
                                 </span>
                             </Link>
                             <Link to="/dashboard" className="logo logo-light">
                                 <span className="logo-sm">
-                                    <img src="assets/images/logo/logo.png" alt="image" height={16} />
+                                    <img src="/assets/images/logo/favicon.png" alt="image" height={16} />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="assets/images/logo/logo.png" alt="image" height={24} /> <span className="logo-txt"></span>
+                                    <img src="/assets/images/logo/favicon.png" alt="image" height={24} /> <span className="logo-txt">Win PPS</span>
                                 </span>
                             </Link>
                         </div>

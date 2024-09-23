@@ -26,12 +26,13 @@ const Last6MonthTotalHitMonthWiseBarChart = ({ data }:any) => {
         // Define a color set with 6 colors
         let colorSet = new am4core.ColorSet();
         colorSet.list = [
-            am4core.color("#5156be"), // Color 1
-            am4core.color("#2ab57d"), // Color 2
-            am4core.color("#d602ee"), // Color 3
-            am4core.color("#ee0290"), // Color 4
-            am4core.color("#ee6002"), // Color 5
-            am4core.color("#ffbf53")  // Color 6
+            am4core.color("#f26b21"), // Color 1
+            am4core.color("#f78e31"), // Color 2
+            am4core.color("#fbb040"), // Color 3
+            am4core.color("#fcec52"), // Color 4
+            am4core.color("#cbdb47"), // Color 5
+            am4core.color("#99ca3c"),  // Color 6
+            am4core.color("#208b3a")  // Color 7
         ];
 
         // Create series

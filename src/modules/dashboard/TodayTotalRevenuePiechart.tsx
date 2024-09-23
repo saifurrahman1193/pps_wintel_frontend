@@ -16,12 +16,13 @@ const TodayTotalRevenuePiechart = ({ data }:any) => {
         // Define a color set with 6 colors
         let colorSet = new am4core.ColorSet();
         colorSet.list = [
-            am4core.color("#d602ee"), // Color 1
-            am4core.color("#2ab57d"), // Color 2
-            am4core.color("#5156be"), // Color 3
-            am4core.color("#ee6002"), // Color 4
-            am4core.color("#ee0290"), // Color 5
-            am4core.color("#ffbf53")  // Color 6
+            am4core.color("#f94144"), // Color 1
+            am4core.color("#f3722c"), // Color 2
+            am4core.color("#f8961e"), // Color 3
+            am4core.color("#f9c74f"), // Color 4
+            am4core.color("#90be6d"), // Color 5
+            am4core.color("#43aa8b"),  // Color 6
+            am4core.color("#577590")  // Color 7
         ];
 
         // Create series

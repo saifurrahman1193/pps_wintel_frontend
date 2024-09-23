@@ -7,7 +7,7 @@ const Summary = ({ user, data }:any) => {
         <div className="row">
 
             <div className="col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                <div className="card card-h-100 bg-primary border-primary text-white bg-gradient">
+                <div className="card card-h-100 text-white bg-gradient" style={{ background: "#003366" }}>
                     <div className="card-body">
                         <div className="row align-items-center">
                             <div className="col-12">
@@ -28,7 +28,7 @@ const Summary = ({ user, data }:any) => {
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
                     <div className="col-sm-6 col-md-3 col-xl-3">
-                        <div className="card card-h-100 bg-primary border-primary text-white bg-gradient">
+                        <div className="card card-h-100 text-white bg-gradient" style={{ background: "#336699" }}>
                             <div className="card-body">
                                 <div className="row align-items-center">
                                     <div className="col-12">
@@ -49,7 +49,7 @@ const Summary = ({ user, data }:any) => {
             }
 
             <div className="col-sm-6 col-md-3 col-xl-3">
-                <div className="card card-h-100 bg-info border-info text-white bg-gradient">
+                <div className="card card-h-100 text-white bg-gradient" style={{ background: "#6699CC" }}>
                     <div className="card-body">
                         <div className="row align-items-center">
                             <div className="col-12">
@@ -70,7 +70,7 @@ const Summary = ({ user, data }:any) => {
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
                     <div className="col-sm-6 col-md-3 col-xl-3">
-                        <div className="card card-h-100 bg-info border-info text-white bg-gradient">
+                        <div className="card card-h-100 text-white bg-gradient" style={{ background: "#99CCFF" }}>
                             <div className="card-body">
                                 <div className="row align-items-center">
                                     <div className="col-12">
@@ -91,7 +91,7 @@ const Summary = ({ user, data }:any) => {
             }
 
             <div className="col-sm-6 col-md-3 col-xl-3">
-                <div className="card card-h-100 bg-success border-success text-white bg-gradient">
+                <div className="card card-h-100 text-white bg-gradient" style={{ background: "#3154a6" }}>
                     <div className="card-body">
                         <div className="row align-items-center">
                             <div className="col-12">
@@ -112,7 +112,7 @@ const Summary = ({ user, data }:any) => {
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
                     <div className="col-sm-6 col-md-3 col-xl-3">
-                        <div className="card card-h-100 bg-success border-success text-white bg-gradient">
+                        <div className="card card-h-100 text-white bg-gradient" style={{ background: "#6c77b7" }}>
                             <div className="card-body">
                                 <div className="row align-items-center">
                                     <div className="col-12">
@@ -133,7 +133,7 @@ const Summary = ({ user, data }:any) => {
             }
 
             <div className="col-sm-6 col-md-3 col-xl-3">
-                <div className="card card-h-100 bg-danger border-danger text-white bg-gradient">
+                <div className="card card-h-100 text-white bg-gradient" style={{ background: "#8e8dc1" }}>
                     <div className="card-body">
                         <div className="row align-items-center">
                             <div className="col-12">
@@ -154,7 +154,7 @@ const Summary = ({ user, data }:any) => {
             {
                 (user?.brand_id || 0) == 0 ? //  has not brand id means is not brand
                     <div className="col-sm-6 col-md-3 col-xl-3">
-                        <div className="card card-h-100 bg-danger border-danger text-white bg-gradient">
+                        <div className="card card-h-100 text-white bg-gradient" style={{ background: "#ae9ca7" }}>
                             <div className="card-body">
                                 <div className="row align-items-center">
                                     <div className="col-12">
