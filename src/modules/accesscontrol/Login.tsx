@@ -10,14 +10,14 @@ import { connect } from 'react-redux'
 import { LOGIN } from '../../api/apiPath'
 import { toast } from 'react-toastify';
 
-function Login(props:any) {
+function Login(props: any) {
 
     const initialValues = {
         email: '',
         password: ''
     }
 
-    const onSubmit = async (request:any, onSubmitProps:any) => {
+    const onSubmit = async (request: any, onSubmitProps: any) => {
         // console.log('Form request =', request);
         const response = await postCall(LOGIN, request, null, { hitmap: 'login submit', pageurl: window.location.href, page: 'Login' })
         if (response.code === 200) {
@@ -54,7 +54,7 @@ function Login(props:any) {
 
                 <div className="row justify-content-center">
                     <div className="col-lg-5 mt-5">
-                        <div className="card mt-5" style={{ background: "#ffffffe8" }}>
+                        <div className="card mt-5" style={{ background: "rgba(18, 68, 100, 0.67)" }}>
                             {/* <div className="bg-primary bg-soft">
                     <div className="row">
                         <div className="col-7">
@@ -70,8 +70,8 @@ function Login(props:any) {
                 </div> */}
 
                             <div className="card-body p-4">
-                                <div className="text-center w-75 m-auto">
-                                    <h3 className="text-muted mb-4">Login</h3>
+                                <div className="text-center w-25 m-auto">
+                                    <img src="assets/images/logo/logo.png" alt="pic" className="img-fluid" />
                                 </div>
 
                                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema} enableReinitialize >
@@ -80,7 +80,7 @@ function Login(props:any) {
                                         formik => (
                                             <Form action="#">
                                                 <div className="form-group mb-3">
-                                                    <label htmlFor="emailaddress">Email address</label>
+                                                    <label htmlFor="emailaddress" className='text-white'>Email address</label>
                                                     <FormikControl
                                                         control="input"
                                                         type="email"
@@ -92,7 +92,7 @@ function Login(props:any) {
                                                 </div>
                                                 <div className="form-group mb-3">
                                                     <a href="pages-recoverpw.html" className="text-muted float-right"><small /></a>
-                                                    <label htmlFor="password">Password</label>
+                                                    <label htmlFor="password" className='text-white'>Password</label>
                                                     <FormikControl
                                                         control="input"
                                                         type="password"
@@ -106,10 +106,10 @@ function Login(props:any) {
                                                 {/* <p className="text-muted float-right"> <Link to="/forgot-password" className="text-muted ml-1">Forgot your password?</Link></p> */}
 
                                                 <div className="form-group mb-0 text-center">
-                                                    <button className="btn btn-success w-100" type="submit" disabled={!(formik.dirty && formik.isValid) || formik.isSubmitting}>
+                                                    <button className="btn btn-primary w-100" style={{ background: "#32cadbb2" }} type="submit" disabled={!(formik.dirty && formik.isValid) || formik.isSubmitting}>
                                                         {
                                                             !formik.isSubmitting ?
-                                                                <span>Sign In</span>
+                                                                <span>Login</span>
                                                                 :
                                                                 <span>Processing...</span>
                                                         }
@@ -131,8 +131,8 @@ function Login(props:any) {
     )
 }
 
-const mapDispatchToProps = (dispatch:any) => ({
-    login: (data:any) => dispatch(SET_USER_DATA(data)),
+const mapDispatchToProps = (dispatch: any) => ({
+    login: (data: any) => dispatch(SET_USER_DATA(data)),
 })
 
 export default connect(null, mapDispatchToProps)(Login);
