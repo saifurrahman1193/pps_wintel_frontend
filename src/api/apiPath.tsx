@@ -74,5 +74,8 @@ export const SUMMARY_REPORT_P = '/summary-report/list-paginate'
 export const SUMMARY_REPORT_DOWNLOAD = '/summary-report/report-download'
 
 
+// Check by MSISDN report routes
+export const CHECK_BY_MSISDN_REPORT = '/check-by-msisdn-report/report'
+
 // Dashboard routes
 export const DASHBOARD_DATA = '/dashboard/dashboard-data'
