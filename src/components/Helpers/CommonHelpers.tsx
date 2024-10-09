@@ -72,6 +72,7 @@ export const permission_routes = [
     
     { pathname: '/details-report', permission: 'details report' },
     { pathname: '/summary-report', permission: 'summary report' },
+    { pathname: '/check-by-msisdn-report', permission: 'check by msisdn report' },
 ]
 
 export const checkPermissionsWiseRouteChecker = (props:any) => {

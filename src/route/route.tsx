@@ -1,4 +1,4 @@
-import  { Fragment } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Login from '../modules/accesscontrol/Login';
@@ -16,6 +16,7 @@ import HandsetUser from '../modules/configuration/HandsetUser';
 import DetailsReport from '../modules/report/DetailsReport';
 import SummaryReport from '../modules/report/SummaryReport';
 import NotFound from '../modules/others/NotFound';
+import CheckByMSISDNReport from '../modules/report/CheckByMSISDNReport';
 
 function Router() {
     return (
@@ -40,6 +41,7 @@ function Router() {
                                             <Route path="/handset-users" element={<HandsetUser />} />
                                             <Route path="/details-report" element={<DetailsReport />} />
                                             <Route path="/summary-report" element={<SummaryReport />} />
+                                            <Route path="/check-by-msisdn-report" element={<CheckByMSISDNReport />} />
                                             <Route path="*" element={<NotFound />} />
                                         </Routes>
                                     </div>
