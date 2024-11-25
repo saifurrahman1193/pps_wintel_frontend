@@ -15,7 +15,7 @@
       - [Docker: Resources](#docker-resources)
   - [GIT commit types](#git-commit-types)
   - [Resources](#resources)
-  - [Deply](#deply)
+  - [Deploy](#deploy)
     - [COLOR](#color)
 
 
@@ -123,7 +123,7 @@ chore: Routine tasks, maintenance, or housekeeping.
 
 
 
-## Deply
+## Deploy
 ```
 npm run build:prod
 copy .htaccess to dist folder

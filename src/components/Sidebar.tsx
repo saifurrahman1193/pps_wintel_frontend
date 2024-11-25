@@ -125,6 +125,13 @@ function Sidebar(props: any) {
                                                 :
                                                 null
                                         }
+
+                                        {
+                                            props.permissions.includes('check by msisdn report') ?
+                                                <li className={sidebarCurPathLi('/check-by-msisdn-report')}><Link to="/check-by-msisdn-report" data-key="t-permission" className={vCurPathA('/check-by-msisdn-report')}>Check by MSISDN Report</Link></li>
+                                                :
+                                                null
+                                        }
                                     </ul>
                                 </li>
                                 :
