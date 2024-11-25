@@ -154,7 +154,7 @@ function CheckByMSISDNReport(props: any) {
                                             <tr className="text-start text-muted fw-bolder text-uppercase">
                                                 <th>Serial</th>
                                                 <th>MSISDN</th>
-                                                <th>Keyword</th>
+                                                <th>SMS Body</th>
                                                 <th>Response</th>
                                                 <th>Receive Time</th>
                                             </tr>
